@@ -79,7 +79,7 @@ if($termcap and !$setuptermcap) {
 $SCREEN = ($_[0] =~ /^-(\d+)/ && (shift, $1))
        ||  $ENV{COLUMNS}
        || ($ENV{TERMCAP} =~ /co#(\d+)/)[0]
-       || ($^O ne 'MSWin32' && (`stty -a 2>/dev/null` =~ /(\d+) columns/)[0])
+       || ($^O ne 'MSWin32' && $^O ne 'dos' && (`stty -a 2>/dev/null` =~ /(\d+) columns/)[0])
        || 72;
 
 @_ = ("<&STDIN") unless @_;
@@ -165,6 +165,10 @@ sub prepare_for_output {
         s/I<(.*?)>/*$1*/sg;
         # s/[CB]<(.*?)>/bold($1)/ge;
 	s/X<.*?>//sg;
+
+	# LREF: a la HREF L<show this text|man/section>
+	s:L<([^|>]+)\|[^>]+>:$1:g;
+
 	# LREF: a manpage(3f)
 	s:L<([a-zA-Z][^\s\/]+)(\([^\)]+\))?>:the $1$2 manpage:g;
 	# LREF: an =item on another manpage

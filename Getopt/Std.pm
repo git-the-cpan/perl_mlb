@@ -27,6 +27,12 @@ switch name) to the value of the argument, or 1 if no argument.  Switches
 which take an argument don't care whether there is a space between the
 switch and the argument.
 
+Note that, if your code is running under the recommended C<use strict
+'vars'> pragma, it may be helpful to declare these package variables
+via C<use vars> perhaps something like this:
+
+    use vars qw/ $opt_foo $opt_bar /;
+
 For those of you who don't like additional variables being created, getopt()
 and getopts() will also accept a hash reference as an optional second argument. 
 Hash keys will be x (where x is the switch name) with key values the value of
@@ -51,7 +57,7 @@ the argument or 1 if no argument is specified.
 sub getopt ($;$) {
     local($argumentative, $hash) = @_;
     local($_,$first,$rest);
-    local $Exporter::ExportLevel;
+    local @EXPORT;
 
     while (@ARGV && ($_ = $ARGV[0]) =~ /^-(.)(.*)/) {
 	($first,$rest) = ($1,$2);
@@ -87,8 +93,10 @@ sub getopt ($;$) {
 	    }
 	}
     }
-    $Exporter::ExportLevel++;
-    import Getopt::Std;
+    unless (ref $hash) { 
+	local $Exporter::ExportLevel = 1;
+	import Getopt::Std;
+    }
 }
 
 # Usage:
@@ -99,7 +107,7 @@ sub getopts ($;$) {
     local($argumentative, $hash) = @_;
     local(@args,$_,$first,$rest);
     local($errs) = 0;
-    local $Exporter::ExportLevel;
+    local @EXPORT;
 
     @args = split( / */, $argumentative );
     while(@ARGV && ($_ = $ARGV[0]) =~ /^-(.)(.*)/) {
@@ -147,8 +155,10 @@ sub getopts ($;$) {
 	    }
 	}
     }
-    $Exporter::ExportLevel++;
-    import Getopt::Std;
+    unless (ref $hash) { 
+	local $Exporter::ExportLevel = 1;
+	import Getopt::Std;
+    }
     $errs == 0;
 }
 
