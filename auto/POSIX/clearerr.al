@@ -2,7 +2,7 @@
 package POSIX;
 
 sub clearerr {
-    redef "FileHandle::clearerr()";
+    redef "IO::Handle::clearerr()";
 }
 
 1;

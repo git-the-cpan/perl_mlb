@@ -7,6 +7,4 @@ sub shellwords {
     &quotewords('\s+', 0, @lines);
 }
 
-
-
 1;

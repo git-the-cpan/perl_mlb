@@ -2,7 +2,7 @@
 package POSIX;
 
 sub tmpfile {
-    redef "FileHandle::new_tmpfile()";
+    redef "IO::File::new_tmpfile()";
 }
 
 1;

@@ -95,12 +95,12 @@ sub quotewords {
     while (length($_)) {
 	$field = '';
 	for (;;) {
-            $snippet = '';
-	    if (s/^"(([^"\\]|\\[\\"])*)"//) {
+	    $snippet = '';
+	    if (s/^"(([^"\\]|\\.)*)"//) {
 		$snippet = $1;
                 $snippet = "\"$snippet\"" if ($keep);
 	    }
-	    elsif (s/^'(([^'\\]|\\[\\'])*)'//) {
+	    elsif (s/^'(([^'\\]|\\.)*)'//) {
 		$snippet = $1;
                 $snippet = "'$snippet'" if ($keep);
 	    }
@@ -115,7 +115,7 @@ sub quotewords {
                last;
 	    }
 	    else {
-                while ($_ && !(/^$delim/ || /^['"\\]/)) {
+                while ($_ ne '' && !(/^$delim/ || /^['"\\]/)) {
 		   $snippet .=  substr($_, 0, 1);
                    substr($_, 0, 1) = '';
                 }

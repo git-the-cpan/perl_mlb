@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fflush {
-    redef "FileHandle::flush()";
+    redef "IO::Handle::flush()";
 }
 
 1;

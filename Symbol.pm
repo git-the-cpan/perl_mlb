@@ -34,7 +34,7 @@ support anonymous globs, C<Symbol::ungensym> is also provided.
 But it doesn't do anything.
 
 C<Symbol::qualify> turns unqualified symbol names into qualified
-variable names (e.g. "myvar" -> "MyPackage::myvar").  If it is given a
+variable names (e.g. "myvar" -E<gt> "MyPackage::myvar").  If it is given a
 second parameter, C<qualify> uses it as the default package;
 otherwise, it uses the package of its caller.  Regardless, global
 variable names (e.g. "STDOUT", "ENV", "SIG") are always qualfied with
@@ -56,17 +56,18 @@ require Exporter;
 my $genpkg = "Symbol::";
 my $genseq = 0;
 
-my %global;
-while (<DATA>) {
-    chomp;
-    $global{$_} = 1;
-}
-close DATA;
+my %global = map {$_ => 1} qw(ARGV ARGVOUT ENV INC SIG STDERR STDIN STDOUT);
 
+#
+# Note that we never _copy_ the glob; we just make a ref to it.
+# If we did copy it, then SVf_FAKE would be set on the copy, and
+# glob-specific behaviors (e.g. C<*$ref = \&func>) wouldn't work.
+#
 sub gensym () {
     my $name = "GEN" . $genseq++;
-    local *{$genpkg . $name};
-    \delete ${$genpkg}{$name};
+    my $ref = \*{$genpkg . $name};
+    delete $$genpkg{$name};
+    $ref;
 }
 
 sub ungensym ($) {}
@@ -88,13 +89,3 @@ sub qualify ($;$) {
 }
 
 1;
-
-__DATA__
-ARGV
-ARGVOUT
-ENV
-INC
-SIG
-STDERR
-STDIN
-STDOUT

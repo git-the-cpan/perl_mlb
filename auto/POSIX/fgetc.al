@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fgetc {
-    redef "FileHandle::getc()";
+    redef "IO::Handle::getc()";
 }
 
 1;

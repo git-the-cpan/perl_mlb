@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fopen {
-    redef "FileHandle::open()";
+    redef "IO::File::open()";
 }
 
 1;

@@ -2,7 +2,7 @@
 package POSIX;
 
 sub ferror {
-    redef "FileHandle::error()";
+    redef "IO::Handle::error()";
 }
 
 1;

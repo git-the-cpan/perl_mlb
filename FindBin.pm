@@ -11,12 +11,12 @@ FindBin - Locate directory of original perl script
 =head1 SYNOPSIS
 
  use FindBin;
- BEGIN { unshift(@INC,"$FindBin::Bin/../lib") }
+ use lib "$FindBin::Bin/../lib";
 
  or 
 
  use FindBin qw($Bin);
- BEGIN { unshift(@INC,"$Bin/../lib") }
+ use lib "$Bin/../lib";
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ Locates the full path to the script bin directory to allow the use
 of paths relative to the bin directory.
 
 This allows a user to setup a directory tree for some software with
-directories <root>/bin and <root>/lib and then the above example will allow
+directories E<lt>rootE<gt>/bin and E<lt>rootE<gt>/lib and then the above example will allow
 the use of modules in the lib directory without knowing where the software
 tree is installed.
 
@@ -55,8 +55,8 @@ Workaround is to invoke perl as
 
 =head1 AUTHORS
 
-Graham Barr <bodg@tiuk.ti.com>
-Nick Ing-Simmons <nik@tiuk.ti.com>
+Graham Barr E<lt>F<bodg@tiuk.ti.com>E<gt>
+Nick Ing-Simmons E<lt>F<nik@tiuk.ti.com>E<gt>
 
 =head1 COPYRIGHT
 
@@ -96,7 +96,7 @@ $VERSION = $VERSION = sprintf("%d.%02d", q$Revision: 1.4 $ =~ /(\d+)\.(\d+)/);
 # $realpath;
 #}
 
-sub abs_path
+sub my_abs_path
 {
     my $start = shift || '.';
     my($dotdots, $cwd, @pst, @cst, $dir, @tst);
@@ -154,6 +154,8 @@ BEGIN
 {
  *Dir = \$Bin;
  *RealDir = \$RealBin;
+ if (defined &Cwd::sys_abspath) { *abs_path = \&Cwd::sys_abspath}
+ else { *abs_path = \&my_abs_path}
 
  if($0 eq '-e' || $0 eq '-')
   {

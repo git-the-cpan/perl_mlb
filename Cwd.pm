@@ -38,8 +38,8 @@ the trailing line terminator). It is recommended that cwd (or another
 
 If you ask to override your chdir() built-in function, then your PWD
 environment variable will be kept up to date.  (See
-L<perlsub/Overriding builtin functions>.) Note that it will only be
-kept up to date it all packages which use chdir import it from Cwd.
+L<perlsub/Overriding Builtin Functions>.) Note that it will only be
+kept up to date if all packages which use chdir import it from Cwd.
 
 =cut
 
@@ -108,7 +108,7 @@ sub getcwd
 		}
 		unless (@tst = lstat("$dotdots/$dir"))
 		{
-		    warn "lstat($dotdots/$dir): $!";
+		    # warn "lstat($dotdots/$dir): $!";
 		    # Just because you can't lstat this directory
 		    # doesn't mean you'll never find the right one.
 		    # closedir(PARENT);
@@ -172,7 +172,7 @@ sub fastcwd {
 my $chdir_init = 0;
 
 sub chdir_init {
-    if ($ENV{'PWD'} and $^O ne 'os2') {
+    if ($ENV{'PWD'} and $^O ne 'os2' and $^O ne 'msdos') {
 	my($dd,$di) = stat('.');
 	my($pd,$pi) = stat($ENV{'PWD'});
 	if (!defined $dd or !defined $pd or $di != $pi or $dd != $pd) {
@@ -237,30 +237,42 @@ sub _os2_cwd {
     return $ENV{'PWD'};
 }
 
-my($oldw) = $^W;
-$^W = 0;  # assignments trigger 'subroutine redefined' warning
-if ($^O eq 'VMS') {
-
-    *cwd        = \&_vms_cwd;
-    *getcwd     = \&_vms_cwd;
-    *fastcwd    = \&_vms_cwd;
-    *fastgetcwd = \&_vms_cwd;
+sub _msdos_cwd {
+    $ENV{'PWD'} = `command /c cd`;
+    chop $ENV{'PWD'};
+    $ENV{'PWD'} =~ s:\\:/:g ;
+    return $ENV{'PWD'};
 }
-elsif ($^O eq 'NT' or $^O eq 'MSWin32') {
 
-    # We assume that &_NT_cwd is defined as an XSUB or in the core.
-    *getcwd     = \&_NT_cwd;
-    *fastcwd    = \&_NT_cwd;
-    *fastgetcwd = \&_NT_cwd;
+{
+    local $^W = 0;	# assignments trigger 'subroutine redefined' warning
+
+    if ($^O eq 'VMS') {
+        *cwd        = \&_vms_cwd;
+        *getcwd     = \&_vms_cwd;
+        *fastcwd    = \&_vms_cwd;
+        *fastgetcwd = \&_vms_cwd;
+    }
+    elsif ($^O eq 'NT' or $^O eq 'MSWin32') {
+        # We assume that &_NT_cwd is defined as an XSUB or in the core.
+        *getcwd     = \&_NT_cwd;
+        *fastcwd    = \&_NT_cwd;
+        *fastgetcwd = \&_NT_cwd;
+    }
+    elsif ($^O eq 'os2') {
+        # sys_cwd may keep the builtin command
+        *cwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
+        *getcwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
+        *fastgetcwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
+        *fastcwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
+    }
+    elsif ($^O eq 'msdos') {
+        *cwd     = \&_msdos_cwd;
+        *getcwd     = \&_msdos_cwd;
+        *fastgetcwd = \&_msdos_cwd;
+        *fastcwd = \&_msdos_cwd;
+    }
 }
-elsif ($^O eq 'os2') {
-    # sys_cwd may keep the builtin command
-    *cwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
-    *getcwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
-    *fastgetcwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
-    *fastcwd	 = defined &sys_cwd ? \&sys_cwd : \&_os2_cwd;
-  }
-$^W = $oldw;
 
 # package main; eval join('',<DATA>) || die $@;	# quick test
 

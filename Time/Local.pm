@@ -8,7 +8,7 @@ use Carp;
 
 =head1 NAME
 
-Time::Local - efficiently compute tome from local and GMT time
+Time::Local - efficiently compute time from local and GMT time
 
 =head1 SYNOPSIS
 
@@ -40,12 +40,12 @@ after the 1st of January, 2038 on most machines.
 =cut
 
 BEGIN {
-    @epoch = localtime(0);
-
     $SEC  = 1;
     $MIN  = 60 * $SEC;
     $HR   = 60 * $MIN;
     $DAY  = 24 * $HR;
+    $epoch = (localtime(2*$DAY))[5];	# Allow for bugs near localtime == 0.
+
     $YearFix = ((gmtime(946684800))[5] == 100) ? 100 : 0;
 
     my $t = time;
@@ -71,13 +71,13 @@ BEGIN {
 sub timegm {
     $ym = pack(C2, @_[5,4]);
     $cheat = $cheat{$ym} || &cheat;
-    return -1 if $cheat<0;
+    return -1 if $cheat<0 and $^O ne 'VMS';
     $cheat + $_[0] * $SEC + $_[1] * $MIN + $_[2] * $HR + ($_[3]-1) * $DAY;
 }
 
 sub timelocal {
     $time = &timegm + $tzsec;
-    return -1 if $cheat<0;
+    return -1 if $cheat<0 and $^O ne 'VMS';
     @test = localtime($time);
     $time -= $HR if $test[2] != $_[2];
     $time;
@@ -88,19 +88,14 @@ sub cheat {
     $year -= 1900
     	if $year > 1900;
     $month = $_[4];
-    croak "Month out of range 0..11 in timelocal.pl" 
-	if $month > 11 || $month < 0;
-    croak "Day out of range 1..31 in timelocal.pl" 
-	if $_[3] > 31 || $_[3] < 1;
-    croak "Hour out of range 0..23 in timelocal.pl"
-	if $_[2] > 23 || $_[2] < 0;
-    croak "Minute out of range 0..59 in timelocal.pl"
-	if $_[1] > 59 || $_[1] < 0;
-    croak "Second out of range 0..59 in timelocal.pl"
-	if $_[0] > 59 || $_[0] < 0;
+    croak "Month '$month' out of range 0..11"	if $month > 11 || $month < 0;
+    croak "Day '$_[3]' out of range 1..31"	if $_[3] > 31 || $_[3] < 1;
+    croak "Hour '$_[2]' out of range 0..23"	if $_[2] > 23 || $_[2] < 0;
+    croak "Minute '$_[1]' out of range 0..59"	if $_[1] > 59 || $_[1] < 0;
+    croak "Second '$_[0]' out of range 0..59"	if $_[0] > 59 || $_[0] < 0;
     $guess = $^T;
     @g = gmtime($guess);
-    $year += $YearFix if $year < $epoch[5];
+    $year += $YearFix if $year < $epoch;
     $lastguess = "";
     while ($diff = $year - $g[5]) {
 	$guess += $diff * (363 * $DAY);

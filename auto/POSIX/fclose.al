@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fclose {
-    redef "FileHandle::close()";
+    redef "IO::Handle::close()";
 }
 
 1;

@@ -2,4 +2,5 @@
 package DynaLoader;
 sub dl_findfile ;
 sub dl_expandspec ;
+sub dl_find_symbol_anywhere ;
 1;

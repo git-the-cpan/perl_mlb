@@ -1,7 +1,7 @@
 package ExtUtils::Install;
 
-$VERSION = substr q$Revision: 1.15 $, 10;
-# $Date: 1996/09/03 21:58:58 $
+$VERSION = substr q$Revision: 1.16 $, 10;
+# $Date: 1996/12/17 00:31:26 $
 
 use Exporter;
 use Carp ();
@@ -12,7 +12,7 @@ use vars qw(@ISA @EXPORT $VERSION);
 $Is_VMS = $^O eq 'VMS';
 
 my $splitchar = $^O eq 'VMS' ? '|' : $^O eq 'os2' ? ';' : ':';
-my @PERL_ENV_LIB = split $splitchar, defined $ENV{'PERL5LIB'} ? $ENV{'PERL5LIB'} : $ENV{'PERLLIB'};
+my @PERL_ENV_LIB = split $splitchar, defined $ENV{'PERL5LIB'} ? $ENV{'PERL5LIB'} : $ENV{'PERLLIB'} || '';
 my $Inc_uninstall_warn_handler;
 
 #use vars qw( @EXPORT @ISA $Is_VMS );
@@ -314,8 +314,8 @@ be copied preserving timestamps and permissions.
 
 There are two keys with a special meaning in the hash: "read" and
 "write". After the copying is done, install will write the list of
-target files to the file named by $hashref->{write}. If there is
-another file named by $hashref->{read}, the contents of this file will
+target files to the file named by C<$hashref-E<gt>{write}>. If there is
+another file named by C<$hashref-E<gt>{read}>, the contents of this file will
 be merged into the written file. The read and the written file may be
 identical, but on AFS it is quite likely, people are installing to a
 different directory than the one where the files later appear.

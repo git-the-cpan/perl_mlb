@@ -195,6 +195,7 @@ sub Tgetent { ## public -- static method
 		last;
 	    }
 	}
+	defined $entry or $entry = '';
 	$entry .= $_;
     };
 

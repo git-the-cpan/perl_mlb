@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fgets {
-    redef "FileHandle::gets()";
+    redef "IO::Handle::gets()";
 }
 
 1;

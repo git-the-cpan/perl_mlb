@@ -149,7 +149,10 @@ sub autosplit_file{
 
     # where to write output files
     $autodir = "lib/auto" unless $autodir;
-    ($autodir = VMS::Filespec::unixpath($autodir)) =~ s#/$## if $Is_VMS;
+    if ($Is_VMS) {
+	($autodir = VMS::Filespec::unixpath($autodir)) =~ s{/$}{};
+	$filename = VMS::Filespec::unixify($filename); # may have dirs
+    }
     unless (-d $autodir){
 	local($", @p)="/";
 	foreach(split(/\//,$autodir)){
@@ -195,6 +198,7 @@ sub autosplit_file{
 
     die "Package $package does not match filename $filename"
 	    unless ($filename =~ m/$modpname.pm$/ or
+		    ($^O eq "msdos") or
 	            $Is_VMS && $filename =~ m/$modpname.pm/i);
 
     if ($check_mod_time){
@@ -247,14 +251,17 @@ sub autosplit_file{
 
     open(OUT,">/dev/null") || open(OUT,">nla0:"); # avoid 'not opened' warning
     my(@subnames, %proto);
+    my @cache = ();
+    my $caching = 1;
     while (<IN>) {
+	next if /^=\w/ .. /^=cut/;
 	if (/^package ([\w:]+)\s*;/) {
 	    warn "package $1; in AutoSplit section ignored. Not currently supported.";
 	}
 	if (/^sub\s+([\w:]+)(\s*\(.*?\))?/) {
 	    print OUT "1;\n";
 	    my $subname = $1;
-	    $proto{$1} = $2 or '';
+	    $proto{$1} = $2 || '';
 	    if ($subname =~ m/::/){
 		warn "subs with package names not currently supported in AutoSplit section";
 	    }
@@ -274,10 +281,26 @@ sub autosplit_file{
 	    print OUT "# NOTE: Derived from $filename.  ",
 			"Changes made here will be lost.\n";
 	    print OUT "package $package;\n\n";
+	    print OUT @cache;
+	    @cache = ();
+	    $caching = 0;
 	}
-	print OUT $_;
+	if($caching) {
+	    push(@cache, $_) if @cache || /\S/;
+	}
+	else {
+	    print OUT $_;
+	}
+	if(/^}/) {
+	    if($caching) {
+		print OUT @cache;
+		@cache = ();
+	    }
+	    print OUT "\n";
+	    $caching = 1;
+	}
     }
-    print OUT "1;\n";
+    print OUT @cache,"1;\n";
     close(OUT);
     close(IN);
 

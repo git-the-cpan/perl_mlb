@@ -78,8 +78,8 @@ treated as ordinary files.
 
 =head1 AUTHORS
 
-Tim Bunce <Tim.Bunce@ig.co.uk>
-Charles Bailey <bailey@genetics.upenn.edu>
+Tim Bunce E<lt>F<Tim.Bunce@ig.co.uk>E<gt>
+Charles Bailey E<lt>F<bailey@genetics.upenn.edu>E<gt>
 
 =head1 REVISION
 
@@ -131,9 +131,13 @@ sub rmtree {
        $root =~ s#/$##;
        if (not -l $root and -d _) { 
            opendir(D,$root);
-           ($root = VMS::Filespec::unixify($root)) =~ s#\.dir$## if $Is_VMS;
-           @files = map("$root/$_", grep $_!~/^\.{1,2}$/, readdir(D));
+           @files = readdir(D);
            closedir(D);
+           # Deleting large numbers of files from VMS Files-11 filesystems
+           # is faster if done in reverse ASCIIbetical order 
+           @files = reverse @files if $Is_VMS;
+           ($root = VMS::Filespec::unixify($root)) =~ s#\.dir$## if $Is_VMS;
+           @files = map("$root/$_", grep $_!~/^\.{1,2}$/,@files);
            $count += rmtree(\@files,$verbose,$safe);
            if ($safe &&
                ($Is_VMS ? !&VMS::Filespec::candelete($root) : !-w $root)) {
@@ -152,7 +156,7 @@ sub rmtree {
            print "unlink $root\n" if $verbose;
            while (-e $root || -l $root) { # delete all versions under VMS
                (unlink($root) && ++$count)
-                   or carp "Can't unlink file $root: $!";
+                   or croak "Can't unlink file $root: $!";
            }
         }
     }

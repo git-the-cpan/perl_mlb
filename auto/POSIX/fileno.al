@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fileno {
-    redef "FileHandle::fileno()";
+    redef "IO::Handle::fileno()";
 }
 
 1;

@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fseek {
-    redef "FileHandle::seek()";
+    redef "IO::Seekable::seek()";
 }
 
 1;

@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fsetpos {
-    redef "FileHandle::setpos()";
+    redef "IO::Seekable::setpos()";
 }
 
 1;

@@ -2,7 +2,7 @@
 package POSIX;
 
 sub ungetc {
-    redef "FileHandle::ungetc()";
+    redef "IO::Handle::ungetc()";
 }
 
 1;

@@ -31,6 +31,9 @@ C<"$File::Find::dir/$_">.  You are chdir()'d to $File::Find::dir when
 the function is called.  The function may set $File::Find::prune to
 prune the tree.
 
+File::Find assumes that you don't alter the $_ variable.  If you do then
+make sure you return it to its original value before exiting your function.
+
 This library is primarily for the C<find2perl> tool, which when fed, 
 
     find2perl / -name .nfs\* -mtime +7 \
@@ -71,7 +74,9 @@ that don't resolve:
 sub find {
     my $wanted = shift;
     my $cwd = Cwd::cwd();
-    my ($topdir,$topdev,$topino,$topmode,$topnlink);
+    # Localize these rather than lexicalizing them for backwards
+    # compatibility.
+    local($topdir,$topdev,$topino,$topmode,$topnlink);
     foreach $topdir (@_) {
 	(($topdev,$topino,$topmode,$topnlink) = stat($topdir))
 	  || (warn("Can't stat $topdir: $!\n"), next);
@@ -160,7 +165,9 @@ sub finddepth {
 
     $cwd = Cwd::fastcwd();;
 
-    my($topdir, $topdev, $topino, $topmode, $topnlink);
+    # Localize these rather than lexicalizing them for backwards
+    # compatibility.
+    local($topdir, $topdev, $topino, $topmode, $topnlink);
     foreach $topdir (@_) {
 	(($topdev,$topino,$topmode,$topnlink) = stat($topdir))
 	  || (warn("Can't stat $topdir: $!\n"), next);
@@ -256,7 +263,8 @@ if ($^O =~ m:^mswin32:i) {
   $dont_use_nlink = 1;
 }
 
-$dont_use_nlink = 1 if $^O eq 'os2';
+$dont_use_nlink = 1
+    if $^O eq 'os2' || $^O eq 'msdos' || $^O eq 'amigaos';
 
 1;
 

@@ -11,7 +11,6 @@ strict - Perl pragma to restrict unsafe constructs
     use strict "vars";
     use strict "refs";
     use strict "subs";
-    use strict "untie";
 
     use strict;
     no strict "vars";
@@ -20,8 +19,8 @@ strict - Perl pragma to restrict unsafe constructs
 
 If no import list is supplied, all possible restrictions are assumed.
 (This is the safest mode to operate in, but is sometimes too strict for
-casual programming.)  Currently, there are four possible things to be
-strict about:  "subs", "vars", "refs", and "untie".
+casual programming.)  Currently, there are three possible things to be
+strict about:  "subs", "vars", and "refs".
 
 =over 6
 
@@ -56,7 +55,7 @@ name without fully qualifying it.
 
 This disables the poetry optimization, generating a compile-time error if
 you try to use a bareword identifier that's not a subroutine, unless it
-appears in curly braces or on the left hand side of the "=>" symbol.
+appears in curly braces or on the left hand side of the "=E<gt>" symbol.
 
 
     use strict 'subs';
@@ -65,24 +64,6 @@ appears in curly braces or on the left hand side of the "=>" symbol.
     $SIG{PIPE} = \&Plumber; 	# preferred form
 
 
-
-=item C<strict untie>
-
-This generates a runtime error if any references to the object returned
-by C<tie> (or C<tied>) still exist when C<untie> is called. Note that
-to get this strict behaviour, the C<use strict 'untie'> statement must
-be in the same scope as the C<untie>. See L<perlfunc/tie>,
-L<perlfunc/untie>, L<perlfunc/tied> and L<perltie>.
-
-    use strict 'untie';
-    $a = tie %a, 'SOME_PKG';
-    $b = tie %b, 'SOME_PKG';
-    $b = 0;
-    tie %c, PKG;
-    $c = tied %c;
-    untie %a ;		# blows up, $a is a valid object reference.
-    untie %b;		# ok, $b is not a reference to the object.
-    untie %c ;		# blows up, $c is a valid object reference.
 
 =back
 
@@ -93,23 +74,23 @@ See L<perlmod/Pragmatic Modules>.
 
 sub bits {
     my $bits = 0;
+    my $sememe;
     foreach $sememe (@_) {
-	$bits |= 0x00000002 if $sememe eq 'refs';
-	$bits |= 0x00000200 if $sememe eq 'subs';
-	$bits |= 0x00000400 if $sememe eq 'vars';
-	$bits |= 0x00000800 if $sememe eq 'untie';
+	$bits |= 0x00000002, next if $sememe eq 'refs';
+	$bits |= 0x00000200, next if $sememe eq 'subs';
+	$bits |= 0x00000400, next if $sememe eq 'vars';
     }
     $bits;
 }
 
 sub import {
     shift;
-    $^H |= bits(@_ ? @_ : qw(refs subs vars untie));
+    $^H |= bits(@_ ? @_ : qw(refs subs vars));
 }
 
 sub unimport {
     shift;
-    $^H &= ~ bits(@_ ? @_ : qw(refs subs vars untie));
+    $^H &= ~ bits(@_ ? @_ : qw(refs subs vars));
 }
 
 1;

@@ -2,7 +2,7 @@
 package POSIX;
 
 sub fdopen {
-    redef "FileHandle::new_from_fd()";
+    redef "IO::Handle::new_from_fd()";
 }
 
 1;

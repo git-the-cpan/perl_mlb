@@ -2,7 +2,7 @@
 package POSIX;
 
 sub ftell {
-    redef "FileHandle::tell()";
+    redef "IO::Seekable::tell()";
 }
 
 1;

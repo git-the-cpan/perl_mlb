@@ -5,16 +5,16 @@ use Config;
 use File::Basename qw(basename dirname fileparse);
 use DirHandle;
 use strict;
-use vars qw($VERSION $Is_Mac $Is_OS2 $Is_VMS 
+use vars qw($VERSION $Is_Mac $Is_OS2 $Is_VMS
 	    $Verbose %pm %static $Xsubpp_Version);
 
-$VERSION = substr q$Revision: 1.107 $, 10;
-# $Id: MM_Unix.pm,v 1.107 1996/09/03 20:53:39 k Exp $
+$VERSION = substr q$Revision: 1.113 $, 10;
+# $Id: MM_Unix.pm,v 1.113 1997/02/11 21:54:09 k Exp $
 
 Exporter::import('ExtUtils::MakeMaker',
 	qw( $Verbose &neatvalue));
 
-$Is_OS2 = $^O =~ m|^os/?2$|i;
+$Is_OS2 = $^O eq 'os2';
 $Is_Mac = $^O eq "MacOS";
 
 if ($Is_VMS = $^O eq 'VMS') {
@@ -43,8 +43,8 @@ overrides by defining rather primitive operations within
 ExtUtils::MM_Unix.
 
 If you are going to write a platform specific MM package, please try
-to limit the necessary overrides to primitiv methods, and if it is not
-possible to do so, let's work it out how to achieve that gain.
+to limit the necessary overrides to primitive methods, and if it is not
+possible to do so, let's work out how to achieve that gain.
 
 If you are overriding any of these methods in your Makefile.PL (in the
 MY class), please report that to the makemaker mailing list. We are
@@ -236,7 +236,11 @@ use SelfLoader;
 
 __DATA__
 
+=back
+
 =head2 SelfLoaded methods
+
+=over 2
 
 =item c_o (o)
 
@@ -492,7 +496,7 @@ sub constants {
 
 	      AR_STATIC_ARGS NAME DISTNAME NAME_SYM VERSION
 	      VERSION_SYM XS_VERSION INST_BIN INST_EXE INST_LIB
-	      INST_ARCHLIB INST_SCRIPT PREFIX INSTALLDIRS
+	      INST_ARCHLIB INST_SCRIPT PREFIX  INSTALLDIRS
 	      INSTALLPRIVLIB INSTALLARCHLIB INSTALLSITELIB
 	      INSTALLSITEARCH INSTALLBIN INSTALLSCRIPT PERL_LIB
 	      PERL_ARCHLIB SITELIBEXP SITEARCHEXP LIBPERL_A MYEXTLIB
@@ -996,7 +1000,14 @@ $(INST_DYNAMIC): $(OBJECT) $(MYEXTLIB) $(BOOTSTRAP) $(INST_ARCHAUTODIR)/.exists 
 	push(@m,'	$(RANLIB) '."$ldfrom\n");
     }
     $ldfrom = "-all $ldfrom -none" if ($^O eq 'dec_osf');
-    push(@m,'	LD_RUN_PATH="$(LD_RUN_PATH)" $(LD) -o $@ $(LDDLFLAGS) '.$ldfrom.
+
+    # Brain dead solaris linker does not use LD_RUN_PATH?
+    # This fixes dynamic extensions which need shared libs
+    my $ldrun = '';
+    $ldrun = join ' ', map "-R$_", split /:/, $self->{LD_RUN_PATH}
+       if ($^O eq 'solaris');
+
+    push(@m,'	LD_RUN_PATH="$(LD_RUN_PATH)" $(LD) -o $@ '.$ldrun.' $(LDDLFLAGS) '.$ldfrom.
 		' $(OTHERLDFLAGS) $(MYEXTLIB) $(PERL_ARCHIVE) $(LDLOADLIBS) $(EXPORT_LIST)');
     push @m, '
 	$(CHMOD) 755 $@
@@ -1032,7 +1043,7 @@ sub extliblist {
 
 =item file_name_is_absolute
 
-Takes as argument a path and returns true, it it is an absolute path.
+Takes as argument a path and returns true, if it is an absolute path.
 
 =cut
 
@@ -1084,12 +1095,14 @@ in these dirs:
     0; # false and not empty
 }
 
+=back
+
 =head2 Methods to actually produce chunks of text for the Makefile
 
-The methods here are called in the order specified by
-@ExtUtils::MakeMaker::MM_Sections. This manpage reflects the order as
-well as possible. Some methods call each other, so in doubt refer to
-the code.
+The methods here are called for each MakeMaker object in the order
+specified by @ExtUtils::MakeMaker::MM_Sections.
+
+=over 2
 
 =item force (o)
 
@@ -1376,7 +1389,7 @@ sub init_main {
     # It may also edit @modparts if required.
     if (defined &DynaLoader::mod2fname) {
         $modfname = &DynaLoader::mod2fname(\@modparts);
-    } 
+    }
 
     ($self->{PARENT_NAME}, $self->{BASEEXT}) = $self->{NAME} =~ m!([\w:]+::)?(\w+)$! ;
 
@@ -1421,7 +1434,16 @@ sub init_main {
 	$self->{PERL_INC}     = $self->{PERL_SRC};
 	# catch a situation that has occurred a few times in the past:
 
-	warn <<EOM unless (-s $self->catfile($self->{PERL_SRC},'cflags') or $Is_VMS && -s $self->catfile($self->{PERL_SRC},'perlshr_attr.opt') or $Is_Mac);
+	unless (
+		-s $self->catfile($self->{PERL_SRC},'cflags')
+		or
+		$Is_VMS
+		&&
+		-s $self->catfile($self->{PERL_SRC},'perlshr_attr.opt')
+		or
+		$Is_Mac
+	       ){
+	    warn qq{
 You cannot build extensions below the perl source tree after executing
 a 'make clean' in the perl source tree.
 
@@ -1433,26 +1455,27 @@ usually without extra arguments.
 
 It is recommended that you unpack and build additional extensions away
 from the perl source tree.
-EOM
+};
+	}
     } else {
 	# we should also consider $ENV{PERL5LIB} here
 	$self->{PERL_LIB}     ||= $Config::Config{privlibexp};
 	$self->{PERL_ARCHLIB} ||= $Config::Config{archlibexp};
 	$self->{PERL_INC}     = $self->catdir("$self->{PERL_ARCHLIB}","CORE"); # wild guess for now
 	my $perl_h;
-	die <<EOM unless (-f ($perl_h = $self->catfile($self->{PERL_INC},"perl.h")));
+	unless (-f ($perl_h = $self->catfile($self->{PERL_INC},"perl.h"))){
+	    die qq{
 Error: Unable to locate installed Perl libraries or Perl source code.
 
 It is recommended that you install perl in a standard location before
-building extensions. You can say:
+building extensions. Some precompiled versions of perl do not contain
+these header files, so you cannot build extensions. In such a case,
+please build and install your perl from a fresh perl distribution. It
+usually solves this kind of problem.
 
-    $^X Makefile.PL PERL_SRC=/path/to/perl/source/directory
-
-if you have not yet installed perl but still want to build this
-extension now.
-(You get this message, because MakeMaker could not find "$perl_h")
-EOM
-
+\(You get this message, because MakeMaker could not find "$perl_h"\)
+};
+	}
 #	 print STDOUT "Using header files found in $self->{PERL_INC}\n"
 #	     if $Verbose && $self->needs_linking();
 
@@ -1495,7 +1518,7 @@ EOM
 
     # The user who requests an installation directory explicitly
     # should not have to tell us a architecture installation directory
-    # as well We look if a directory exists that is named after the
+    # as well. We look if a directory exists that is named after the
     # architecture. If not we take it as a sign that it should be the
     # same as the requested installation directory. Otherwise we take
     # the found one.
@@ -1523,22 +1546,66 @@ EOM
     # requested values. We're going to set the $Config{prefix} part of
     # all the installation path variables to literally $(PREFIX), so
     # the user can still say make PREFIX=foo
-    my($prefix) = $Config{'prefix'};
+    my($configure_prefix) = $Config{'prefix'};
     $prefix = VMS::Filespec::unixify($prefix) if $Is_VMS;
-    unless ($self->{PREFIX}){
-	$self->{PREFIX} = $prefix;
-    }
-    my($install_variable);
+    $self->{PREFIX} ||= $configure_prefix;
+
+
+    my($install_variable,$search_prefix,$replace_prefix);
+
+    # The rule, taken from Configure, is that if prefix contains perl,
+    # we shape the tree
+    #    perlprefix/lib/                INSTALLPRIVLIB
+    #    perlprefix/lib/pod/
+    #    perlprefix/lib/site_perl/	INSTALLSITELIB
+    #    perlprefix/bin/		INSTALLBIN
+    #    perlprefix/man/		INSTALLMAN1DIR
+    # else
+    #    prefix/lib/perl5/		INSTALLPRIVLIB
+    #    prefix/lib/perl5/pod/
+    #    prefix/lib/perl5/site_perl/	INSTALLSITELIB
+    #    prefix/bin/			INSTALLBIN
+    #    prefix/lib/perl5/man/		INSTALLMAN1DIR
+
+    $replace_prefix = qq[\$\(PREFIX\)];
     for $install_variable (qw/
-
-			   INSTALLPRIVLIB INSTALLARCHLIB INSTALLBIN
-			   INSTALLMAN1DIR INSTALLMAN3DIR INSTALLSCRIPT
-			   INSTALLSITELIB INSTALLSITEARCH
-
+			   INSTALLBIN
+			   INSTALLSCRIPT
 			   /) {
-	$self->prefixify($install_variable,$prefix,q[$(PREFIX)]);
+	$self->prefixify($install_variable,$configure_prefix,$replace_prefix);
     }
-
+    $search_prefix = $configure_prefix =~ /perl/ ?
+	$self->catdir($configure_prefix,"lib") :
+	$self->catdir($configure_prefix,"lib","perl5");
+    if ($self->{LIB}) {
+	$self->{INSTALLPRIVLIB} = $self->{INSTALLSITELIB} = $self->{LIB};
+	$self->{INSTALLARCHLIB} = $self->{INSTALLSITEARCH} = 
+	    $self->catdir($self->{LIB},$Config{'archname'});
+    } else {
+	$replace_prefix = $self->{PREFIX} =~ /perl/ ? 
+	    $self->catdir(qq[\$\(PREFIX\)],"lib") :
+		$self->catdir(qq[\$\(PREFIX\)],"lib","perl5");
+	for $install_variable (qw/
+			       INSTALLPRIVLIB
+			       INSTALLARCHLIB
+			       INSTALLSITELIB
+			       INSTALLSITEARCH
+			       /) {
+	    $self->prefixify($install_variable,$search_prefix,$replace_prefix);
+	}
+    }
+    $search_prefix = $configure_prefix =~ /perl/ ?
+	$self->catdir($configure_prefix,"man") :
+	    $self->catdir($configure_prefix,"lib","perl5","man");
+    $replace_prefix = $self->{PREFIX} =~ /perl/ ? 
+	$self->catdir(qq[\$\(PREFIX\)],"man") :
+	    $self->catdir(qq[\$\(PREFIX\)],"lib","perl5","man");
+    for $install_variable (qw/
+			   INSTALLMAN1DIR
+			   INSTALLMAN3DIR
+			   /) {
+	$self->prefixify($install_variable,$search_prefix,$replace_prefix);
+    }
 
     # Now we head at the manpages. Maybe they DO NOT want manpages
     # installed
@@ -1636,9 +1703,9 @@ EOM
     foreach $component ($self->{PERL_SRC}, $self->path(), $Config::Config{binexp}) {
 	push @defpath, $component if defined $component;
     }
-    $self->{PERL} =
+    $self->{PERL} ||=
         $self->find_perl(5.0, [ $^X, 'miniperl','perl','perl5',"perl$]" ],
-	    \@defpath, $Verbose ) unless ($self->{PERL});
+	    \@defpath, $Verbose );
     # don't check if perl is executable, maybe they have decided to
     # supply switches with perl
 
@@ -1701,7 +1768,7 @@ sub init_others {	# --- Initialize Other Attributes
     };
 
     # These get overridden for VMS and maybe some other systems
-    $self->{NOOP}  ||= "sh -c true";
+    $self->{NOOP}  ||= '$(SHELL) -c true';
     $self->{FIRST_MAKEFILE} ||= "Makefile";
     $self->{MAKEFILE} ||= $self->{FIRST_MAKEFILE};
     $self->{MAKE_APERL_FILE} ||= "Makefile.aperl";
@@ -1923,6 +1990,10 @@ sub macro {
 Called by staticmake. Defines how to write the Makefile to produce a
 static new perl.
 
+By default the Makefile produced includes all the static extensions in
+the perl library. (Purified versions of library files, e.g.,
+DynaLoader_pure_p1_c0_032.a are automatically ignored to avoid link errors.)
+
 =cut
 
 sub makeaperl {
@@ -1971,7 +2042,7 @@ $(MAKE_APERL_FILE) : $(FIRST_MAKEFILE)
     $cccmd = $self->const_cccmd($libperl);
     $cccmd =~ s/^CCCMD\s*=\s*//;
     $cccmd =~ s/\$\(INC\)/ -I$self->{PERL_INC} /;
-    $cccmd .= " $Config::Config{cccdlflags}" 
+    $cccmd .= " $Config::Config{cccdlflags}"
 	if ($Config::Config{useshrplib} eq 'true');
     $cccmd =~ s/\(CC\)/\(PERLMAINCC\)/;
 
@@ -1987,6 +2058,8 @@ $(MAKE_APERL_FILE) : $(FIRST_MAKEFILE)
     File::Find::find(sub {
 	return unless m/\Q$self->{LIB_EXT}\E$/;
 	return if m/^libperl/;
+	# Skip purified versions of libraries (e.g., DynaLoader_pure_p1_c0_032.a)
+	return if m/_pure_\w+_\w+_\w+\.\w+$/ and -f "$File::Find::dir/.pure";
 
 	if( exists $self->{INCLUDE_EXT} ){
 		my $found = 0;
@@ -2070,6 +2143,16 @@ MAP_PRELIBS   = $Config::Config{libs} $Config::Config{cryptlib}
 	$libperl   = "$dir/$libperl";
 	$lperl   ||= "libperl$self->{LIB_EXT}";
 	$lperl     = "$dir/$lperl";
+
+        if (! -f $libperl and ! -f $lperl) {
+          # We did not find a static libperl. Maybe there is a shared one?
+          if ($^O eq 'solaris' or $^O eq 'sunos') {
+            $lperl  = $libperl = "$dir/$Config::Config{libperl}";
+            # SUNOS ld does not take the full path to a shared library
+            $libperl = '' if $^O eq 'sunos';
+          }
+        }
+
 	print STDOUT "Warning: $libperl not found
     If you're going to build a static perl binary, make sure perl is installed
     otherwise ignore this warning\n"
@@ -2090,10 +2173,17 @@ MAP_LIBPERL = $libperl
     foreach $catfile (@$extra){
 	push @m, "\tcat $catfile >> \$\@\n";
     }
+    # SUNOS ld does not take the full path to a shared library
+    my $llibperl = ($libperl)?'$(MAP_LIBPERL)':'-lperl';
 
-    push @m, "
+    # Brain dead solaris linker does not use LD_RUN_PATH?
+    # This fixes dynamic extensions which need shared libs
+    my $ldfrom = ($^O eq 'solaris')?
+           join(' ', map "-R$_", split /:/, $self->{LD_RUN_PATH}):'';
+
+push @m, "
 \$(MAP_TARGET) :: $tmp/perlmain\$(OBJ_EXT) \$(MAP_LIBPERL) \$(MAP_STATIC) \$(INST_ARCHAUTODIR)/extralibs.all
-	\$(MAP_LINKCMD) -o \$\@ \$(OPTIMIZE) $tmp/perlmain\$(OBJ_EXT) \$(MAP_LIBPERL) \$(MAP_STATIC) `cat \$(INST_ARCHAUTODIR)/extralibs.all` \$(MAP_PRELIBS)
+	\$(MAP_LINKCMD) -o \$\@ \$(OPTIMIZE) $tmp/perlmain\$(OBJ_EXT) $ldfrom $llibperl \$(MAP_STATIC) `cat \$(INST_ARCHAUTODIR)/extralibs.all` \$(MAP_PRELIBS)
 	$self->{NOECHO}echo 'To install the new \"\$(MAP_TARGET)\" binary, call'
 	$self->{NOECHO}echo '    make -f $makefilename inst_perl MAP_TARGET=\$(MAP_TARGET)'
 	$self->{NOECHO}echo 'To remove the intermediate files say'
@@ -2107,7 +2197,7 @@ $tmp/perlmain\$(OBJ_EXT): $tmp/perlmain.c
 $tmp/perlmain.c: $makefilename}, q{
 	}.$self->{NOECHO}.q{echo Writing $@
 	}.$self->{NOECHO}.q{$(PERL) $(MAP_PERLINC) -e 'use ExtUtils::Miniperl; \\
-		writemain(grep s#.*/auto/##, qw|$(MAP_STATIC)|)' > $@.tmp && mv $@.tmp $@
+		writemain(grep s#.*/auto/##, qw|$(MAP_STATIC)|)' > $@t && mv $@t $@
 
 };
 
@@ -2337,9 +2427,9 @@ sub parse_version {
 	my $eval = qq{
 	    package ExtUtils::MakeMaker::_version;
 	    no strict;
-	    
-	    \$$1=undef; do { 
-		$_ 
+
+	    \$$1=undef; do {
+		$_
 	    }; \$$1
 	};
 	local($^W) = 0;
@@ -2364,12 +2454,14 @@ sub pasthru {
     my(@m,$key);
 
     my(@pasthru);
+    my($sep) = $Is_VMS ? ',' : '';
+    $sep .= "\\\n\t";
 
-    foreach $key (qw(LIBPERL_A LINKTYPE PREFIX OPTIMIZE)){
+    foreach $key (qw(LIB LIBPERL_A LINKTYPE PREFIX OPTIMIZE)){
 	push @pasthru, "$key=\"\$($key)\"";
     }
 
-    push @m, "\nPASTHRU = ", join ("\\\n\t", @pasthru), "\n";
+    push @m, "\nPASTHRU = ", join ($sep, @pasthru), "\n";
     join "", @m;
 }
 
@@ -2451,7 +2543,7 @@ $(OBJECT) : $(PERL_HDRS)
 =item pm_to_blib
 
 Defines target that copies all files in the hash PM to their
-destination and autosplits them. See L<ExtUtils::Install/pm_to_blib>
+destination and autosplits them. See L<ExtUtils::Install/DESCRIPTION>
 
 =cut
 
@@ -2481,7 +2573,7 @@ sub post_constants{
 
 =item post_initialize (o)
 
-Returns an ampty string per default. Used in Makefile.PLs to add some
+Returns an empty string per default. Used in Makefile.PLs to add some
 chunk of text to the Makefile after the object is initialized.
 
 =cut
@@ -2888,8 +2980,9 @@ DOC_INSTALL = $(PERL) -e '$$\="\n\n";' \
 -e 'print "=back";'
 
 UNINSTALL =   $(PERL) -MExtUtils::Install \
--e 'uninstall($$ARGV[0],1);'
-
+-e 'uninstall($$ARGV[0],1,1); print "\nUninstall is deprecated. Please check the";' \
+-e 'print " packlist above carefully.\n  There may be errors. Remove the";' \
+-e 'print " appropriate files manually.\n  Sorry for the inconveniences.\n"'
 };
 
     return join "", @m;
@@ -3130,6 +3223,7 @@ sub xs_o {	# many makes are too dumb to use xs_c then c_o
 
 1;
 
+=back
 
 =head1 SEE ALSO
 

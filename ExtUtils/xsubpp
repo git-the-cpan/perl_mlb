@@ -71,16 +71,28 @@ See the file F<changes.pod>.
 
 =head1 SEE ALSO
 
-perl(1), perlxs(1), perlxstut(1), perlapi(1)
+perl(1), perlxs(1), perlxstut(1), perlxs(1)
 
 =cut
 
-# Global Constants
-$XSUBPP_version = "1.938";
 require 5.002;
+use Cwd;
 use vars '$cplusplus';
 
 sub Q ;
+
+# Global Constants
+
+$XSUBPP_version = "1.9402";
+
+my ($Is_VMS, $SymSet);
+if ($^O eq 'VMS') {
+    $Is_VMS = 1;
+    # Establish set of global symbols with max length 28, since xsubpp
+    # will later add the 'XS_' prefix.
+    require ExtUtils::XSSymSet;
+    $SymSet = new ExtUtils::XSSymSet 28;
+}
 
 $FH = 'File0000' ;
 
@@ -95,7 +107,7 @@ $ProtoUsed = 0 ;
 SWITCH: while (@ARGV and $ARGV[0] =~ /^-./) {
     $flag = shift @ARGV;
     $flag =~ s/^-// ;
-    $spat = shift,	next SWITCH	if $flag eq 's';
+    $spat = quotemeta shift,	next SWITCH	if $flag eq 's';
     $cplusplus = 1,	next SWITCH	if $flag eq 'C++';
     $WantPrototypes = 0, next SWITCH	if $flag eq 'noprototypes';
     $WantPrototypes = 1, next SWITCH	if $flag eq 'prototypes';
@@ -118,15 +130,13 @@ else
 	or ($dir, $filename) = $ARGV[0] =~ m#(.*[>\]])(.*)#
 	or ($dir, $filename) = ('.', $ARGV[0]);
 chdir($dir);
-# Check for VMS; Config.pm may not be installed yet, but this routine
-# is built into VMS perl
-if (defined(&VMS::Filespec::vmsify)) { $Is_VMS = 1; $pwd = $ENV{DEFAULT}; }
-else                                 { $Is_VMS = 0; chomp($pwd = `pwd`);   }
+$pwd = cwd();
 
 ++ $IncludedFiles{$ARGV[0]} ;
 
 my(@XSStack) = ({type => 'none'});	# Stack of conditionals and INCLUDEs
 my($XSS_work_idx, $cpp_next_tmp) = (0, "XSubPPtmpAAAA");
+
 
 sub TrimWhitespace
 {
@@ -169,6 +179,7 @@ foreach $typemap (@tm) {
     $current = \$junk;
     while (<TYPEMAP>) {
 	next if /^\s*#/;
+        my $line_no = $. + 1; 
 	if (/^INPUT\s*$/)   { $mode = 'Input';   $current = \$junk;  next; }
 	if (/^OUTPUT\s*$/)  { $mode = 'Output';  $current = \$junk;  next; }
 	if (/^TYPEMAP\s*$/) { $mode = 'Typemap'; $current = \$junk;  next; }
@@ -228,8 +239,10 @@ sub check_keyword {
 
 
 sub print_section {
+    my $count = 0;
     $_ = shift(@line) while !/\S/ && @line;
     for (;  defined($_) && !/^$BLOCK_re/o;  $_ = shift(@line)) {
+        print line_directive() unless ($count++);
 	print "$_\n";
     }
 }
@@ -241,6 +254,7 @@ sub process_keyword($)
 
     &{"${kwd}_handler"}() 
         while $kwd = check_keyword($pattern) ;
+    print line_directive();
 }
 
 sub CASE_handler {
@@ -317,6 +331,7 @@ sub OUTPUT_handler {
 	    unless defined($args_match{$outarg});
 	blurt("Error: No input definition for OUTPUT argument '$outarg' - ignored"), next
 	    unless defined $var_types{$outarg} ;
+	print line_directive();
 	if ($outcode) {
 	    print "\t$outcode\n";
 	} else {
@@ -634,7 +649,7 @@ print <<EOM ;
  */
 
 EOM
- 
+print "#line 1 \"$filename\"\n"; 
 
 while (<$FH>) {
     last if ($Module, $Package, $Prefix) =
@@ -645,7 +660,6 @@ while (<$FH>) {
 
 $lastline    = $_;
 $lastline_no = $.;
-
 
 # Read next xsub into @line from ($lastline, <$FH>).
 sub fetch_para {
@@ -661,6 +675,7 @@ sub fetch_para {
 	$Module = $1;
 	$Package = defined($2) ? $2 : '';	# keep -w happy
 	$Prefix  = defined($3) ? $3 : '';	# keep -w happy
+	$Prefix = quotemeta $Prefix ;
 	($Module_cname = $Module) =~ s/\W/_/g;
 	($Packid = $Package) =~ tr/:/_/;
 	$Packprefix = $Package;
@@ -741,7 +756,9 @@ while (fetch_para()) {
 	$XSStack[$XSS_work_idx]{varname} = $cpp_next_tmp++;
     }
 
-    death ("Code is not inside a function")
+    death ("Code is not inside a function"
+	   ." (maybe last function was ended by a blank line "
+	   ." followed by a a statement on column one?)")
 	if $line[0] =~ /^\s/;
 
     # initialize info arrays
@@ -769,7 +786,7 @@ while (fetch_para()) {
 
     if (check_keyword("BOOT")) {
 	&check_cpp;
-        push (@BootCode, $_, @line, "") ;
+        push (@BootCode, $_, line_directive(), @line, "") ;
         next PARAGRAPH ;
     }
 
@@ -789,12 +806,14 @@ while (fetch_para()) {
 
     ($class, $func_name, $orig_args) =  ($1, $2, $3) ;
     ($pname = $func_name) =~ s/^($Prefix)?/$Packprefix/;
-    $Full_func_name = "${Packid}_$func_name";
+    ($clean_func_name = $func_name) =~ s/^$Prefix//;
+    $Full_func_name = "${Packid}_$clean_func_name";
+    if ($Is_VMS) { $Full_func_name = $SymSet->addsym($Full_func_name); }
 
     # Check for duplicate function definition
     for $tmp (@XSStack) {
 	next unless defined $tmp->{functions}{$Full_func_name};
-	Warn("Warning: duplicate function definition '$func_name' detected");
+	Warn("Warning: duplicate function definition '$clean_func_name' detected");
 	last;
     }
     $XSStack[$XSS_work_idx]{functions}{$Full_func_name} ++ ;
@@ -834,11 +853,15 @@ while (fetch_para()) {
 
     $PPCODE = grep(/^\s*PPCODE\s*:/, @line);
     $CODE = grep(/^\s*CODE\s*:/, @line);
+    # Detect CODE: blocks which use ST(n)= or XST_m*(n,v)
+    #   to set explicit return values.
+    $EXPLICIT_RETURN = ($CODE &&
+		("@line" =~ /(\bST\s*\([^;]*=) | (\bXST_m\w+\s*\()/x ));
     $ALIAS  = grep(/^\s*ALIAS\s*:/,  @line);
 
     # print function header
     print Q<<"EOF";
-#XS(XS_${Packid}_$func_name)
+#XS(XS_${Full_func_name})
 #[[
 #    dXSARGS;
 EOF
@@ -980,6 +1003,7 @@ EOF
 	} elsif ($gotRETVAL || $wantRETVAL) {
 	    &generate_output($ret_type, 0, 'RETVAL');
 	}
+	print line_directive();
 
 	# do cleanup
 	process_keyword("CLEANUP|ALIAS|PROTOTYPE") ;
@@ -1016,7 +1040,7 @@ EOF
 #	croak(errbuf);
 EOF
 
-    if ($ret_type ne "void" or $CODE) {
+    if ($ret_type ne "void" or $EXPLICIT_RETURN) {
         print Q<<EOF unless $PPCODE;
 #    XSRETURN(1);
 EOF
@@ -1130,6 +1154,15 @@ sub output_init {
     local($arg) = "ST(" . ($num - 1) . ")";
 
     eval qq/print " $init\\\n"/;
+}
+
+sub line_directive
+{
+    # work out the line number
+    my $line_no = $line_no[@line_no - @line -1] ;
+ 
+    return "#line $line_no \"$filename\"\n" ;
+
 }
 
 sub Warn
@@ -1276,5 +1309,6 @@ sub Exit {
 # If this is VMS, the exit status has meaning to the shell, so we
 # use a predictable value (SS$_Normal or SS$_Abort) rather than an
 # arbitrary number.
-    exit ($Is_VMS ? ($errors ? 44 : 1) : $errors) ;
+#    exit ($Is_VMS ? ($errors ? 44 : 1) : $errors) ;
+    exit ($errors ? 1 : 0);
 }

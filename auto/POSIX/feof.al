@@ -2,7 +2,7 @@
 package POSIX;
 
 sub feof {
-    redef "FileHandle::eof()";
+    redef "IO::Handle::eof()";
 }
 
 1;

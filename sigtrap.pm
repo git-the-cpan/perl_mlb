@@ -8,7 +8,7 @@ sigtrap - Perl pragma to enable simple signal handling
 
 use Carp;
 
-$VERSION = 1.01;
+$VERSION = 1.02;
 $Verbose ||= 0;
 
 sub import {
@@ -29,13 +29,16 @@ sub import {
 	    }
 	}
 	elsif ($_ eq 'normal-signals') {
-	    unshift @_, qw(HUP INT PIPE TERM);
+	    unshift @_, grep(exists $SIG{$_}, qw(HUP INT PIPE TERM));
 	}
 	elsif ($_ eq 'error-signals') {
-	    unshift @_, qw(ABRT BUS EMT FPE ILL QUIT SEGV SYS TRAP);
+	    unshift @_, grep(exists $SIG{$_},
+			     qw(ABRT BUS EMT FPE ILL QUIT SEGV SYS TRAP));
 	}
 	elsif ($_ eq 'old-interface-signals') {
-	    unshift @_, qw(ABRT BUS EMT FPE ILL PIPE QUIT SEGV SYS TERM TRAP);
+	    unshift @_,
+	    grep(exists $SIG{$_},
+		 qw(ABRT BUS EMT FPE ILL PIPE QUIT SEGV SYS TERM TRAP));
 	}
     	elsif ($_ eq 'stack-trace') {
 	    $handler = \&handler_traceback;
@@ -164,9 +167,9 @@ installed signals.
 
 =item B<stack-trace>
 
-The handler used for subsequently installed signals will output a Perl
-stack trace to STDERR and then tries to dump core.  This is the default
-signal handler.
+The handler used for subsequently installed signals outputs a Perl stack
+trace to STDERR and then tries to dump core.  This is the default signal
+handler.
 
 =item B<die>
 
@@ -183,7 +186,7 @@ assignment to an element of C<%SIG>.
 
 =head2 SIGNAL LISTS
 
-B<sigtrap> has two built-in lists of signals to trap.  They are:
+B<sigtrap> has a few built-in lists of signals to trap.  They are:
 
 =over 4
 
@@ -204,9 +207,14 @@ QUIT, SEGV, SYS and TRAP.
 These are the signals which were trapped by default by the old
 B<sigtrap> interface, they are ABRT, BUS, EMT, FPE, ILL, PIPE, QUIT,
 SEGV, SYS, TERM, and TRAP.  If no signals or signals lists are passed to
-B<sigtrap> this list is used.
+B<sigtrap>, this list is used.
 
 =back
+
+For each of these three lists, the collection of signals set to be
+trapped is checked before trapping; if your architecture does not
+implement a particular signal, it will not be trapped but rather
+silently ignored.
 
 =head2 OTHER
 
@@ -214,7 +222,7 @@ B<sigtrap> this list is used.
 
 =item B<untrapped>
 
-This token tells B<sigtrap> only to install handlers for subsequently
+This token tells B<sigtrap> to install handlers only for subsequently
 listed signals which aren't already trapped or ignored.
 
 =item B<any>
@@ -224,9 +232,9 @@ listed signals.  This is the default behavior.
 
 =item I<signal>
 
-Any argument which looks like a signals name (that is,
-C</^[A-Z][A-Z0-9]*$/>) is taken as a signal name and indicates that
-B<sigtrap> should install a handler for it.
+Any argument which looks like a signal name (that is,
+C</^[A-Z][A-Z0-9]*$/>) indicates that B<sigtrap> should install a
+handler for that name.
 
 =item I<number>
 
