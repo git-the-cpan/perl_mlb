@@ -264,7 +264,7 @@ ESQ
 		eval $cases; die "$cases:\n$@" if $@;
 	}
 	$eof = $timeout = 0;
-	&$subname();
+	do $subname();
 }
 
 ## &chat'print([$handle,] @data)

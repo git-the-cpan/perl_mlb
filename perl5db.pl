@@ -2,8 +2,8 @@ package DB;
 
 # Debugger for Perl 5.00x; perl5db.pl patch level:
 
-$VERSION = 0.9907;
-$header = "perl5db.pl patch level $VERSION";
+$VERSION = 1.00;
+$header = "perl5db.pl version $VERSION";
 
 # Enhanced by ilya@math.ohio-state.edu (Ilya Zakharevich)
 # Latest version available: ftp://ftp.math.ohio-state.edu/pub/users/ilya/perl
@@ -177,7 +177,7 @@ $inhibit_exit = $option{PrintRet} = 1;
 		  compactDump veryCompact quote HighBit undefPrint
 		  globPrint PrintRet UsageOnly frame AutoTrace
 		  TTY noTTY ReadLine NonStop LineInfo maxTraceLen
-		  recallCommand ShellBang pager tkRunning
+		  recallCommand ShellBang pager tkRunning ornaments
 		  signalLevel warnLevel dieLevel inhibit_exit);
 
 %optionVars    = (
@@ -211,6 +211,7 @@ $inhibit_exit = $option{PrintRet} = 1;
 		  warnLevel	=> \&warnLevel,
 		  dieLevel	=> \&dieLevel,
 		  tkRunning	=> \&tkRunning,
+		  ornaments	=> \&ornaments,
 		 );
 
 %optionRequire = (
@@ -261,7 +262,8 @@ if (exists $ENV{PERLDB_RESTART}) {
   %postponed = get_list("PERLDB_POSTPONE");
   my @had_breakpoints= get_list("PERLDB_VISITED");
   for (0 .. $#had_breakpoints) {
-    %{$postponed_file{$had_breakpoints[$_]}} = get_list("PERLDB_FILE_$_");
+    my %pf = get_list("PERLDB_FILE_$_");
+    $postponed_file{$had_breakpoints[$_]} = \%pf if %pf;
   }
   my %opt = get_list("PERLDB_OPT");
   my ($opt,$val);
@@ -271,6 +273,10 @@ if (exists $ENV{PERLDB_RESTART}) {
   }
   @INC = get_list("PERLDB_INC");
   @ini_INC = @INC;
+  $pretype = [get_list("PERLDB_PRETYPE")];
+  $pre = [get_list("PERLDB_PRE")];
+  $post = [get_list("PERLDB_POST")];
+  @typeahead = get_list("PERLDB_TYPEAHEAD", @typeahead);
 }
 
 if ($notty) {
@@ -284,7 +290,7 @@ if ($notty) {
 
   if (-e "/dev/tty") {
     $console = "/dev/tty";
-  } elsif (-e "con") {
+  } elsif (-e "con" or $^O eq 'MSWin32') {
     $console = "con";
   } else {
     $console = "sys\$command";
@@ -338,6 +344,8 @@ for (@args) {
 if (defined &afterinit) {	# May be defined in $rcfile
   &afterinit();
 }
+
+$I_m_init = 1;
 
 ############################################################ Subroutines
 
@@ -410,7 +418,9 @@ sub DB {
     $evalarg = $action, &eval if $action;
     if ($single || $was_signal) {
 	local $level = $level + 1;
-	map {$evalarg = $_, &eval} @$pre;
+	foreach $evalarg (@$pre) {
+	  &eval;
+	}
 	print $OUT $#stack . " levels deep in subroutine calls!\n"
 	  if $single & 4;
 	$start = $line;
@@ -649,12 +659,11 @@ sub DB {
 			print $OUT "Postponed breakpoints in files:\n";
 			my ($file, $line);
 			for $file (keys %postponed_file) {
-			  my %db = %{$postponed_file{$file}};
-			  next unless keys %db;
+			  my $db = $postponed_file{$file};
 			  print $OUT " $file:\n";
-			  for $line (sort {$a <=> $b} keys %db) {
+			  for $line (sort {$a <=> $b} keys %$db) {
 				print $OUT "  $line:\n";
-				my ($stop,$action) = split(/\0/, $db{$line});
+				my ($stop,$action) = split(/\0/, $$db{$line});
 				print $OUT "    break if (", $stop, ")\n"
 				  if $stop;
 				print $OUT "    action:  ", $action, "\n"
@@ -855,12 +864,12 @@ sub DB {
 			for (0 .. $#had_breakpoints) {
 			  my $file = $had_breakpoints[$_];
 			  *dbline = $main::{'_<' . $file};
-			  next unless %dbline or %{$postponed_file{$file}};
+			  next unless %dbline or $postponed_file{$file};
 			  (push @hard, $file), next 
 			    if $file =~ /^\(eval \d+\)$/;
 			  my @add;
 			  @add = %{$postponed_file{$file}}
-			    if %{$postponed_file{$file}};
+			    if $postponed_file{$file};
 			  set_list("PERLDB_FILE_$_", %dbline, @add);
 			}
 			for (@hard) { # Yes, really-really...
@@ -897,6 +906,10 @@ sub DB {
 			  }
 			}
 			set_list("PERLDB_POSTPONE", %postponed);
+			set_list("PERLDB_PRETYPE", @$pretype);
+			set_list("PERLDB_PRE", @$pre);
+			set_list("PERLDB_POST", @$post);
+			set_list("PERLDB_TYPEAHEAD", @typeahead);
 			$ENV{PERLDB_RESTART} = 1;
 			#print "$^X, '-d', @flags, @script, ($emacs ? '-emacs' : ()), @ARGS";
 			exec $^X, '-d', @flags, @script, ($emacs ? '-emacs' : ()), @ARGS;
@@ -1074,7 +1087,9 @@ sub DB {
 	    }
 	}			# CMD:
 	$exiting = 1 unless defined $cmd;
-        map {$evalarg = $_; &eval} @$post;
+	foreach $evalarg (@$post) {
+	  &eval;
+	}
     }				# if ($single || $signal)
     ($@, $!, $,, $/, $\, $^W) = @saved;
     ();
@@ -1185,14 +1200,14 @@ sub postponed {
   $signal = 1, print $OUT "'$filename' loaded...\n"
     if $break_on_load{$filename};
   print $LINEINFO ' ' x $#stack, "Package $filename.\n" if $frame;
-  return unless %{$postponed_file{$filename}};
+  return unless $postponed_file{$filename};
   $had_breakpoints{$filename}++;
   #%dbline = %{$postponed_file{$filename}}; # Cannot be done: unsufficient magic
   my $key;
   for $key (keys %{$postponed_file{$filename}}) {
     $dbline{$key} = $ {$postponed_file{$filename}}{$key};
   }
-  undef %{$postponed_file{$filename}};
+  delete $postponed_file{$filename};
 }
 
 sub dumpit {
@@ -1370,6 +1385,7 @@ sub setterm {
     if ($term->Features->{setHistory} and "@hist" ne "?") {
       $term->SetHistory(@hist);
     }
+    ornaments($ornaments) if defined $ornaments;
 }
 
 sub readline {
@@ -1496,28 +1512,25 @@ sub warn {
 
 sub TTY {
     if ($term) {
-	&warn("Too late to set TTY!\n") if @_;
-    } else {
-	$tty = shift if @_;
-    }
+	&warn("Too late to set TTY, enabled on next `R'!\n") if @_;
+    } 
+    $tty = shift if @_;
     $tty or $console;
 }
 
 sub noTTY {
     if ($term) {
-	&warn("Too late to set noTTY!\n") if @_;
-    } else {
-	$notty = shift if @_;
+	&warn("Too late to set noTTY, enabled on next `R'!\n") if @_;
     }
+    $notty = shift if @_;
     $notty;
 }
 
 sub ReadLine {
     if ($term) {
-	&warn("Too late to set ReadLine!\n") if @_;
-    } else {
-	$rl = shift if @_;
+	&warn("Too late to set ReadLine, enabled on next `R'!\n") if @_;
     }
+    $rl = shift if @_;
     $rl;
 }
 
@@ -1532,10 +1545,9 @@ sub tkRunning {
 
 sub NonStop {
     if ($term) {
-	&warn("Too late to set up NonStop mode!\n") if @_;
-    } else {
-	$runnonstop = shift if @_;
+	&warn("Too late to set up NonStop mode, enabled on next `R'!\n") if @_;
     }
+    $runnonstop = shift if @_;
     $runnonstop;
 }
 
@@ -1557,6 +1569,16 @@ sub shellBang {
     $psh =~ s/\\(.)/$1/g;
     &sethelp;
     $psh;
+}
+
+sub ornaments {
+  if (defined $term) {
+    local ($warnLevel,$dieLevel) = (0, 1);
+    return '' unless $term->Features->{ornaments};
+    eval { $term->ornaments(@_) } || '';
+  } else {
+    $ornaments = shift;
+  }
 }
 
 sub recallCommand {
@@ -1675,9 +1697,10 @@ O [opt[=val]] [opt\"val\"] [opt?]...
          frame    affects printing messages on entry and exit from subroutines.
          AutoTrace affects printing messages on every possible breaking point.
 	 maxTraceLen gives maximal length of evals/args listed in stack trace.
+	 ornaments affects screen appearance of the command line.
 		During startup options are initialized from \$ENV{PERLDB_OPTS}.
 		You can put additional initialization options TTY, noTTY,
-		ReadLine, and NonStop there.
+		ReadLine, and NonStop there (or use `R' after you set them).
 < command	Define Perl command to run before each prompt.
 << command	Add to the list of Perl commands to run before each prompt.
 > command	Define Perl command to run after each prompt.
@@ -1824,7 +1847,8 @@ sub dieLevel {
       $SIG{__DIE__} = \&DB::dbdie; # if $dieLevel < 2;
       #$SIG{__DIE__} = \&DB::diehard if $dieLevel >= 2;
       print $OUT "Stack dump during die enabled", 
-        ( $dieLevel == 1 ? " outside of evals" : ""), ".\n";
+        ( $dieLevel == 1 ? " outside of evals" : ""), ".\n"
+	  if $I_m_init;
       print $OUT "Dump printed too.\n" if $dieLevel > 2;
     } else {
       $SIG{__DIE__} = $prevdie;
@@ -2002,7 +2026,9 @@ sub db_complete {
   return $term->filename_list($text); # filenames
 }
 
-sub end_report { print $OUT "Use `q' to quit and `R' to restart. `h q' for details.\n" }
+sub end_report {
+  print $OUT "Use `q' to quit or `R' to restart.  `h q' for details.\n"
+}
 
 END {
   $finished = $inhibit_exit;	# So that some keys may be disabled.
@@ -2014,7 +2040,7 @@ END {
 package DB::fake;
 
 sub at_exit {
-  "Debuggee terminated. Use `q' to quit and `R' to restart.";
+  "Debugged program terminated.  Use `q' to quit or `R' to restart.";
 }
 
 package DB;			# Do not trace this 1; below!

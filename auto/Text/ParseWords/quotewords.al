@@ -29,43 +29,49 @@ sub quotewords {
 # at a time behavior was necessary if the delimiter was going to be a
 # regexp (love to hear it if you can figure out a better way).
 
-    local($delim, $keep, @lines) = @_;
-    local(@words,$snippet,$field,$_);
+    my ($delim, $keep, @lines) = @_;
+    my (@words, $snippet, $field);
 
-    $_ = join('', @lines);
-    while (length($_)) {
+    local $_ = join ('', @lines);
+
+    while (length) {
 	$field = '';
+
 	for (;;) {
 	    $snippet = '';
-	    if (s/^"(([^"\\]|\\.)*)"//) {
+
+	    if (s/^"([^"\\]*(\\.[^"\\]*)*)"//) {
 		$snippet = $1;
-                $snippet = "\"$snippet\"" if ($keep);
+		$snippet = qq|"$snippet"| if $keep;
 	    }
-	    elsif (s/^'(([^'\\]|\\.)*)'//) {
+	    elsif (s/^'([^'\\]*(\\.[^'\\]*)*)'//) {
 		$snippet = $1;
-                $snippet = "'$snippet'" if ($keep);
+		$snippet = "'$snippet'" if $keep;
 	    }
 	    elsif (/^["']/) {
-		croak "Unmatched quote";
+		croak 'Unmatched quote';
 	    }
-            elsif (s/^\\(.)//) {
-                $snippet = $1;
-                $snippet = "\\$snippet" if ($keep);
-            }
-	    elsif (!length($_) || s/^$delim//) {
-               last;
+	    elsif (s/^\\(.)//) {
+		$snippet = $1;
+		$snippet = "\\$snippet" if $keep;
+	    }
+	    elsif (!length || s/^$delim//) {
+	       last;
 	    }
 	    else {
-                while ($_ ne '' && !(/^$delim/ || /^['"\\]/)) {
-		   $snippet .=  substr($_, 0, 1);
-                   substr($_, 0, 1) = '';
-                }
+		while (length && !(/^$delim/ || /^['"\\]/)) {
+		   $snippet .= substr ($_, 0, 1);
+		   substr($_, 0, 1) = '';
+		}
 	    }
+
 	    $field .= $snippet;
 	}
-	push(@words, $field);
+
+	push @words, $field;
     }
-    @words;
+
+    return @words;
 }
 
 1;

@@ -1,0 +1,167 @@
+--- xsubpp	Fri Jun  6 16:36:52 1997
++++ xsubpp.new	Wed Jun 18 00:34:14 1997
+@@ -6,7 +6,7 @@
+ 
+ =head1 SYNOPSIS
+ 
+-B<xsubpp> [B<-v>] [B<-C++>] [B<-except>] [B<-s pattern>] [B<-prototypes>] [B<-noversioncheck>] [B<-typemap typemap>]... file.xs
++B<xsubpp> [B<-v>] [B<-C++>] [B<-except>] [B<-s pattern>] [B<-prototypes>] [B<-noversioncheck>] [B<-nolinenumbers>] [B<-typemap typemap>]... file.xs
+ 
+ =head1 DESCRIPTION
+ 
+@@ -55,6 +55,10 @@
+ from the C<.xs> file) and the C<.pm> files have the same version
+ number.
+ 
++=item B<-nolinenumbers>
++
++Prevents the inclusion of `#line' directives in the output.
++
+ =back
+ 
+ =head1 ENVIRONMENT
+@@ -83,7 +87,7 @@
+ 
+ # Global Constants
+ 
+-$XSUBPP_version = "1.9402";
++$XSUBPP_version = "1.95";
+ 
+ my ($Is_VMS, $SymSet);
+ if ($^O eq 'VMS') {
+@@ -96,7 +100,7 @@
+ 
+ $FH = 'File0000' ;
+ 
+-$usage = "Usage: xsubpp [-v] [-C++] [-except] [-prototypes] [-noversioncheck] [-s pattern] [-typemap typemap]... file.xs\n";
++$usage = "Usage: xsubpp [-v] [-C++] [-except] [-prototypes] [-noversioncheck] [-nolinenumbers] [-s pattern] [-typemap typemap]... file.xs\n";
+ 
+ $proto_re = "[" . quotemeta('\$%&*@;') . "]" ;
+ 
+@@ -104,6 +108,7 @@
+ $WantPrototypes = -1 ;
+ $WantVersionChk = 1 ;
+ $ProtoUsed = 0 ;
++$WantLineNumbers = 1 ;
+ SWITCH: while (@ARGV and $ARGV[0] =~ /^-./) {
+     $flag = shift @ARGV;
+     $flag =~ s/^-// ;
+@@ -115,6 +120,8 @@
+     $WantVersionChk = 1, next SWITCH	if $flag eq 'versioncheck';
+     $except = " TRY",	next SWITCH	if $flag eq 'except';
+     push(@tm,shift),	next SWITCH	if $flag eq 'typemap';
++    $WantLineNumbers = 0, next SWITCH	if $flag eq 'nolinenumbers';
++    $WantLineNumbers = 1, next SWITCH	if $flag eq 'linenumbers';
+     (print "xsubpp version $XSUBPP_version\n"), exit  	
+ 	if $flag eq 'v';
+     die $usage;
+@@ -239,13 +246,46 @@
+ }
+ 
+ 
++# Input:  Absolute directory path;
++#	  file name which may be absolute or relative to the path.
++# Return: An absolute version of the file name.
++# Caveat: I don't know how this will work on non-Unixy systems.
++sub absolutify_name {
++    my ($dir, $file) = @_;
++    ord $dir == ord $file and return $file;
++    $dir . substr($dir, 0, 1) . $file;
++}
++
++if ($WantLineNumbers) {
++    $SECTION_END_MARKER = "*/\01 This can't look like C code!\n";
++    my $pid = open(LINES, "-|");
++    if ($pid) {
++	my $cfile = absolutify_name($pwd, $filename);
++	$cfile =~ s/\.xs$/.c/io or $cfile .= ".c";
++	while (<LINES>) {
++	    if ($_ eq $SECTION_END_MARKER) {
++		print ("#line ", $. + 1, " \"$cfile\"\n");
++	    } else {
++		print $_;
++	    }
++	}
++	&Exit;
++    } elsif (! defined($pid)) {
++	print STDERR ("Warning: Can't open pipe; won't use `#line' directives.\n");
++	$WantLineNumbers = 0;
++    }
++}
++
+ sub print_section {
+-    my $count = 0;
+     $_ = shift(@line) while !/\S/ && @line;
++    
++    print ("#line ", $line_no[@line_no - @line -1], " \"",
++	   absolutify_name($pwd, $filename), "\"\n")
++	if $WantLineNumbers;
+     for (;  defined($_) && !/^$BLOCK_re/o;  $_ = shift(@line)) {
+-        print line_directive() unless ($count++);
+ 	print "$_\n";
+     }
++    print $SECTION_END_MARKER if $WantLineNumbers;
+ }
+ 
+ sub process_keyword($)
+@@ -255,7 +295,6 @@
+ 
+     &{"${kwd}_handler"}() 
+         while $kwd = check_keyword($pattern) ;
+-    print line_directive();
+ }
+ 
+ sub CASE_handler {
+@@ -332,7 +371,6 @@
+ 	    unless defined($args_match{$outarg});
+ 	blurt("Error: No input definition for OUTPUT argument '$outarg' - ignored"), next
+ 	    unless defined $var_types{$outarg} ;
+-	print line_directive();
+ 	if ($outcode) {
+ 	    print "\t$outcode\n";
+ 	} else {
+@@ -650,7 +688,10 @@
+  */
+ 
+ EOM
+-print "#line 1 \"$filename\"\n"; 
++ 
++
++print ("#line 1 \"", absolutify_name($pwd, $filename), "\"\n")
++    if $WantLineNumbers;
+ 
+ while (<$FH>) {
+     last if ($Module, $Package, $Prefix) =
+@@ -787,7 +828,7 @@
+ 
+     if (check_keyword("BOOT")) {
+ 	&check_cpp;
+-        push (@BootCode, $_, line_directive(), @line, "") ;
++        push (@BootCode, $_, @line, "") ;
+         next PARAGRAPH ;
+     }
+ 
+@@ -1005,7 +1046,6 @@
+ 	} elsif ($gotRETVAL || $wantRETVAL) {
+ 	    &generate_output($ret_type, 0, 'RETVAL');
+ 	}
+-	print line_directive();
+ 
+ 	# do cleanup
+ 	process_keyword("CLEANUP|ALIAS|PROTOTYPE") ;
+@@ -1156,15 +1196,6 @@
+     local($arg) = "ST(" . ($num - 1) . ")";
+ 
+     eval qq/print " $init\\\n"/;
+-}
+-
+-sub line_directive
+-{
+-    # work out the line number
+-    my $line_no = $line_no[@line_no - @line -1] ;
+- 
+-    return "#line $line_no \"$filename\"\n" ;
+-
+ }
+ 
+ sub Warn

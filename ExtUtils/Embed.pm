@@ -1,4 +1,4 @@
-# $Id: Embed.pm,v 1.22 1997/01/30 00:37:09 dougm Exp $
+# $Id: Embed.pm,v 1.2501 $
 require 5.002;
 
 package ExtUtils::Embed;
@@ -17,7 +17,7 @@ use vars qw(@ISA @EXPORT $VERSION
 	    );
 use strict;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.2201 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.2501 $ =~ /(\d+)\.(\d+)/);
 #for the namespace change
 $Devel::embed::VERSION = "99.99";
 
@@ -114,8 +114,9 @@ sub xsi_body {
     my(@exts) = @_;
     my($pname,@retval,%seen);
     my($dl) = canon('/','DynaLoader');
+    push(@retval, "\tchar *file = __FILE__;\n");
     push(@retval, "\tdXSUB_SYS;\n") if $] > 5.002;
-    push(@retval, "\tchar *file = __FILE__;\n\n");
+    push(@retval, "\n");
 
     foreach $_ (@exts){
         my($pname) = canon('/', $_);
@@ -199,7 +200,7 @@ sub ldopts {
     }
     #print STDERR "\@potential_libs = @potential_libs\n";
 
-    my $libperl = (grep(/^(-l\w+perl)$/, @link_args))[0] || "-lperl";
+    my $libperl = (grep(/^-l\w*perl\w*$/, @link_args))[0] || "-lperl";
 
     my($extralibs, $bsloadlibs, $ldloadlibs, $ld_run_path) =
 	$MM->ext(join ' ', 

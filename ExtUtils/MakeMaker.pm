@@ -66,11 +66,12 @@ package ExtUtils::Liblist;
 
 package ExtUtils::MakeMaker;
 #
-# Now we can can pull in the friends
+# Now we can pull in the friends
 #
-$Is_VMS = $^O eq 'VMS';
-$Is_OS2 = $^O eq 'os2';
-$Is_Mac = $^O eq 'MacOS';
+$Is_VMS   = $^O eq 'VMS';
+$Is_OS2   = $^O eq 'os2';
+$Is_Mac   = $^O eq 'MacOS';
+$Is_Win32 = $^O eq 'MSWin32';
 
 require ExtUtils::MM_Unix;
 
@@ -83,6 +84,9 @@ if ($Is_OS2) {
 }
 if ($Is_Mac) {
     require ExtUtils::MM_Mac;
+}
+if ($Is_Win32) {
+    require ExtUtils::MM_Win32;
 }
 
 # The SelfLoader would bring a lot of overhead for MakeMaker, because
@@ -150,7 +154,7 @@ sub ExtUtils::MakeMaker::mksymlists ;
 sub ExtUtils::MakeMaker::neatvalue ;
 sub ExtUtils::MakeMaker::selfdocument ;
 sub ExtUtils::MakeMaker::WriteMakefile ;
-sub ExtUtils::MakeMaker::prompt ;
+sub ExtUtils::MakeMaker::prompt ($;$) ;
 
 1;
 
@@ -303,7 +307,7 @@ sub full_setup {
     @Get_from_Config = 
 	qw(
 	   ar cc cccdlflags ccdlflags dlext dlsrc ld lddlflags ldflags libc
-	   lib_ext obj_ext ranlib sitelibexp sitearchexp so
+	   lib_ext obj_ext ranlib sitelibexp sitearchexp so exe_ext
 	  );
 
     my $item;
@@ -449,11 +453,18 @@ sub ExtUtils::MakeMaker::new {
     $self->init_main();
 
     if (! $self->{PERL_SRC} ) {
-	my($pthinks) = $INC{'Config.pm'};
+	my($pthinks) = $self->canonpath($INC{'Config.pm'});
+	my($cthinks) = $self->catfile($Config{'archlibexp'},'Config.pm');
 	$pthinks = VMS::Filespec::vmsify($pthinks) if $Is_VMS;
-	if ($pthinks ne $self->catfile($Config{archlibexp},'Config.pm')){
-	    $pthinks =~ s!/Config\.pm$!!;
-	    $pthinks =~ s!.*/!!;
+	if ($pthinks ne $cthinks &&
+	    !($Is_Win32 and lc($pthinks) eq lc($cthinks))) {
+            print "Have $pthinks expected $cthinks\n";
+	    if ($Is_Win32) {
+		$pthinks =~ s![/\\]Config\.pm$!!i; $pthinks =~ s!.*[/\\]!!;
+	    }
+	    else {
+		$pthinks =~ s!/Config\.pm$!!; $pthinks =~ s!.*/!!;
+	    }
 	    print STDOUT <<END;
 Your perl and your Config.pm seem to have different ideas about the architecture
 they are running on.
@@ -1682,7 +1693,8 @@ either say:
 or you can edit the default by saying something like:
 
 	sub MY::c_o {
-            my($inherited) = shift->SUPER::c_o(@_);
+	    package MY;	# so that "SUPER" works right
+	    my $inherited = shift->SUPER::c_o(@_);
 	    $inherited =~ s/old text/new text/;
 	    $inherited;
 	}

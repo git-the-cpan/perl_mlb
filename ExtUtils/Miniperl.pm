@@ -79,7 +79,6 @@ $tail=<<'EOF!TAIL';
 static void
 xs_init()
 {
-  dXSUB_SYS;
 }
 EOF!TAIL
 
@@ -101,7 +100,9 @@ sub writemain{
     my ($tail1,$tail2) = ( $tail =~ /\A(.*\n)(\s*\}.*)\Z/s );
     print $tail1;
 
-    print "	char *file = __FILE__;\n";
+    print "\tchar *file = __FILE__;\n";
+    print "\tdXSUB_SYS;\n" if $] > 5.002;
+
     foreach $_ (@exts){
 	my($pname) = canon('/', $_);
 	my($mname, $cname, $ccode);

@@ -5,6 +5,7 @@ require Exporter;
 
 use Config;
 use Carp;
+use File::Path qw(mkpath);
 
 @ISA = qw(Exporter);
 @EXPORT = qw(&autosplit &autosplit_lib_modules);
@@ -38,7 +39,7 @@ last update of the hierarchy.
 
 The remaining three arguments to C<autosplit> govern other options to the
 autosplitter. If the third argument, I<$keep>, is false, then any pre-existing
-C<.al> files in the autoload directory are removed if they are no longer
+C<*.al> files in the autoload directory are removed if they are no longer
 part of the module (obsoleted functions). The fourth argument, I<$check>,
 instructs C<autosplit> to check the module currently being split to ensure
 that it does include a C<use> specification for the AutoLoader module, and
@@ -125,7 +126,7 @@ sub autosplit{
 sub autosplit_lib_modules{
     my(@modules) = @_; # list of Module names
 
-    foreach(@modules){
+    while(defined($_ = shift @modules)){
 	s#::#/#g;	# incase specified as ABC::XYZ
 	s|\\|/|g;		# bug in ksh OS/2
 	s#^lib/##; # incase specified as lib/*.pm
@@ -146,6 +147,7 @@ sub autosplit_lib_modules{
 sub autosplit_file{
     my($filename, $autodir, $keep, $check_for_autoloader, $check_mod_time) = @_;
     my(@names);
+    local($_);
 
     # where to write output files
     $autodir = "lib/auto" unless $autodir;
@@ -154,12 +156,7 @@ sub autosplit_file{
 	$filename = VMS::Filespec::unixify($filename); # may have dirs
     }
     unless (-d $autodir){
-	local($", @p)="/";
-	foreach(split(/\//,$autodir)){
-	    push(@p, $_);
-	    next if -d "@p/";
-	    mkdir("@p",0755) or die "AutoSplit unable to mkdir @p: $!";
-	}
+	mkpath($autodir,0,0755);
 	# We should never need to create the auto dir here. installperl
 	# (or similar) should have done it. Expecting it to exist is a valuable
 	# sanity check against autosplitting into some random directory by mistake.
@@ -193,13 +190,19 @@ sub autosplit_file{
 
     $package or die "Can't find 'package Name;' in $filename\n";
 
-    my($modpname) = $package; $modpname =~ s#::#/#g;
-    my($al_idx_file) = "$autodir/$modpname/$IndexFile";
+    my($modpname) = $package; 
+    if ($^O eq 'MSWin32') {
+	$modpname =~ s#::#\\#g; 
+    } else {
+	$modpname =~ s#::#/#g;
+    }
 
-    die "Package $package does not match filename $filename"
-	    unless ($filename =~ m/$modpname.pm$/ or
-		    ($^O eq "msdos") or
+    die "Package $package ($modpname.pm) does not match filename $filename"
+	    unless ($filename =~ m/\Q$modpname.pm\E$/ or
+		    ($^O eq "msdos") or ($^O eq 'MSWin32') or
 	            $Is_VMS && $filename =~ m/$modpname.pm/i);
+
+    my($al_idx_file) = "$autodir/$modpname/$IndexFile";
 
     if ($check_mod_time){
 	my($al_ts_time) = (stat("$al_idx_file"))[9] || 1;
@@ -215,12 +218,7 @@ sub autosplit_file{
 	if $Verbose;
 
     unless (-d "$autodir/$modpname"){
-	local($", @p)="/";
-	foreach(split(/\//,"$autodir/$modpname")){
-	    push(@p, $_);
-	    next if -d "@p/";
-	    mkdir("@p",0777) or die "AutoSplit unable to mkdir @p: $!";
-	}
+	mkpath("$autodir/$modpname",0,0777);
     }
 
     # We must try to deal with some SVR3 systems with a limit of 14

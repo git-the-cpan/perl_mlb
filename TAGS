@@ -1,0 +1,5234 @@
+
+f:/perllib/lib/vars.pm,121
+package vars;vars9,1
+package lexicals lexicals702,24
+sub import lexicals::import1054,37
+sub import import1054,37
+
+f:/perllib/lib/validate.pl,60
+sub validate validate1199,32
+sub valmess valmess1923,60
+
+f:/perllib/lib/user/pwent.pm,483
+package User::pwent;User::pwent9,1
+sub import User::pwent::import445,18
+sub import import445,18
+sub populate (User::pwent::populate733,33
+sub populate (populate733,33
+sub getpwent (User::pwent::getpwent971,44
+sub getpwent (getpwent971,44
+sub getpwnam ($User::pwent::getpwnam1021,45
+sub getpwnam ($getpwnam1021,45
+sub getpwuid ($User::pwent::getpwuid1075,46
+sub getpwuid ($getpwuid1075,46
+sub getpw    ($User::pwent::getpw1129,47
+sub getpw    ($getpw1129,47
+
+f:/perllib/lib/user/grent.pm,477
+package User::grent;User::grent9,1
+sub import User::grent::import379,14
+sub import import379,14
+sub populate (User::grent::populate567,24
+sub populate (populate567,24
+sub getgrent (User::grent::getgrent765,32
+sub getgrent (getgrent765,32
+sub getgrnam ($User::grent::getgrnam815,33
+sub getgrnam ($getgrnam815,33
+sub getgrgid ($User::grent::getgrgid869,34
+sub getgrgid ($getgrgid869,34
+sub getgr    ($User::grent::getgr923,35
+sub getgr    ($getgr923,35
+
+f:/perllib/lib/universal.pm,58
+package UNIVERSAL;UNIVERSAL9,1
+package the the1012,49
+
+f:/perllib/lib/timelocal.pl,0
+
+f:/perllib/lib/time/tm.pm,31
+package Time::tm;Time::tm9,1
+
+f:/perllib/lib/time/localtime.pm,282
+package Time::localtime;Time::localtime9,1
+sub populate (Time::localtime::populate486,20
+sub populate (populate486,20
+sub localtime (;$Time::localtime::localtime707,31
+sub localtime (;$localtime707,31
+sub ctime (;$Time::localtime::ctime769,32
+sub ctime (;$ctime769,32
+
+f:/perllib/lib/time/local.pm,246
+package Time::Local;Time::Local9,1
+sub timegm Time::Local::timegm2112,71
+sub timegm timegm2112,71
+sub timelocal Time::Local::timelocal2312,78
+sub timelocal timelocal2312,78
+sub cheat Time::Local::cheat2485,86
+sub cheat cheat2485,86
+
+f:/perllib/lib/time/gmtime.pm,263
+package Time::gmtime;Time::gmtime9,1
+sub populate (Time::gmtime::populate482,20
+sub populate (populate482,20
+sub gmtime (;$Time::gmtime::gmtime700,31
+sub gmtime (;$gmtime700,31
+sub gmctime (;$Time::gmtime::gmctime764,32
+sub gmctime (;$gmctime764,32
+
+f:/perllib/lib/tie/substrhash.pm,805
+package Tie::SubstrHash;Tie::SubstrHash9,1
+sub TIEHASH Tie::SubstrHash::TIEHASH1388,40
+sub TIEHASH TIEHASH1388,40
+sub FETCH Tie::SubstrHash::FETCH1660,50
+sub FETCH FETCH1660,50
+sub STORE Tie::SubstrHash::STORE2048,69
+sub STORE STORE2048,69
+sub DELETE Tie::SubstrHash::DELETE2965,102
+sub DELETE DELETE2965,102
+sub FIRSTKEY Tie::SubstrHash::FIRSTKEY3415,123
+sub FIRSTKEY FIRSTKEY3415,123
+sub NEXTKEY Tie::SubstrHash::NEXTKEY3490,129
+sub NEXTKEY NEXTKEY3490,129
+sub hashkey Tie::SubstrHash::hashkey3829,141
+sub hashkey hashkey3829,141
+sub _hashwrap Tie::SubstrHash::_hashwrap4125,154
+sub _hashwrap _hashwrap4125,154
+sub rehash Tie::SubstrHash::rehash4187,158
+sub rehash rehash4187,158
+sub findprime Tie::SubstrHash::findprime4267,163
+sub findprime findprime4267,163
+
+f:/perllib/lib/tie/scalar.pm,822
+package Tie::Scalar;Tie::Scalar9,1
+    package NewScalar;NewScalar136,9
+    sub FETCH NewScalar::FETCH218,14
+    sub TIESCALAR NewScalar::TIESCALAR267,15
+    package NewStdScalar;NewStdScalar342,18
+    sub FETCH NewStdScalar::FETCH507,24
+    package main;main543,27
+package provides provides948,38
+sub new provides::new2337,83
+sub new new2337,83
+sub TIESCALAR provides::TIESCALAR2437,90
+sub TIESCALAR TIESCALAR2437,90
+sub FETCH provides::FETCH2686,102
+sub FETCH FETCH2686,102
+sub STORE provides::STORE2774,107
+sub STORE STORE2774,107
+package Tie::StdScalar;Tie::StdScalar3040,117
+sub TIESCALAR Tie::StdScalar::TIESCALAR3083,120
+sub TIESCALAR TIESCALAR3083,120
+sub FETCH Tie::StdScalar::FETCH3199,126
+sub FETCH FETCH3199,126
+sub STORE STORE3235,130
+sub DESTROY DESTROY3272,134
+
+f:/perllib/lib/tie/refhash.pm,591
+package Tie::RefHash;Tie::RefHash9,1
+sub TIEHASH Tie::RefHash::TIEHASH1026,59
+sub TIEHASH TIEHASH1026,59
+sub FETCH Tie::RefHash::FETCH1151,69
+sub FETCH FETCH1151,69
+sub STORE Tie::RefHash::STORE1230,74
+sub STORE STORE1230,74
+sub DELETE Tie::RefHash::DELETE1359,85
+sub DELETE DELETE1359,85
+sub EXISTS Tie::RefHash::EXISTS1452,90
+sub EXISTS EXISTS1452,90
+sub FIRSTKEY Tie::RefHash::FIRSTKEY1545,95
+sub FIRSTKEY FIRSTKEY1545,95
+sub NEXTKEY Tie::RefHash::NEXTKEY1671,102
+sub NEXTKEY NEXTKEY1671,102
+sub CLEAR Tie::RefHash::CLEAR1879,116
+sub CLEAR CLEAR1879,116
+
+f:/perllib/lib/tie/hash.pm,1102
+package Tie::Hash;Tie::Hash9,1
+    package NewHash;NewHash129,9
+    sub DELETE NewHash::DELETE203,14
+    sub CLEAR NewHash::CLEAR252,15
+    package NewStdHash;NewStdHash318,18
+    sub DELETE NewStdHash::DELETE473,24
+    package main;main510,27
+sub new main::new2813,104
+sub new new2813,104
+sub TIEHASH main::TIEHASH2891,111
+sub TIEHASH TIEHASH2891,111
+sub EXISTS main::EXISTS3134,123
+sub EXISTS EXISTS3134,123
+sub CLEAR main::CLEAR3225,128
+sub CLEAR CLEAR3225,128
+package Tie::StdHash;Tie::StdHash3635,146
+sub TIEHASH Tie::StdHash::TIEHASH3676,149
+sub TIEHASH TIEHASH3676,149
+sub STORE Tie::StdHash::STORE3709,150
+sub STORE STORE3709,150
+sub FETCH Tie::StdHash::FETCH3749,151
+sub FETCH FETCH3749,151
+sub FIRSTKEY Tie::StdHash::FIRSTKEY3781,152
+sub FIRSTKEY FIRSTKEY3781,152
+sub NEXTKEY Tie::StdHash::NEXTKEY3842,153
+sub NEXTKEY NEXTKEY3842,153
+sub EXISTS Tie::StdHash::EXISTS3873,154
+sub EXISTS EXISTS3873,154
+sub DELETE Tie::StdHash::DELETE3912,155
+sub DELETE DELETE3912,155
+sub CLEAR Tie::StdHash::CLEAR3951,156
+sub CLEAR CLEAR3951,156
+
+f:/perllib/lib/text/wrap.pm,128
+package Text::Wrap;Text::Wrap9,1
+sub wrapText::Wrap::wrap283,21
+sub fill Text::Wrap::fill2766,128
+sub fill fill2766,128
+
+f:/perllib/lib/text/tabs.pm,114
+package Text::Tabs;Text::Tabs10,2
+sub expandText::Tabs::expand220,19
+sub unexpandText::Tabs::unexpand430,33
+
+f:/perllib/lib/text/soundex.pm,84
+package Text::Soundex;Text::Soundex9,1
+sub soundexText::Soundex::soundex1199,43
+
+f:/perllib/lib/text/parsewords.pm,329
+package Text::ParseWords;Text::ParseWords9,1
+sub shellwords Text::ParseWords::shellwords1469,56
+sub shellwords shellwords1469,56
+sub quotewords Text::ParseWords::quotewords1583,64
+sub quotewords quotewords1583,64
+sub old_shellwords Text::ParseWords::old_shellwords3853,138
+sub old_shellwords old_shellwords3853,138
+
+f:/perllib/lib/text/abbrev.pm,105
+package Text::Abbrev;Text::Abbrev9,1
+sub abbrev Text::Abbrev::abbrev723,41
+sub abbrev abbrev723,41
+
+f:/perllib/lib/test/harness.pm,296
+package Test::Harness;Test::Harness9,1
+sub runtests Test::Harness::runtests962,41
+sub runtests runtests962,41
+sub corestatus Test::Harness::corestatus5924,214
+sub corestatus corestatus5924,214
+sub canonfailed (Test::Harness::canonfailed6264,233
+sub canonfailed (canonfailed6264,233
+
+f:/perllib/lib/termcap.pl,79
+sub Tgetent Tgetent356,12
+sub Tputs Tputs2155,89
+sub Tgoto Tgoto2479,106
+
+f:/perllib/lib/term/readline.pm,1728
+package Term::ReadLine::Stub;Term::ReadLine::Stub4184,132
+sub ReadLine Term::ReadLine::Stub::ReadLine4363,138
+sub ReadLine ReadLine4363,138
+sub readline Term::ReadLine::Stub::readline4401,139
+sub readline readline4401,139
+sub addhistory Term::ReadLine::Stub::addhistory4838,153
+sub addhistory addhistory4838,153
+sub findConsole Term::ReadLine::Stub::findConsole4857,155
+sub findConsole findConsole4857,155
+sub new Term::ReadLine::Stub::new5445,185
+sub new new5445,185
+sub IN Term::ReadLine::Stub::IN6079,209
+sub IN IN6079,209
+sub OUT Term::ReadLine::Stub::OUT6101,210
+sub OUT OUT6101,210
+sub MinLine Term::ReadLine::Stub::MinLine6124,211
+sub MinLine MinLine6124,211
+sub Attribs Term::ReadLine::Stub::Attribs6146,212
+sub Attribs Attribs6146,212
+sub Features Term::ReadLine::Stub::Features6215,215
+sub Features Features6215,215
+package Term::ReadLine;Term::ReadLine6248,217
+package Term::ReadLine::TermCap;Term::ReadLine::TermCap7075,247
+sub LoadTermCap Term::ReadLine::TermCap::LoadTermCap7316,255
+sub LoadTermCap LoadTermCap7316,255
+sub ornaments Term::ReadLine::TermCap::ornaments7461,262
+sub ornaments ornaments7461,262
+package Term::ReadLine::Tk;Term::ReadLine::Tk7853,276
+sub handle Term::ReadLine::Tk::handle7927,280
+sub handle handle7927,280
+sub Tk_loop Term::ReadLine::Tk::Tk_loop7970,282
+sub Tk_loop Tk_loop7970,282
+sub register_Tk Term::ReadLine::Tk::register_Tk8122,289
+sub register_Tk register_Tk8122,289
+sub tkRunning Term::ReadLine::Tk::tkRunning8249,295
+sub tkRunning tkRunning8249,295
+sub get_c Term::ReadLine::Tk::get_c8340,300
+sub get_c get_c8340,300
+sub get_line Term::ReadLine::Tk::get_line8472,306
+sub get_line get_line8472,306
+
+f:/perllib/lib/term/complete.pm,121
+package Term::Complete;Term::Complete9,1
+sub Complete Term::Complete::Complete1292,74
+sub Complete Complete1292,74
+
+f:/perllib/lib/term/cap.pm,304
+package Term::Cap;Term::Cap9,1
+sub termcap_path Term::Cap::termcap_path3631,104
+sub termcap_path termcap_path3631,104
+sub Tgetent Term::Cap::Tgetent4271,128
+sub Tgetent Tgetent4271,128
+sub Tpad Tpad8606,279
+sub Tputs Tputs9002,299
+sub Tgoto Tgoto9937,331
+sub Trequire Trequire11466,399
+
+f:/perllib/lib/tainted.pl,26
+sub tainted tainted82,3
+
+f:/perllib/lib/syslog.pl,400
+package syslog;syslog799,30
+sub main'openlog main'openlog1123,46
+sub main'closelog main'closelog1387,55
+sub main'setlogmask main'setlogmask1457,60
+sub main'syslog main'syslog1551,66
+sub xlate syslog::xlate3430,141
+sub xlate xlate3430,141
+sub connect syslog::connect3601,149
+sub connect connect3601,149
+sub disconnect syslog::disconnect4699,192
+sub disconnect disconnect4699,192
+
+f:/perllib/lib/sys/syslog.pm,562
+package Sys::Syslog;Sys::Syslog9,1
+sub openlog Sys::Syslog::openlog2208,97
+sub openlog openlog2208,97
+sub closelog Sys::Syslog::closelog2467,106
+sub closelog closelog2467,106
+sub setlogmask Sys::Syslog::setlogmask2532,111
+sub setlogmask setlogmask2532,111
+sub syslog Sys::Syslog::syslog2621,117
+sub syslog syslog2621,117
+sub xlate Sys::Syslog::xlate4477,192
+sub xlate xlate4477,192
+sub connect Sys::Syslog::connect4654,200
+sub connect connect4654,200
+sub disconnect Sys::Syslog::disconnect5259,216
+sub disconnect disconnect5259,216
+
+f:/perllib/lib/sys/hostname.pm,148
+package Sys::Hostname;Sys::Hostname9,1
+sub hostname Sys::Hostname::hostname629,34
+sub hostname hostname629,34
+	    package main;main1902,73
+
+f:/perllib/lib/symbol.pm,335
+package Symbol;Symbol9,1
+sub gensym (Symbol::gensym2239,75
+sub gensym (gensym2239,75
+sub ungensym ($Symbol::ungensym2368,82
+sub ungensym ($ungensym2368,82
+sub qualify ($Symbol::qualify2388,84
+sub qualify ($qualify2388,84
+sub qualify_to_ref ($Symbol::qualify_to_ref2759,100
+sub qualify_to_ref ($qualify_to_ref2759,100
+
+f:/perllib/lib/subs.pm,81
+package subs;subs9,1
+sub import subs::import642,29
+sub import import642,29
+
+f:/perllib/lib/strict.pm,213
+package strict;strict9,1
+sub bits strict::bits1786,75
+sub bits bits1786,75
+sub import strict::import2025,86
+sub import import2025,86
+sub unimport strict::unimport2099,91
+sub unimport unimport2099,91
+
+f:/perllib/lib/stat.pl,22
+sub Stat Stat497,26
+
+f:/perllib/lib/site_perl/www/robotrules.pm,1227
+package WWW::RobotRules;WWW::RobotRules68,3
+sub Version WWW::RobotRules::Version1292,48
+sub Version Version1292,48
+sub new WWW::RobotRules::new1527,62
+sub new new1527,62
+sub parse WWW::RobotRules::parse2018,82
+sub parse parse2018,82
+sub is_me WWW::RobotRules::is_me3892,159
+sub is_me is_me3892,159
+sub allowed WWW::RobotRules::allowed4097,171
+sub allowed allowed4097,171
+package WWW::RobotRules::InCore;WWW::RobotRules::InCore4713,200
+sub agent WWW::RobotRules::InCore::agent4950,212
+sub agent agent4950,212
+sub visit WWW::RobotRules::InCore::visit5180,223
+sub visit visit5180,223
+sub no_visits WWW::RobotRules::InCore::no_visits5425,236
+sub no_visits no_visits5425,236
+sub last_visit WWW::RobotRules::InCore::last_visit5512,241
+sub last_visit last_visit5512,241
+sub fresh_until WWW::RobotRules::InCore::fresh_until5599,246
+sub fresh_until fresh_until5599,246
+sub push_rules WWW::RobotRules::InCore::push_rules5810,255
+sub push_rules push_rules5810,255
+sub clear_rules WWW::RobotRules::InCore::clear_rules5923,260
+sub clear_rules clear_rules5923,260
+sub rules WWW::RobotRules::InCore::rules6018,265
+sub rules rules6018,265
+sub dumpWWW::RobotRules::InCore::dump6190,274
+
+f:/perllib/lib/site_perl/www/robotrules/anydbm_file.pm,711
+package WWW::RobotRules::AnyDBM_File;WWW::RobotRules::AnyDBM_File68,3
+package to to713,32
+sub new to::new1087,46
+sub new new1087,46
+sub agent to::agent1593,67
+sub agent agent1593,67
+sub no_visits to::no_visits2027,83
+sub no_visits no_visits2027,83
+sub last_visit to::last_visit2171,90
+sub last_visit last_visit2171,90
+sub fresh_until to::fresh_until2320,97
+sub fresh_until fresh_until2320,97
+sub visit to::visit2604,110
+sub visit visit2604,110
+sub push_rules to::push_rules2933,125
+sub push_rules push_rules2933,125
+sub clear_rules to::clear_rules3135,136
+sub clear_rules clear_rules3135,136
+sub rules to::rules3304,145
+sub rules rules3304,145
+sub dumpto::dump3515,158
+
+f:/perllib/lib/site_perl/wait/client.pm,1334
+package WAIT::Client;WAIT::Client449,15
+sub searchWAIT::Client::search575,24
+sub infoWAIT::Client::info680,33
+sub getWAIT::Client::get836,43
+sub databaseWAIT::Client::database990,53
+sub tableWAIT::Client::table1110,61
+sub hitsWAIT::Client::hits1220,69
+sub _SEARCH WAIT::Client::_SEARCH1334,77
+sub _SEARCH _SEARCH1334,77
+sub _INFO WAIT::Client::_INFO1403,78
+sub _INFO _INFO1403,78
+sub _GET WAIT::Client::_GET1472,79
+sub _GET _GET1472,79
+sub _DATABASE WAIT::Client::_DATABASE1541,80
+sub _DATABASE _DATABASE1541,80
+sub _TABLE WAIT::Client::_TABLE1610,81
+sub _TABLE _TABLE1610,81
+sub _HITS WAIT::Client::_HITS1679,82
+sub _HITS _HITS1679,82
+package WAIT::Client::HTTP;WAIT::Client::HTTP1883,86
+sub new WAIT::Client::HTTP::new1977,93
+sub new new1977,93
+sub command WAIT::Client::HTTP::command2452,115
+sub command command2452,115
+sub searchWAIT::Client::HTTP::search3354,153
+sub infoWAIT::Client::HTTP::info3650,172
+sub getWAIT::Client::HTTP::get3929,187
+sub _HITS WAIT::Client::HTTP::_HITS4244,203
+sub _HITS _HITS4244,203
+sub read_until_dot WAIT::Client::HTTP::read_until_dot4409,212
+sub read_until_dot read_until_dot4409,212
+sub message WAIT::Client::HTTP::message4463,213
+sub message message4463,213
+package WAIT::Client::HTTP::Handle;WAIT::Client::HTTP::Handle4515,215
+
+f:/perllib/lib/site_perl/uri/url.pm,1271
+package URI::URL;URI::URL9,1
+sub Version URI::URL::Version76,4
+sub Version Version76,4
+sub url ($URI::URL::url1673,56
+sub url ($url1673,56
+sub newURI::URL::new2489,81
+sub cloneURI::URL::clone3767,129
+sub implementorURI::URL::implementor3914,137
+sub _init_implementorURI::URL::_init_implementor4800,175
+sub _elemURI::URL::_elem5384,196
+sub DESTROY URI::URL::DESTROY6612,252
+sub DESTROY DESTROY6612,252
+sub newlocalURI::URL::newlocal6641,257
+sub strictURI::URL::strict6783,264
+sub base URI::URL::base6937,273
+sub base base6937,273
+sub scheme URI::URL::scheme7548,291
+sub scheme scheme7548,291
+sub crackURI::URL::crack7967,310
+sub abs URI::URL::abs8474,328
+sub abs abs8474,328
+sub rel URI::URL::rel8500,329
+sub rel rel8500,329
+sub as_string URI::URL::as_string8583,332
+sub as_string as_string8583,332
+sub eq URI::URL::eq8684,337
+sub eq eq8684,337
+sub bad_method URI::URL::bad_method8971,346
+sub bad_method bad_method8971,346
+sub print_onURI::URL::print_on9208,356
+sub unsafe URI::URL::unsafe9595,372
+sub unsafe unsafe9595,372
+sub escape URI::URL::escape9830,379
+sub escape escape9830,379
+sub unescape URI::URL::unescape9981,384
+sub unescape unescape9981,384
+   package MYURL::foo;MYURL::foo16313,560
+
+f:/perllib/lib/site_perl/uri/url/_login.pm,117
+package URI::URL::_login;URI::URL::_login9,1
+sub _parse URI::URL::_login::_parse203,10
+sub _parse _parse203,10
+
+f:/perllib/lib/site_perl/uri/url/_generic.pm,1692
+package URI::URL::_generic;URI::URL::_generic304,9
+sub new URI::URL::_generic::new466,16
+sub new new466,16
+sub _parse URI::URL::_generic::_parse817,28
+sub _parse _parse817,28
+sub as_stringURI::URL::_generic::as_string2562,82
+sub full_pathURI::URL::_generic::full_path3488,108
+sub default_port URI::URL::_generic::default_port4077,128
+sub default_port default_port4077,128
+sub netloc URI::URL::_generic::netloc4489,141
+sub netloc netloc4489,141
+sub user URI::URL::_generic::user5835,204
+sub user user5835,204
+sub password URI::URL::_generic::password5888,205
+sub password password5888,205
+sub host URI::URL::_generic::host5941,206
+sub host host5941,206
+sub port URI::URL::_generic::port5995,208
+sub port port5995,208
+sub _netloc_elem URI::URL::_generic::_netloc_elem6126,214
+sub _netloc_elem _netloc_elem6126,214
+sub epath URI::URL::_generic::epath6859,237
+sub epath epath6859,237
+sub path URI::URL::_generic::path7068,245
+sub path path7068,245
+sub path_components URI::URL::_generic::path_components7750,270
+sub path_components path_components7750,270
+sub eparams URI::URL::_generic::eparams8106,284
+sub eparams eparams8106,284
+sub params URI::URL::_generic::params8153,286
+sub params params8153,286
+sub equery URI::URL::_generic::equery8340,293
+sub equery equery8340,293
+sub query URI::URL::_generic::query8387,295
+sub query query8387,295
+sub frag URI::URL::_generic::frag9074,320
+sub frag frag9074,320
+sub crackURI::URL::_generic::crack9118,322
+sub absURI::URL::_generic::abs9574,341
+sub rel URI::URL::_generic::rel12680,440
+sub rel rel12680,440
+sub eq URI::URL::_generic::eq14051,486
+sub eq eq14051,486
+
+f:/perllib/lib/site_perl/uri/url/whois.pm,134
+package URI::URL::whois;URI::URL::whois9,1
+sub default_port URI::URL::whois::default_port90,5
+sub default_port default_port90,5
+
+f:/perllib/lib/site_perl/uri/url/webster.pm,140
+package URI::URL::webster;URI::URL::webster9,1
+sub default_port URI::URL::webster::default_port92,5
+sub default_port default_port92,5
+
+f:/perllib/lib/site_perl/uri/url/wais.pm,462
+package URI::URL::wais;URI::URL::wais9,1
+sub default_port URI::URL::wais::default_port630,22
+sub default_port default_port630,22
+sub _parse URI::URL::wais::_parse656,24
+sub _parse _parse656,24
+sub _path_compURI::URL::wais::_path_comp824,30
+sub database URI::URL::wais::database1060,44
+sub database database1060,44
+sub wtype URI::URL::wais::wtype1103,45
+sub wtype wtype1103,45
+sub wpath URI::URL::wais::wpath1146,46
+sub wpath wpath1146,46
+
+f:/perllib/lib/site_perl/uri/url/tn3270.pm,47
+package URI::URL::tn3270;URI::URL::tn32709,1
+
+f:/perllib/lib/site_perl/uri/url/telnet.pm,137
+package URI::URL::telnet;URI::URL::telnet9,1
+sub default_port URI::URL::telnet::default_port87,5
+sub default_port default_port87,5
+
+f:/perllib/lib/site_perl/uri/url/rlogin.pm,137
+package URI::URL::rlogin;URI::URL::rlogin9,1
+sub default_port URI::URL::rlogin::default_port87,5
+sub default_port default_port87,5
+
+f:/perllib/lib/site_perl/uri/url/prospero.pm,219
+package URI::URL::prospero;URI::URL::prospero9,1
+sub default_port URI::URL::prospero::default_port620,20
+sub default_port default_port620,20
+sub _parse URI::URL::prospero::_parse682,22
+sub _parse _parse682,22
+
+f:/perllib/lib/site_perl/uri/url/nntp.pm,483
+package URI::URL::nntp;URI::URL::nntp9,1
+sub default_port URI::URL::nntp::default_port107,7
+sub default_port default_port107,7
+sub _parse URI::URL::nntp::_parse133,9
+sub _parse _parse133,9
+sub group URI::URL::nntp::group429,20
+sub group group429,20
+sub digits URI::URL::nntp::digits473,21
+sub digits digits473,21
+sub article URI::URL::nntp::article517,22
+sub article article517,22
+sub as_string URI::URL::nntp::as_string562,24
+sub as_string as_string562,24
+
+f:/perllib/lib/site_perl/uri/url/news.pm,429
+package URI::URL::news;URI::URL::news9,1
+sub new URI::URL::news::new87,7
+sub new new87,7
+sub groupart URI::URL::news::groupart323,16
+sub groupart groupart323,16
+sub article URI::URL::news::article614,32
+sub article article614,32
+sub group URI::URL::news::group832,42
+sub group group832,42
+sub crackURI::URL::news::crack1032,51
+sub as_string URI::URL::news::as_string1375,67
+sub as_string as_string1375,67
+
+f:/perllib/lib/site_perl/uri/url/mailto.pm,480
+package URI::URL::mailto;URI::URL::mailto9,1
+sub new URI::URL::mailto::new89,7
+sub new new89,7
+sub address URI::URL::mailto::address329,17
+sub address address329,17
+sub user URI::URL::mailto::user491,23
+sub user user491,23
+sub host URI::URL::mailto::host682,35
+sub host host682,35
+sub crackURI::URL::mailto::crack872,47
+sub as_string URI::URL::mailto::as_string1214,62
+sub as_string as_string1214,62
+sub eq URI::URL::mailto::eq1392,69
+sub eq eq1392,69
+
+f:/perllib/lib/site_perl/uri/url/https.pm,134
+package URI::URL::https;URI::URL::https9,1
+sub default_port URI::URL::https::default_port82,5
+sub default_port default_port82,5
+
+f:/perllib/lib/site_perl/uri/url/http.pm,291
+package URI::URL::http;URI::URL::http9,1
+sub default_port URI::URL::http::default_port89,5
+sub default_port default_port89,5
+sub keywords URI::URL::http::keywords567,25
+sub keywords keywords567,25
+sub query_form URI::URL::http::query_form985,39
+sub query_form query_form985,39
+
+f:/perllib/lib/site_perl/uri/url/gopher.pm,829
+package URI::URL::gopher;URI::URL::gopher9,1
+sub default_port URI::URL::gopher::default_port126,7
+sub default_port default_port126,7
+sub _parse URI::URL::gopher::_parse151,9
+sub _parse _parse151,9
+sub path URI::URL::gopher::path289,15
+sub path path289,15
+sub epath URI::URL::gopher::epath443,23
+sub epath epath443,23
+sub _parse_gopherpath URI::URL::gopher::_parse_gopherpath599,31
+sub _parse_gopherpath _parse_gopherpath599,31
+sub gtype URI::URL::gopher::gtype1260,57
+sub gtype gtype1260,57
+sub selector URI::URL::gopher::selector1312,58
+sub selector selector1312,58
+sub search URI::URL::gopher::search1364,59
+sub search search1364,59
+sub string URI::URL::gopher::string1416,60
+sub string string1416,60
+sub _path_elem URI::URL::gopher::_path_elem1469,62
+sub _path_elem _path_elem1469,62
+
+f:/perllib/lib/site_perl/uri/url/ftp.pm,312
+package URI::URL::ftp;URI::URL::ftp9,1
+sub default_port URI::URL::ftp::default_port88,5
+sub default_port default_port88,5
+sub _parse URI::URL::ftp::_parse113,7
+sub _parse _parse113,7
+sub userURI::URL::ftp::user286,15
+sub passwordURI::URL::ftp::password458,27
+sub crackURI::URL::ftp::crack1046,58
+
+f:/perllib/lib/site_perl/uri/url/finger.pm,137
+package URI::URL::finger;URI::URL::finger9,1
+sub default_port URI::URL::finger::default_port91,5
+sub default_port default_port91,5
+
+f:/perllib/lib/site_perl/uri/url/file.pm,377
+package URI::URL::file;URI::URL::file9,1
+sub _parse URI::URL::file::_parse772,26
+sub _parse _parse772,26
+sub newlocal URI::URL::file::newlocal1440,55
+sub newlocal newlocal1440,55
+sub unix_pathURI::URL::file::unix_path1985,74
+sub dos_pathURI::URL::file::dos_path2526,95
+sub mac_pathURI::URL::file::mac_path2800,108
+sub vms_pathURI::URL::file::vms_path3355,129
+
+f:/perllib/lib/site_perl/uri/url/data.pm,368
+package URI::URL::data;URI::URL::data9,1
+sub new URI::URL::data::new746,31
+sub new new746,31
+sub media_typeURI::URL::data::media_type1451,65
+sub dataURI::URL::data::data1860,87
+sub crackURI::URL::data::crack2355,112
+sub as_string URI::URL::data::as_string2724,128
+sub as_string as_string2724,128
+sub eq URI::URL::data::eq3266,148
+sub eq eq3266,148
+
+f:/perllib/lib/site_perl/uri/escape.pm,123
+package URI::Escape;URI::Escape67,5
+sub uri_escapeURI::Escape::uri_escape1504,62
+sub uri_unescapeuri_unescape2026,81
+
+f:/perllib/lib/site_perl/term/readline/readline.pm,6117
+package readline;readline742,24
+sub get_window_sizereadline::get_window_size10357,234
+sub preinitreadline::preinit11114,261
+sub initreadline::init22757,593
+sub InitKeymapreadline::InitKeymap23148,611
+sub actually_do_bindingreadline::actually_do_binding24957,670
+sub rl_bindreadline::rl_bind26160,711
+sub F_ReReadInitFilereadline::F_ReReadInitFile28701,794
+sub readline_dumb readline::readline_dumb30579,856
+sub readline_dumb readline_dumb30579,856
+sub readlinereadline::readline30917,871
+sub ctrl readline::ctrl34224,976
+sub ctrl ctrl34224,976
+sub SetTTY readline::SetTTY34306,982
+sub SetTTY SetTTY34306,982
+sub ResetTTY readline::ResetTTY35473,1021
+sub ResetTTY ResetTTY35473,1021
+sub redisplayreadline::redisplay36780,1063
+sub min readline::min41549,1211
+sub min min41549,1211
+sub rl_getc readline::rl_getc41597,1213
+sub rl_getc rl_getc41597,1213
+sub do_commandreadline::do_command42049,1229
+sub savestatereadline::savestate42525,1247
+sub F_SelfInsertreadline::F_SelfInsert42673,1256
+sub F_AcceptLinereadline::F_AcceptLine43018,1272
+sub max readline::max44853,1359
+sub max max44853,1359
+sub isupper readline::isupper44900,1360
+sub isupper isupper44900,1360
+sub islower readline::islower44966,1361
+sub islower islower44966,1361
+sub toupper readline::toupper45032,1362
+sub toupper toupper45032,1362
+sub tolower readline::tolower45107,1363
+sub tolower tolower45107,1363
+sub rl_setreadline::rl_set46466,1396
+sub OnSecondBytereadline::OnSecondByte47283,1429
+sub CharSizereadline::CharSize48357,1462
+sub GetTTYreadline::GetTTY48496,1469
+sub XonTTYreadline::XonTTY48640,1475
+sub ___SetTTYreadline::___SetTTY48920,1484
+sub normal_tty_modereadline::normal_tty_mode49658,1510
+sub ___ResetTTYreadline::___ResetTTY49812,1518
+sub WordBreakreadline::WordBreak50556,1543
+sub getstatereadline::getstate50648,1548
+sub kill_textreadline::kill_text50873,1557
+sub at_end_of_linereadline::at_end_of_line51543,1583
+sub F_ForwardCharreadline::F_ForwardChar51666,1592
+sub F_BackwardCharreadline::F_BackwardChar51888,1605
+sub F_BeginningOfLinereadline::F_BeginningOfLine52176,1619
+sub F_EndOfLinereadline::F_EndOfLine52253,1627
+sub F_ForwardWordreadline::F_ForwardWord52404,1636
+sub F_BackwardWordreadline::F_BackwardWord52864,1655
+sub F_RedrawCurrentLinereadline::F_RedrawCurrentLine53249,1671
+sub F_ClearScreenreadline::F_ClearScreen53416,1680
+sub F_QuotedInsertreadline::F_QuotedInsert53663,1693
+sub F_TabInsertreadline::F_TabInsert53774,1702
+sub F_OperateAndGetNextreadline::F_OperateAndGetNext53975,1710
+sub F_BackwardDeleteCharreadline::F_BackwardDeleteChar54529,1730
+sub F_DeleteCharreadline::F_DeleteChar55076,1748
+sub F_UnixWordRuboutreadline::F_UnixWordRubout55576,1770
+sub F_UnixLineDiscardreadline::F_UnixLineDiscard55801,1781
+sub F_UpcaseWord readline::F_UpcaseWord55884,1787
+sub F_UpcaseWord F_UpcaseWord55884,1787
+sub F_DownCaseWord readline::F_DownCaseWord55937,1788
+sub F_DownCaseWord F_DownCaseWord55937,1788
+sub F_CapitalizeWord readline::F_CapitalizeWord55990,1789
+sub F_CapitalizeWord F_CapitalizeWord55990,1789
+sub changecasereadline::changecase56262,1798
+sub F_TransposeWords readline::F_TransposeWords56891,1834
+sub F_TransposeWords F_TransposeWords56891,1834
+sub F_TransposeCharsreadline::F_TransposeChars57117,1840
+sub F_PreviousHistoryreadline::F_PreviousHistory57451,1854
+sub F_NextHistoryreadline::F_NextHistory57680,1866
+sub F_BeginningOfHistoryreadline::F_BeginningOfHistory57925,1880
+sub F_EndOfHistoryreadline::F_EndOfHistory58083,1889
+sub F_ReverseSearchHistoryreadline::F_ReverseSearchHistory58277,1898
+sub F_ForwardSearchHistoryreadline::F_ForwardSearchHistory58344,1903
+sub F_HistorySearchBackwardreadline::F_HistorySearchBackward58411,1908
+sub F_HistorySearchForwardreadline::F_HistorySearchForward58505,1913
+sub search readline::search58638,1919
+sub search search58638,1919
+sub DoSearchreadline::DoSearch58918,1932
+sub searchStart readline::searchStart60505,2002
+sub searchStart searchStart60505,2002
+sub DoSearchStartreadline::DoSearchStart60826,2016
+sub F_KillLinereadline::F_KillLine61299,2034
+sub F_BackwardKillLinereadline::F_BackwardKillLine61483,2044
+sub TextInsert readline::TextInsert61670,2055
+sub TextInsert TextInsert61670,2055
+sub F_Yankreadline::F_Yank61900,2066
+sub F_YankPop readline::F_YankPop61953,2071
+sub F_YankPop F_YankPop61953,2071
+sub F_YankNthArg readline::F_YankNthArg61997,2072
+sub F_YankNthArg F_YankNthArg61997,2072
+sub F_KillWordreadline::F_KillWord62143,2078
+sub F_BackwardKillWordreadline::F_BackwardKillWord62511,2092
+sub F_Abortreadline::F_Abort62905,2108
+sub F_DoLowercaseVersionreadline::F_DoLowercaseVersion63024,2118
+sub F_Undoreadline::F_Undo63217,2130
+sub F_RevertLinereadline::F_RevertLine63440,2143
+sub F_EmacsEditingModereadline::F_EmacsEditingMode63618,2153
+sub F_ToggleEditingModereadline::F_ToggleEditingMode63696,2158
+sub F_Interruptreadline::F_Interrupt64131,2174
+sub F_PrefixMetareadline::F_PrefixMeta64355,2187
+sub F_UniversalArgumentreadline::F_UniversalArgument64587,2195
+sub F_DigitArgumentreadline::F_DigitArgument64692,2203
+sub F_OverwriteModereadline::F_OverwriteMode65660,2240
+sub F_InsertModereadline::F_InsertMode65706,2245
+sub F_ToggleInsertModereadline::F_ToggleInsertMode65749,2250
+sub F_Suspendreadline::F_Suspend65852,2258
+sub F_Ding readline::F_Ding66223,2276
+sub F_Ding F_Ding66223,2276
+sub F_PossibleCompletionsreadline::F_PossibleCompletions68831,2341
+sub F_InsertPossibleCompletionsreadline::F_InsertPossibleCompletions68926,2349
+sub F_Completereadline::F_Complete69271,2362
+sub complete_internalreadline::complete_internal70336,2396
+sub use_basic_commands readline::use_basic_commands72819,2468
+sub use_basic_commands use_basic_commands72819,2468
+sub completion_matchesreadline::completion_matches72947,2474
+sub rl_filename_listreadline::rl_filename_list74039,2507
+sub rl_basic_commandsreadline::rl_basic_commands74862,2538
+sub pretty_print_listreadline::pretty_print_list75110,2548
+
+f:/perllib/lib/site_perl/term/readline/perl.pm,1438
+package Term::ReadLine::Perl;Term::ReadLine::Perl9,1
+sub readline Term::ReadLine::Perl::readline157,8
+sub readline readline157,8
+sub new Term::ReadLine::Perl::new674,29
+sub new new674,29
+sub ReadLine Term::ReadLine::Perl::ReadLine1817,63
+sub ReadLine ReadLine1817,63
+sub MinLine Term::ReadLine::Perl::MinLine1862,64
+sub MinLine MinLine1862,64
+sub SetHistory Term::ReadLine::Perl::SetHistory1914,65
+sub SetHistory SetHistory1914,65
+sub GetHistory Term::ReadLine::Perl::GetHistory2026,70
+sub GetHistory GetHistory2026,70
+sub AddHistory Term::ReadLine::Perl::AddHistory2070,73
+sub AddHistory AddHistory2070,73
+sub Features Term::ReadLine::Perl::Features2368,82
+sub Features Features2368,82
+sub Attribs Term::ReadLine::Perl::Attribs2463,85
+sub Attribs Attribs2463,85
+sub DESTROY Term::ReadLine::Perl::DESTROY2492,88
+sub DESTROY DESTROY2492,88
+package Term::ReadLine::Perl::AU;Term::ReadLine::Perl::AU2512,90
+sub AUTOLOAD Term::ReadLine::Perl::AU::AUTOLOAD2543,92
+sub AUTOLOAD AUTOLOAD2543,92
+package Term::ReadLine::Perl::Tie;Term::ReadLine::Perl::Tie2815,101
+sub TIEHASH Term::ReadLine::Perl::Tie::TIEHASH2847,103
+sub TIEHASH TIEHASH2847,103
+sub DESTROY Term::ReadLine::Perl::Tie::DESTROY2872,104
+sub DESTROY DESTROY2872,104
+sub STORE Term::ReadLine::Perl::Tie::STORE2888,106
+sub STORE STORE2888,106
+sub FETCH Term::ReadLine::Perl::Tie::FETCH2979,110
+sub FETCH FETCH2979,110
+
+f:/perllib/lib/site_perl/term/readkey.pm,964
+package Term::ReadKey;Term::ReadKey5878,177
+sub ReadMode Term::ReadKey::ReadMode6799,212
+sub ReadMode ReadMode6799,212
+sub normalizehandle Term::ReadKey::normalizehandle7050,223
+sub normalizehandle normalizehandle7050,223
+sub GetTerminalSize Term::ReadKey::GetTerminalSize7376,234
+sub GetTerminalSize GetTerminalSize7376,234
+		sub ReadKey Term::ReadKey::ReadKey8804,301
+		sub ReadLine Term::ReadKey::ReadLine9082,311
+		sub ReadKey Term::ReadKey::ReadKey9427,325
+		sub ReadLine Term::ReadKey::ReadLine9707,335
+		sub ReadKey Term::ReadKey::ReadKey10032,348
+		sub ReadLine Term::ReadKey::ReadLine10662,369
+	sub ReadKey Term::ReadKey::ReadKey11366,396
+	sub ReadLine Term::ReadKey::ReadLine11511,401
+	sub ReadKey Term::ReadKey::ReadKey11740,412
+	sub ReadLine Term::ReadKey::ReadLine11887,417
+	sub ReadKey Term::ReadKey::ReadKey12070,427
+	sub ReadLine Term::ReadKey::ReadLine12242,433
+package Term::ReadKey;Term::ReadKey12432,442
+
+f:/perllib/lib/site_perl/net/time.pm,165
+package Net::Time;Net::Time215,7
+sub _socketNet::Time::_socket531,24
+sub inet_timeNet::Time::inet_time1117,55
+sub inet_daytimeNet::Time::inet_daytime1392,68
+
+f:/perllib/lib/site_perl/net/telnet.pm,11352
+package Net::Telnet;Net::Telnet9,1
+sub new Net::Telnet::new594,32
+sub new new594,32
+sub DESTROY Net::Telnet::DESTROY3499,161
+sub DESTROY DESTROY3499,161
+sub binmode Net::Telnet::binmode3535,165
+sub binmode binmode3535,165
+sub break Net::Telnet::break3888,187
+sub break break3888,187
+sub close Net::Telnet::close4105,198
+sub close close4105,198
+sub cmd Net::Telnet::cmd4305,211
+sub cmd cmd4305,211
+sub dump_log Net::Telnet::dump_log6969,322
+sub dump_log dump_log6969,322
+sub eof Net::Telnet::eof7252,341
+sub eof eof7252,341
+sub errmode Net::Telnet::errmode7337,348
+sub errmode errmode7337,348
+sub errmsg Net::Telnet::errmsg8016,384
+sub errmsg errmsg8016,384
+sub error Net::Telnet::error8280,402
+sub error error8280,402
+sub fhopen Net::Telnet::fhopen9114,449
+sub fhopen fhopen9114,449
+sub get Net::Telnet::get10140,492
+sub get get10140,492
+sub getline Net::Telnet::getline11697,560
+sub getline getline11697,560
+sub getlines Net::Telnet::getlines13057,624
+sub getlines getlines13057,624
+sub host Net::Telnet::host13601,652
+sub host host13601,652
+sub input_log Net::Telnet::input_log13910,673
+sub input_log input_log13910,673
+sub input_record_separator Net::Telnet::input_record_separator14215,693
+sub input_record_separator input_record_separator14215,693
+sub lastline Net::Telnet::lastline14506,712
+sub lastline lastline14506,712
+sub login Net::Telnet::login14791,731
+sub login login14791,731
+sub max_buffer_length Net::Telnet::max_buffer_length17917,861
+sub max_buffer_length max_buffer_length17917,861
+sub open Net::Telnet::open18582,896
+sub open open18582,896
+sub output_field_separator Net::Telnet::output_field_separator21929,1035
+sub output_field_separator output_field_separator21929,1035
+sub output_log Net::Telnet::output_log22226,1054
+sub output_log output_log22226,1054
+sub output_record_separator Net::Telnet::output_record_separator22535,1074
+sub output_record_separator output_record_separator22535,1074
+sub port Net::Telnet::port22834,1093
+sub port port22834,1093
+sub print Net::Telnet::print23387,1122
+sub print print23387,1122
+sub print_length Net::Telnet::print_length25647,1216
+sub print_length print_length25647,1216
+sub prompt Net::Telnet::prompt25753,1223
+sub prompt prompt25753,1223
+sub telnetmode Net::Telnet::telnetmode26298,1250
+sub telnetmode telnetmode26298,1250
+sub timed_out Net::Telnet::timed_out26663,1272
+sub timed_out timed_out26663,1272
+sub timeout Net::Telnet::timeout26952,1291
+sub timeout timeout26952,1291
+sub waitfor Net::Telnet::waitfor27226,1309
+sub waitfor waitfor27226,1309
+sub _append_lineno Net::Telnet::_append_lineno30977,1452
+sub _append_lineno _append_lineno30977,1452
+sub _carp Net::Telnet::_carp31824,1488
+sub _carp _carp31824,1488
+sub _croak Net::Telnet::_croak31886,1493
+sub _croak _croak31886,1493
+sub _dump_data Net::Telnet::_dump_data31949,1498
+sub _dump_data _dump_data31949,1498
+sub _endtime Net::Telnet::_endtime32904,1541
+sub _endtime _endtime32904,1541
+sub _fillbuf Net::Telnet::_fillbuf33342,1562
+sub _fillbuf _fillbuf33342,1562
+sub _flush_opts Net::Telnet::_flush_opts36943,1710
+sub _flush_opts _flush_opts36943,1710
+sub _fname_to_handle Net::Telnet::_fname_to_handle37494,1737
+sub _fname_to_handle _fname_to_handle37494,1737
+sub _have_alarm Net::Telnet::_have_alarm37995,1765
+sub _have_alarm _have_alarm37995,1765
+sub _interpret_cmd Net::Telnet::_interpret_cmd38111,1775
+sub _interpret_cmd _interpret_cmd38111,1775
+sub _match_check Net::Telnet::_match_check40185,1853
+sub _match_check _match_check40185,1853
+sub _new_handle Net::Telnet::_new_handle40907,1883
+sub _new_handle _new_handle40907,1883
+sub _parse_timeout Net::Telnet::_parse_timeout41077,1894
+sub _parse_timeout _parse_timeout41077,1894
+sub _timeout_interval Net::Telnet::_timeout_interval41502,1917
+sub _timeout_interval _timeout_interval41502,1917
+sub TELNET_IAC	Net::Telnet::TELNET_IAC43092,1968
+sub TELNET_IAC	TELNET_IAC43092,1968
+sub TELNET_DONT	Net::Telnet::TELNET_DONT43139,1969
+sub TELNET_DONT	TELNET_DONT43139,1969
+sub TELNET_DO	Net::Telnet::TELNET_DO43191,1970
+sub TELNET_DO	TELNET_DO43191,1970
+sub TELNET_WONT	Net::Telnet::TELNET_WONT43238,1971
+sub TELNET_WONT	TELNET_WONT43238,1971
+sub TELNET_WILL	Net::Telnet::TELNET_WILL43283,1972
+sub TELNET_WILL	TELNET_WILL43283,1972
+sub TELNET_SB	Net::Telnet::TELNET_SB43327,1973
+sub TELNET_SB	TELNET_SB43327,1973
+sub TELNET_GA	Net::Telnet::TELNET_GA43379,1974
+sub TELNET_GA	TELNET_GA43379,1974
+sub TELNET_EL	Net::Telnet::TELNET_EL43428,1975
+sub TELNET_EL	TELNET_EL43428,1975
+sub TELNET_EC	Net::Telnet::TELNET_EC43475,1976
+sub TELNET_EC	TELNET_EC43475,1976
+sub TELNET_AYT	Net::Telnet::TELNET_AYT43527,1977
+sub TELNET_AYT	TELNET_AYT43527,1977
+sub TELNET_AO	Net::Telnet::TELNET_AO43566,1978
+sub TELNET_AO	TELNET_AO43566,1978
+sub TELNET_IP	Net::Telnet::TELNET_IP43624,1979
+sub TELNET_IP	TELNET_IP43624,1979
+sub TELNET_BREAK	Net::Telnet::TELNET_BREAK43679,1980
+sub TELNET_BREAK	TELNET_BREAK43679,1980
+sub TELNET_DM	Net::Telnet::TELNET_DM43711,1981
+sub TELNET_DM	TELNET_DM43711,1981
+sub TELNET_NOP	Net::Telnet::TELNET_NOP43768,1982
+sub TELNET_NOP	TELNET_NOP43768,1982
+sub TELNET_SE	Net::Telnet::TELNET_SE43797,1983
+sub TELNET_SE	TELNET_SE43797,1983
+sub TELNET_EOR	Net::Telnet::TELNET_EOR43841,1984
+sub TELNET_EOR	TELNET_EOR43841,1984
+sub TELNET_ABORT	Net::Telnet::TELNET_ABORT43899,1985
+sub TELNET_ABORT	TELNET_ABORT43899,1985
+sub TELNET_SUSP	Net::Telnet::TELNET_SUSP43939,1986
+sub TELNET_SUSP	TELNET_SUSP43939,1986
+sub TELNET_EOF	Net::Telnet::TELNET_EOF43981,1987
+sub TELNET_EOF	TELNET_EOF43981,1987
+sub TELNET_SYNCH	Net::Telnet::TELNET_SYNCH44042,1988
+sub TELNET_SYNCH	TELNET_SYNCH44042,1988
+sub TELOPT_BINARY	Net::Telnet::TELOPT_BINARY44087,1990
+sub TELOPT_BINARY	TELOPT_BINARY44087,1990
+sub TELOPT_ECHO	Net::Telnet::TELOPT_ECHO44130,1991
+sub TELOPT_ECHO	TELOPT_ECHO44130,1991
+sub TELOPT_RCP	Net::Telnet::TELOPT_RCP44161,1992
+sub TELOPT_RCP	TELOPT_RCP44161,1992
+sub TELOPT_SGA	Net::Telnet::TELOPT_SGA44207,1993
+sub TELOPT_SGA	TELOPT_SGA44207,1993
+sub TELOPT_NAMS	Net::Telnet::TELOPT_NAMS44250,1994
+sub TELOPT_NAMS	TELOPT_NAMS44250,1994
+sub TELOPT_STATUS	Net::Telnet::TELOPT_STATUS44301,1995
+sub TELOPT_STATUS	TELOPT_STATUS44301,1995
+sub TELOPT_TM	Net::Telnet::TELOPT_TM44340,1996
+sub TELOPT_TM	TELOPT_TM44340,1996
+sub TELOPT_RCTE	Net::Telnet::TELOPT_RCTE44376,1997
+sub TELOPT_RCTE	TELOPT_RCTE44376,1997
+sub TELOPT_NAOL	Net::Telnet::TELOPT_NAOL44442,1998
+sub TELOPT_NAOL	TELOPT_NAOL44442,1998
+sub TELOPT_NAOP	Net::Telnet::TELOPT_NAOP44502,1999
+sub TELOPT_NAOP	TELOPT_NAOP44502,1999
+sub TELOPT_NAOCRD	Net::Telnet::TELOPT_NAOCRD44561,2000
+sub TELOPT_NAOCRD	TELOPT_NAOCRD44561,2000
+sub TELOPT_NAOHTS	Net::Telnet::TELOPT_NAOHTS44620,2001
+sub TELOPT_NAOHTS	TELOPT_NAOHTS44620,2001
+sub TELOPT_NAOHTD	Net::Telnet::TELOPT_NAOHTD44684,2002
+sub TELOPT_NAOHTD	TELOPT_NAOHTD44684,2002
+sub TELOPT_NAOFFD	Net::Telnet::TELOPT_NAOFFD44755,2003
+sub TELOPT_NAOFFD	TELOPT_NAOFFD44755,2003
+sub TELOPT_NAOVTS	Net::Telnet::TELOPT_NAOVTS44820,2004
+sub TELOPT_NAOVTS	TELOPT_NAOVTS44820,2004
+sub TELOPT_NAOVTD	Net::Telnet::TELOPT_NAOVTD44883,2005
+sub TELOPT_NAOVTD	TELOPT_NAOVTD44883,2005
+sub TELOPT_NAOLFD	Net::Telnet::TELOPT_NAOLFD44952,2006
+sub TELOPT_NAOLFD	TELOPT_NAOLFD44952,2006
+sub TELOPT_XASCII	Net::Telnet::TELOPT_XASCII45018,2007
+sub TELOPT_XASCII	TELOPT_XASCII45018,2007
+sub TELOPT_LOGOUT	Net::Telnet::TELOPT_LOGOUT45075,2008
+sub TELOPT_LOGOUT	TELOPT_LOGOUT45075,2008
+sub TELOPT_BM	Net::Telnet::TELOPT_BM45116,2009
+sub TELOPT_BM	TELOPT_BM45116,2009
+sub TELOPT_DET	Net::Telnet::TELOPT_DET45152,2010
+sub TELOPT_DET	TELOPT_DET45152,2010
+sub TELOPT_SUPDUP	Net::Telnet::TELOPT_SUPDUP45198,2011
+sub TELOPT_SUPDUP	TELOPT_SUPDUP45198,2011
+sub TELOPT_SUPDUPOUTPUT	Net::Telnet::TELOPT_SUPDUPOUTPUT45242,2012
+sub TELOPT_SUPDUPOUTPUT	TELOPT_SUPDUPOUTPUT45242,2012
+sub TELOPT_SNDLOC	Net::Telnet::TELOPT_SNDLOC45290,2013
+sub TELOPT_SNDLOC	TELOPT_SNDLOC45290,2013
+sub TELOPT_TTYPE	Net::Telnet::TELOPT_TTYPE45332,2014
+sub TELOPT_TTYPE	TELOPT_TTYPE45332,2014
+sub TELOPT_EOR	Net::Telnet::TELOPT_EOR45373,2015
+sub TELOPT_EOR	TELOPT_EOR45373,2015
+sub TELOPT_TUID	Net::Telnet::TELOPT_TUID45413,2016
+sub TELOPT_TUID	TELOPT_TUID45413,2016
+sub TELOPT_OUTMRK	Net::Telnet::TELOPT_OUTMRK45467,2017
+sub TELOPT_OUTMRK	TELOPT_OUTMRK45467,2017
+sub TELOPT_TTYLOC	Net::Telnet::TELOPT_TTYLOC45510,2018
+sub TELOPT_TTYLOC	TELOPT_TTYLOC45510,2018
+sub TELOPT_3270REGIME	Net::Telnet::TELOPT_3270REGIME45563,2019
+sub TELOPT_3270REGIME	TELOPT_45563,2019
+sub TELOPT_X3PAD	Net::Telnet::TELOPT_X3PAD45607,2020
+sub TELOPT_X3PAD	TELOPT_X45607,2020
+sub TELOPT_NAWS	Net::Telnet::TELOPT_NAWS45642,2021
+sub TELOPT_NAWS	TELOPT_NAWS45642,2021
+sub TELOPT_TSPEED	Net::Telnet::TELOPT_TSPEED45681,2022
+sub TELOPT_TSPEED	TELOPT_TSPEED45681,2022
+sub TELOPT_LFLOW	Net::Telnet::TELOPT_LFLOW45724,2023
+sub TELOPT_LFLOW	TELOPT_LFLOW45724,2023
+sub TELOPT_LINEMODE	Net::Telnet::TELOPT_LINEMODE45771,2024
+sub TELOPT_LINEMODE	TELOPT_LINEMODE45771,2024
+sub TELOPT_XDISPLOC	Net::Telnet::TELOPT_XDISPLOC45817,2025
+sub TELOPT_XDISPLOC	TELOPT_XDISPLOC45817,2025
+sub TELOPT_OLD_ENVIRON	Net::Telnet::TELOPT_OLD_ENVIRON45866,2026
+sub TELOPT_OLD_ENVIRON	TELOPT_OLD_ENVIRON45866,2026
+sub TELOPT_AUTHENTICATION Net::Telnet::TELOPT_AUTHENTICATION45927,2027
+sub TELOPT_AUTHENTICATION TELOPT_AUTHENTICATION45927,2027
+sub TELOPT_ENCRYPT	Net::Telnet::TELOPT_ENCRYPT45974,2028
+sub TELOPT_ENCRYPT	TELOPT_ENCRYPT45974,2028
+sub TELOPT_NEW_ENVIRON	Net::Telnet::TELOPT_NEW_ENVIRON46021,2029
+sub TELOPT_NEW_ENVIRON	TELOPT_NEW_ENVIRON46021,2029
+sub TELOPT_EXOPL	Net::Telnet::TELOPT_EXOPL46082,2030
+sub TELOPT_EXOPL	TELOPT_EXOPL46082,2030
+sub SLC_SYNCH	Net::Telnet::SLC_SYNCH46132,2032
+sub SLC_SYNCH	SLC_SYNCH46132,2032
+sub SLC_BRK	Net::Telnet::SLC_BRK46155,2033
+sub SLC_BRK	SLC_BRK46155,2033
+sub SLC_IP	Net::Telnet::SLC_IP46176,2034
+sub SLC_IP	SLC_IP46176,2034
+sub SLC_AO	Net::Telnet::SLC_AO46196,2035
+sub SLC_AO	SLC_AO46196,2035
+sub SLC_AYT	Net::Telnet::SLC_AYT46216,2036
+sub SLC_AYT	SLC_AYT46216,2036
+sub SLC_EOR	Net::Telnet::SLC_EOR46237,2037
+sub SLC_EOR	SLC_EOR46237,2037
+sub SLC_ABORT	Net::Telnet::SLC_ABORT46258,2038
+sub SLC_ABORT	SLC_ABORT46258,2038
+sub SLC_EOF	Net::Telnet::SLC_EOF46281,2039
+sub SLC_EOF	SLC_EOF46281,2039
+sub SLC_SUSP	Net::Telnet::SLC_SUSP46302,2040
+sub SLC_SUSP	SLC_SUSP46302,2040
+sub SLC_EC	Net::Telnet::SLC_EC46324,2041
+sub SLC_EC	SLC_EC46324,2041
+sub SLC_EL	Net::Telnet::SLC_EL46344,2042
+sub SLC_EL	SLC_EL46344,2042
+sub SLC_EW	Net::Telnet::SLC_EW46364,2043
+sub SLC_EW	SLC_EW46364,2043
+sub SLC_RP	Net::Telnet::SLC_RP46384,2044
+sub SLC_RP	SLC_RP46384,2044
+sub SLC_LNEXT	Net::Telnet::SLC_LNEXT46404,2045
+sub SLC_LNEXT	SLC_LNEXT46404,2045
+sub SLC_XON	Net::Telnet::SLC_XON46427,2046
+sub SLC_XON	SLC_XON46427,2046
+sub SLC_XOFF	Net::Telnet::SLC_XOFF46448,2047
+sub SLC_XOFF	SLC_XOFF46448,2047
+sub SLC_FORW1	Net::Telnet::SLC_FORW146470,2048
+sub SLC_FORW1	SLC_FORW46470,2048
+sub SLC_FORW2	Net::Telnet::SLC_FORW246493,2049
+sub SLC_FORW2	SLC_FORW46493,2049
+
+f:/perllib/lib/site_perl/net/snpp.pm,1184
+package Net::SNPP;Net::SNPP215,7
+sub CMD_2WAYERROR Net::SNPP::CMD_2WAYERROR549,23
+sub CMD_2WAYERROR CMD_549,23
+sub CMD_2WAYOK Net::SNPP::CMD_2WAYOK574,24
+sub CMD_2WAYOK CMD_574,24
+sub CMD_2WAYQUEUED Net::SNPP::CMD_2WAYQUEUED599,25
+sub CMD_2WAYQUEUED CMD_599,25
+sub importNet::SNPP::import625,27
+sub newNet::SNPP::new1064,54
+sub pager_idpager_id1797,97
+sub contentcontent1890,103
+sub sendsend1980,109
+sub datadata2562,142
+sub loginlogin2688,154
+sub helphelp2795,160
+sub service_levelservice_level2921,169
+sub alertalert3168,184
+sub coveragecoverage3325,193
+sub holdhold3414,199
+sub caller_idcaller_id3706,213
+sub subjectsubject3802,219
+sub two_waytwo_way3892,225
+sub closeclose3971,231
+sub DESTROY DESTROY4094,241
+sub quit quit4123,242
+sub debug_textdebug_text4192,248
+sub _PAGE _PAGE4301,259
+sub _MESS _MESS4368,260
+sub _RESE _RESE4435,261
+sub _SEND _SEND4498,262
+sub _QUIT _QUIT4561,263
+sub _HELP _HELP4624,264
+sub _DATA _DATA4687,265
+sub _LOGI _LOGI4764,269
+sub _LEVE _LEVE4831,270
+sub _ALER _ALER4898,271
+sub _COVE _COVE4965,272
+sub _HOLD _HOLD5032,273
+sub _CALL _CALL5099,274
+sub _SUBJ _SUBJ5166,275
+
+f:/perllib/lib/site_perl/net/smtp.pm,917
+package Net::SMTP;Net::SMTP215,7
+sub newNet::SMTP::new484,23
+sub domaindomain1311,70
+sub hellohello1390,77
+sub _addr_addr1886,112
+sub mailmail2053,126
+sub send	send3821,216
+sub send_or_mail send_or_mail3873,217
+sub send_and_mail send_and_mail3932,218
+sub resetreset3992,220
+sub recipientrecipient4098,231
+sub to to4921,277
+sub datadata4954,279
+sub expandexpand5069,289
+sub verify verify5145,298
+sub helphelp5178,300
+sub closeclose5266,308
+sub DESTROY DESTROY5389,318
+sub quit quit5418,319
+sub _EHLO _EHLO5474,325
+sub _HELO _HELO5541,326
+sub _MAIL _MAIL5608,327
+sub _RCPT _RCPT5675,328
+sub _SEND _SEND5742,329
+sub _SAML _SAML5809,330
+sub _SOML _SOML5876,331
+sub _VRFY _VRFY5943,332
+sub _EXPN _EXPN6010,333
+sub _HELP _HELP6077,334
+sub _RSET _RSET6144,335
+sub _NOOP _NOOP6210,336
+sub _QUIT _QUIT6276,337
+sub _DATA _DATA6342,338
+sub _TURN _TURN6408,339
+
+f:/perllib/lib/site_perl/net/pop3.pm,756
+package Net::POP3;Net::POP3215,7
+sub newNet::POP3::new457,20
+sub debug_text debug_text1246,63
+sub loginlogin1314,65
+sub useruser1722,88
+sub passpass1806,94
+sub resetreset2013,108
+sub lastlast2276,127
+sub toptop2413,137
+sub popstatpopstat2595,148
+sub listlist2766,159
+sub getget3096,180
+sub deletedelete3240,191
+sub _USER _USER3330,197
+sub _PASS _PASS3395,198
+sub _RPOP _RPOP3460,199
+sub _RETR _RETR3525,200
+sub _DELE _DELE3590,201
+sub _TOP _TOP3655,202
+sub _LIST _LIST3717,203
+sub _NOOP _NOOP3779,204
+sub _RSET _RSET3838,205
+sub _LAST _LAST3897,206
+sub _QUIT _QUIT3956,207
+sub _STAT _STAT4015,208
+sub closeclose4075,210
+sub quit quit4198,220
+sub DESTROYDESTROY4228,222
+sub responseresponse4393,237
+
+f:/perllib/lib/site_perl/net/ph.pm,1294
+package Net::PH;Net::PH239,7
+sub newNet::PH::new518,23
+sub statusstatus1075,55
+sub loginlogin1156,63
+sub logoutlogout1674,92
+sub idid1753,99
+sub siteinfositeinfo1855,107
+sub queryquery2398,139
+sub changechange3410,202
+sub _arg_hash_arg_hash3582,214
+sub _arg_list_arg_list3857,236
+sub addadd4110,259
+sub deletedelete4236,267
+sub forceforce4368,275
+sub fieldsfields4543,288
+sub quitquit5278,332
+sub parse_responseparse_response5397,344
+sub debug_text debug_text5492,351
+package Net::PH::Result;Net::PH::Result5560,353
+sub code Net::PH::Result::code5582,355
+sub code code5582,355
+sub value Net::PH::Result::value5607,356
+sub value value5607,356
+sub field Net::PH::Result::field5632,357
+sub field field5632,357
+sub text Net::PH::Result::text5657,358
+sub text text5657,358
+package Net::PH::crypt;Net::PH::crypt5687,360
+sub crypt_start Net::PH::crypt::crypt_start7112,426
+sub crypt_start crypt_start7112,426
+sub encryptitNet::PH::crypt::encryptit10052,546
+sub encodeNet::PH::crypt::encode11460,601
+sub ENC Net::PH::crypt::ENC12053,624
+sub ENC ENC12053,624
+sub SetDebugMode Net::PH::crypt::SetDebugMode12138,629
+sub SetDebugMode SetDebugMode12138,629
+sub print_t Net::PH::crypt::print_t12176,633
+sub print_t print_t12176,633
+
+f:/perllib/lib/site_perl/net/nntp.pm,2187
+package Net::NNTP;Net::NNTP215,7
+sub newNet::NNTP::new480,20
+sub debug_textdebug_text1339,67
+sub postokpostok1547,82
+sub articlearticle1660,89
+sub authinfoauthinfo1824,99
+sub authinfo_simpleauthinfo_simple2024,108
+sub bodybody2234,117
+sub headhead2393,127
+sub nntpstatnntpstat2552,137
+sub groupgroup2733,148
+sub helphelp3337,176
+sub ihaveihave3468,186
+sub lastlast3677,197
+sub listlist3823,207
+sub newgroupsnewgroups3950,217
+sub newnewsnewnews4233,232
+sub nextnext4640,253
+sub postpost4786,263
+sub quitquit4959,273
+sub slaveslave5070,282
+sub activeactive5231,294
+sub active_timesactive_times5399,304
+sub distributionsdistributions5558,314
+sub distribution_patternsdistribution_patterns5722,324
+sub newsgroupsnewsgroups5983,337
+sub overview_fmtoverview_fmt6165,347
+sub subscriptionssubscriptions6328,357
+sub listgrouplistgroup6492,367
+sub readerreader6662,377
+sub xgtitlexgtitle6767,385
+sub xhdrxhdr6933,395
+sub xoverxover7148,407
+sub xpatxpat7328,418
+sub xpathxpath7607,434
+sub xroverxrover7843,448
+sub datedate8028,459
+sub _msg_arg_msg_arg8264,474
+sub _timestr_timestr8663,504
+sub _grouplist_grouplist8815,513
+sub _fieldlist_fieldlist9041,531
+sub _articlelist_articlelist9277,550
+sub _description_description9388,561
+sub _ARTICLE _ARTICLE9642,586
+sub _AUTHINFO _AUTHINFO9710,587
+sub _BODY _BODY9769,588
+sub _DATE _DATE9834,589
+sub _GROUP _GROUP9898,590
+sub _HEAD _HEAD9964,591
+sub _HELP _HELP10029,592
+sub _IHAVE _IHAVE10096,593
+sub _LAST _LAST10164,594
+sub _LIST _LIST10226,595
+sub _LISTGROUP _LISTGROUP10291,596
+sub _NEWGROUPS _NEWGROUPS10361,597
+sub _NEWNEWS _NEWNEWS10431,598
+sub _NEXT _NEXT10499,599
+sub _POST _POST10561,600
+sub _QUIT _QUIT10628,601
+sub _SLAVE _SLAVE10693,602
+sub _STAT _STAT10759,603
+sub _MODE _MODE10824,604
+sub _XGTITLE _XGTITLE10889,605
+sub _XHDR _XHDR10957,606
+sub _XPAT _XPAT11022,607
+sub _XPATH _XPATH11087,608
+sub _XOVER _XOVER11153,609
+sub _XROVER _XROVER11219,610
+sub _XTHREAD _XTHREAD11286,611
+sub _XSEARCH _XSEARCH11324,612
+sub _XINDEX _XINDEX11362,613
+sub closeclose11427,619
+sub DESTROY DESTROY11532,628
+
+f:/perllib/lib/site_perl/net/netrc.pm,269
+package Net::Netrc;Net::Netrc216,7
+sub _readrcNet::Netrc::_readrc394,18
+sub lookupNet::Netrc::lookup2205,114
+sub loginNet::Netrc::login2697,146
+sub accountNet::Netrc::account2783,155
+sub passwordNet::Netrc::password2875,164
+sub lpaNet::Netrc::lpa2970,173
+
+f:/perllib/lib/site_perl/net/ftp.pm,2951
+package Net::FTP;Net::FTP288,9
+sub newNet::FTP::new585,26
+sub quitquit1781,89
+sub closeclose1847,97
+sub DESTROY DESTROY1948,106
+sub ascii ascii1978,108
+sub binary binary2014,109
+sub ebcdicebcdic2051,111
+sub bytebyte2140,117
+sub quotquot2287,125
+sub mdtmmdtm2388,134
+sub sizesize2575,144
+sub loginlogin2691,154
+sub authorizeauthorize3786,212
+sub renamerename4289,239
+sub typetype4429,249
+sub abortabort4726,268
+sub getget5102,288
+sub cwdcwd6082,349
+sub cdupcdup6252,362
+sub pwdpwd6322,368
+sub rmdirrmdir6431,377
+sub mkdirmkdir6515,384
+sub deletedelete7056,417
+sub put put7148,424
+sub put_unique put_unique7196,425
+sub append append7244,426
+sub nlst nlst7293,428
+sub list list7334,429
+sub retr retr7375,430
+sub stor stor7416,431
+sub stou stou7457,432
+sub appe appe7498,433
+sub _store_cmd _store_cmd7540,435
+sub portport8657,503
+sub ls ls9392,537
+sub dir dir9433,538
+sub pasvpasv9475,540
+sub unique_nameunique_name9693,553
+sub lsllsl9800,563
+sub authoriseauthorise9889,570
+sub _extract_path_extract_path10029,582
+sub _dataconn_dataconn10482,601
+sub _list_cmd_list_cmd11201,637
+sub _data_cmd_data_cmd11651,668
+sub debug_text debug_text12699,727
+sub commandcommand12767,729
+sub responseresponse12864,737
+sub parse_responseparse_response13029,748
+sub pasv_xferpasv_xfer13298,766
+sub pasv_waitpasv_wait13620,786
+sub cmd cmd14071,811
+sub _ABOR _ABOR14179,818
+sub _CDUP _CDUP14239,819
+sub _NOOP _NOOP14299,820
+sub _PASV _PASV14359,821
+sub _QUIT _QUIT14419,822
+sub _DELE _DELE14479,823
+sub _CWD _CWD14541,824
+sub _PORT _PORT14603,825
+sub _RMD _RMD14665,826
+sub _MKD _MKD14727,827
+sub _PWD _PWD14789,828
+sub _TYPE _TYPE14851,829
+sub _RNTO _RNTO14913,830
+sub _ACCT _ACCT14975,831
+sub _RESP _RESP15037,832
+sub _MDTM _MDTM15099,833
+sub _SIZE _SIZE15161,834
+sub _APPE _APPE15223,835
+sub _LIST _LIST15287,836
+sub _NLST _NLST15351,837
+sub _RETR _RETR15415,838
+sub _STOR _STOR15479,839
+sub _STOU _STOU15543,840
+sub _RNFR _RNFR15607,841
+sub _REST _REST15671,842
+sub _USER _USER15735,843
+sub _PASS _PASS15823,844
+sub _AUTH _AUTH15875,845
+sub _ALLO _ALLO15928,847
+sub _SMNT _SMNT15965,848
+sub _HELP _HELP16002,849
+sub _MODE _MODE16039,850
+sub _SITE _SITE16076,851
+sub _SYST _SYST16113,852
+sub _STAT _STAT16150,853
+sub _STRU _STRU16187,854
+sub _REIN _REIN16224,855
+package Net::FTP::dataconn;Net::FTP::dataconn16308,861
+sub abortNet::FTP::dataconn::abort16416,869
+sub _close_close16524,877
+sub closeclose16753,889
+sub _select_select16996,903
+sub can_readcan_read17343,927
+sub can_writecan_write17442,935
+sub cmdcmd17542,943
+package Net::FTP::A;Net::FTP::A17738,958
+sub readNet::FTP::A::read17823,965
+sub writewrite18678,1017
+package Net::FTP::I;Net::FTP::I19266,1048
+sub readNet::FTP::I::read19351,1055
+sub writeNet::FTP::I::write19623,1070
+package to to23384,1183
+
+f:/perllib/lib/site_perl/net/dummyinetd.pm,214
+package Net::DummyInetd;Net::DummyInetd221,7
+sub _processNet::DummyInetd::_process420,20
+sub newNet::DummyInetd::new1078,61
+sub portNet::DummyInetd::port1307,75
+sub DESTROYNet::DummyInetd::DESTROY1353,81
+
+f:/perllib/lib/site_perl/net/domain.pm,679
+package Net::Domain;Net::Domain217,7
+sub _hostname Net::Domain::_hostname591,25
+sub _hostname _hostname591,25
+    	    package main;main817,35
+    	    package main;main894,39
+sub _hostdomain Net::Domain::_hostdomain1629,80
+sub _hostdomain _hostdomain1629,80
+    	        package main;main2520,120
+    	        package main;main2613,124
+sub domainname Net::Domain::domainname3656,178
+sub domainname domainname3656,178
+sub hostfqdn Net::Domain::hostfqdn4764,233
+sub hostfqdn hostfqdn4764,233
+sub hostname Net::Domain::hostname4795,235
+sub hostname hostname4795,235
+sub hostdomain Net::Domain::hostdomain4876,241
+sub hostdomain hostdomain4876,241
+
+f:/perllib/lib/site_perl/net/config.pm,69
+package Net::Config;Net::Config9,1
+sub setNet::Config::set144,10
+
+f:/perllib/lib/site_perl/net/cmd.pm,1047
+package Net::Cmd;Net::Cmd214,7
+sub CMD_INFO	Net::Cmd::CMD_INFO443,20
+sub CMD_INFO	CMD_INFO443,20
+sub CMD_OK	Net::Cmd::CMD_OK462,21
+sub CMD_OK	CMD_OK462,21
+sub CMD_MORE	Net::Cmd::CMD_MORE479,22
+sub CMD_MORE	CMD_MORE479,22
+sub CMD_REJECT	Net::Cmd::CMD_REJECT498,23
+sub CMD_REJECT	CMD_REJECT498,23
+sub CMD_ERROR	Net::Cmd::CMD_ERROR519,24
+sub CMD_ERROR	CMD_ERROR519,24
+sub CMD_PENDING Net::Cmd::CMD_PENDING539,25
+sub CMD_PENDING CMD_PENDING539,25
+sub _print_isaNet::Cmd::_print_isa579,29
+sub debugdebug1205,66
+sub messagemessage1732,104
+sub debug_text debug_text1903,114
+sub debug_printdebug_print1929,116
+sub codecode2052,122
+sub statusstatus2230,134
+sub set_statusset_status2348,143
+sub commandcommand2587,158
+sub okok2958,181
+sub unsupportedunsupported3062,189
+sub getlinegetline3194,198
+sub ungetlineungetline4274,253
+sub parse_responseparse_response4396,261
+sub responseresponse4489,268
+sub read_until_dotread_until_dot4946,299
+sub datasenddatasend5198,321
+sub dataenddataend5742,351
+
+f:/perllib/lib/site_perl/mime/quotedprint.pm,228
+package MIME::QuotedPrint;MIME::QuotedPrint70,4
+sub encode_qp ($MIME::QuotedPrint::encode_qp1585,60
+sub encode_qp ($encode_qp1585,60
+sub decode_qp ($MIME::QuotedPrint::decode_qp2228,80
+sub decode_qp ($decode_qp2228,80
+
+f:/perllib/lib/site_perl/mime/base64.pm,272
+package MIME::Base64;MIME::Base6465,4
+sub old_encode_base64 ($MIME::Base64::old_encode_base642979,104
+sub old_encode_base64 ($old_encode_base2979,104
+sub old_decode_base64 ($MIME::Base64::old_decode_base643598,126
+sub old_decode_base64 ($old_decode_base3598,126
+
+f:/perllib/lib/site_perl/md5.pm,151
+package MD5;MD543,2
+sub addfileMD5::addfile508,24
+sub hexdigestMD5::hexdigest1050,48
+sub hashMD5::hash1131,55
+sub hexhashMD5::hexhash1466,78
+
+f:/perllib/lib/site_perl/lwp.pm,83
+package LWP;LWP63,4
+sub Version LWP::Version303,13
+sub Version Version303,13
+
+f:/perllib/lib/site_perl/lwp/useragent.pm,1392
+package LWP::UserAgent;LWP::UserAgent67,3
+ sub callback LWP::UserAgent::callback433,21
+sub newLWP::UserAgent::new4856,135
+sub simple_requestLWP::UserAgent::simple_request6006,178
+sub requestLWP::UserAgent::request8825,271
+sub redirect_okLWP::UserAgent::redirect_ok14248,458
+sub credentialsLWP::UserAgent::credentials14912,480
+sub get_basic_credentialsLWP::UserAgent::get_basic_credentials15594,502
+sub timeout LWP::UserAgent::timeout17790,570
+sub timeout timeout17790,570
+sub agent LWP::UserAgent::agent17840,571
+sub agent agent17840,571
+sub from LWP::UserAgent::from17890,572
+sub from from17890,572
+sub use_alarm LWP::UserAgent::use_alarm17940,573
+sub use_alarm use_alarm17940,573
+sub use_eval LWP::UserAgent::use_eval17990,574
+sub use_eval use_eval17990,574
+sub parse_head LWP::UserAgent::parse_head18040,575
+sub parse_head parse_head18040,575
+sub max_size LWP::UserAgent::max_size18090,576
+sub max_size max_size18090,576
+sub cloneLWP::UserAgent::clone18373,600
+sub is_protocol_supportedLWP::UserAgent::is_protocol_supported18867,620
+sub mirrorLWP::UserAgent::mirror19414,643
+sub proxyLWP::UserAgent::proxy21018,702
+sub env_proxy LWP::UserAgent::env_proxy21739,735
+sub env_proxy env_proxy21739,735
+sub no_proxy LWP::UserAgent::no_proxy22179,759
+sub no_proxy no_proxy22179,759
+sub _need_proxyLWP::UserAgent::_need_proxy22441,772
+
+f:/perllib/lib/site_perl/lwp/tkio.pm,92
+package LWP::IO;LWP::IO9,1
+sub readLWP::IO::read503,30
+sub writeLWP::IO::write1221,62
+
+f:/perllib/lib/site_perl/lwp/socket.pm,858
+package LWP::Socket;LWP::Socket64,3
+sub Version LWP::Socket::Version894,37
+sub Version Version894,37
+sub newLWP::Socket::new1261,59
+sub DESTROYLWP::Socket::DESTROY1641,82
+sub host LWP::Socket::host1714,88
+sub host host1714,88
+sub port LWP::Socket::port1744,89
+sub port port1744,89
+sub connectLWP::Socket::connect1863,98
+sub shutdownLWP::Socket::shutdown2517,127
+sub bindLWP::Socket::bind2760,143
+sub listenLWP::Socket::listen2967,157
+sub acceptLWP::Socket::accept3162,170
+sub getsocknameLWP::Socket::getsockname3544,191
+sub read_untilLWP::Socket::read_until4071,209
+sub readLWP::Socket::read4850,248
+sub pushbackLWP::Socket::pushback5488,272
+sub writeLWP::Socket::write6061,293
+sub _getaddressLWP::Socket::_getaddress7057,332
+package main;main7699,359
+sub chargenmain::chargen8084,381
+sub echomain::echo8415,392
+
+f:/perllib/lib/site_perl/lwp/simple.pm,399
+package LWP::Simple;LWP::Simple3589,140
+sub get ($LWP::Simple::get4051,161
+sub get ($get4051,161
+sub head ($LWP::Simple::head4257,173
+sub head ($head4257,173
+sub getprint ($LWP::Simple::getprint4726,194
+sub getprint ($getprint4726,194
+sub getstore (LWP::Simple::getstore5063,210
+sub getstore (getstore5063,210
+sub mirror (LWP::Simple::mirror5232,220
+sub mirror (mirror5232,220
+
+f:/perllib/lib/site_perl/lwp/robotua.pm,443
+package LWP::RobotUA;LWP::RobotUA64,3
+sub newLWP::RobotUA::new2016,78
+sub delay LWP::RobotUA::delay2638,110
+sub delay delay2638,110
+sub agentLWP::RobotUA::agent2681,113
+sub rules LWP::RobotUA::rules2960,131
+sub rules rules2960,131
+sub no_visitsLWP::RobotUA::no_visits3204,145
+sub host_waitLWP::RobotUA::host_wait3495,161
+sub simple_requestLWP::RobotUA::simple_request3773,175
+sub as_stringLWP::RobotUA::as_string5678,249
+
+f:/perllib/lib/site_perl/lwp/protocol.pm,741
+package LWP::Protocol;LWP::Protocol66,3
+ package LWP::Protocol::foo;LWP::Protocol::foo167,11
+sub newLWP::Protocol::foo::new1436,60
+sub createLWP::Protocol::foo::create1860,82
+sub implementorLWP::Protocol::foo::implementor2286,100
+sub requestLWP::Protocol::foo::request3565,147
+sub timeout LWP::Protocol::foo::timeout4050,171
+sub timeout timeout4050,171
+sub use_alarm LWP::Protocol::foo::use_alarm4101,172
+sub use_alarm use_alarm4101,172
+sub parse_head LWP::Protocol::foo::parse_head4152,173
+sub parse_head parse_head4152,173
+sub max_size LWP::Protocol::foo::max_size4203,174
+sub max_size max_size4203,174
+sub collectLWP::Protocol::foo::collect5178,200
+sub collect_onceLWP::Protocol::foo::collect_once7916,293
+
+f:/perllib/lib/site_perl/lwp/protocol/nntp.pm,567
+package LWP::Protocol::nntp;LWP::Protocol::nntp131,7
+sub requestLWP::Protocol::nntp::request435,26
+package LWP::Protocol::nntp::Socket;LWP::Protocol::nntp::Socket5446,179
+sub cmd LWP::Protocol::nntp::Socket::cmd5523,183
+sub cmd cmd5523,183
+sub response LWP::Protocol::nntp::Socket::response5648,190
+sub response response5648,190
+sub message LWP::Protocol::nntp::Socket::message5915,201
+sub message message5915,201
+sub code LWP::Protocol::nntp::Socket::code5956,202
+sub code code5956,202
+package LWP::Protocol::nntp;LWP::Protocol::nntp6003,205
+
+f:/perllib/lib/site_perl/lwp/protocol/mailto.pm,109
+package LWP::Protocol::mailto;LWP::Protocol::mailto246,8
+sub requestLWP::Protocol::mailto::request440,22
+
+f:/perllib/lib/site_perl/lwp/protocol/http.pm,102
+package LWP::Protocol::http;LWP::Protocol::http64,4
+sub requestLWP::Protocol::http::request500,24
+
+f:/perllib/lib/site_perl/lwp/protocol/gopher.pm,286
+package LWP::Protocol::gopher;LWP::Protocol::gopher402,12
+sub requestLWP::Protocol::gopher::request1349,45
+sub gopher2urlLWP::Protocol::gopher::gopher2url4803,172
+sub gopher2urlgopher4803,172
+sub menu2html LWP::Protocol::gopher::menu2html5224,191
+sub menu2html menu5224,191
+
+f:/perllib/lib/site_perl/lwp/protocol/ftp.pm,100
+package LWP::Protocol::ftp;LWP::Protocol::ftp165,7
+sub requestLWP::Protocol::ftp::request474,28
+
+f:/perllib/lib/site_perl/lwp/protocol/file.pm,102
+package LWP::Protocol::file;LWP::Protocol::file64,4
+sub requestLWP::Protocol::file::request313,21
+
+f:/perllib/lib/site_perl/lwp/protocol/data.pm,103
+package LWP::Protocol::data;LWP::Protocol::data148,7
+sub requestLWP::Protocol::data::request338,18
+
+f:/perllib/lib/site_perl/lwp/membermixin.pm,101
+package LWP::MemberMixin;LWP::MemberMixin70,4
+ package Foo;Foo174,12
+sub _elemFoo::_elem743,37
+
+f:/perllib/lib/site_perl/lwp/mediatypes.pm,207
+package LWP::MediaTypes;LWP::MediaTypes70,4
+sub guess_media_typeLWP::MediaTypes::guess_media_type3217,116
+sub media_suffix LWP::MediaTypes::media_suffix4927,190
+sub media_suffix media_suffix4927,190
+
+f:/perllib/lib/site_perl/lwp/io.pm,92
+package LWP::IO;LWP::IO9,1
+sub readLWP::IO::read740,37
+sub writeLWP::IO::write1452,67
+
+f:/perllib/lib/site_perl/lwp/debug.pm,337
+package LWP::Debug;LWP::Debug91,5
+sub importLWP::Debug::import2112,79
+sub levelLWP::Debug::level2390,96
+sub trace LWP::Debug::trace2734,112
+sub trace trace2734,112
+sub debug LWP::Debug::debug2786,113
+sub debug debug2786,113
+sub conns LWP::Debug::conns2838,114
+sub conns conns2838,114
+sub _logLWP::Debug::_log2891,116
+
+f:/perllib/lib/site_perl/http/status.pm,758
+package HTTP::Status;HTTP::Status66,4
+sub status_message ($HTTP::Status::status_message3958,158
+sub status_message ($status_message3958,158
+sub is_info         ($HTTP::Status::is_info4753,195
+sub is_info         ($is_info4753,195
+sub is_success      ($HTTP::Status::is_success4810,196
+sub is_success      ($is_success4810,196
+sub is_redirect     ($HTTP::Status::is_redirect4867,197
+sub is_redirect     ($is_redirect4867,197
+sub is_error        ($HTTP::Status::is_error4924,198
+sub is_error        ($is_error4924,198
+sub is_client_error ($HTTP::Status::is_client_error4981,199
+sub is_client_error ($is_client_error4981,199
+sub is_server_error ($HTTP::Status::is_server_error5038,200
+sub is_server_error ($is_server_error5038,200
+
+f:/perllib/lib/site_perl/http/response.pm,1170
+package HTTP::Response;HTTP::Response68,4
+sub newHTTP::Response::new1332,59
+sub cloneHTTP::Response::clone1514,69
+sub code HTTP::Response::code2447,103
+sub code code2447,103
+sub message HTTP::Response::message2495,104
+sub message message2495,104
+sub previous HTTP::Response::previous2543,105
+sub previous previous2543,105
+sub request HTTP::Response::request2591,106
+sub request request2591,106
+sub status_lineHTTP::Response::status_line2640,108
+sub baseHTTP::Response::base3753,155
+sub as_stringHTTP::Response::as_string4255,174
+sub is_info HTTP::Response::is_info4926,205
+sub is_info is_info4926,205
+sub is_success HTTP::Response::is_success4990,206
+sub is_success is_success4990,206
+sub is_redirect HTTP::Response::is_redirect5054,207
+sub is_redirect is_redirect5054,207
+sub is_error HTTP::Response::is_error5118,208
+sub is_error is_error5118,208
+sub error_as_HTMLHTTP::Response::error_as_HTML5365,219
+sub current_ageHTTP::Response::current_age5939,250
+sub freshness_lifetimeHTTP::Response::freshness_lifetime7265,298
+sub is_freshHTTP::Response::is_fresh8644,351
+sub fresh_untilHTTP::Response::fresh_until8821,364
+
+f:/perllib/lib/site_perl/http/request.pm,268
+package HTTP::Request;HTTP::Request67,4
+sub newHTTP::Request::new1452,55
+sub cloneHTTP::Request::clone1640,65
+sub method HTTP::Request::method2346,93
+sub method method2346,93
+sub urlHTTP::Request::url2392,95
+sub as_stringHTTP::Request::as_string2857,121
+
+f:/perllib/lib/site_perl/http/request/common.pm,497
+package HTTP::Request::Common;HTTP::Request::Common64,3
+sub GET HTTP::Request::Common::GET347,19
+sub GET GET347,19
+sub HEAD HTTP::Request::Common::HEAD385,20
+sub HEAD HEAD385,20
+sub PUT HTTP::Request::Common::PUT423,21
+sub PUT PUT423,21
+sub POSTHTTP::Request::Common::POST462,23
+sub _simple_reqHTTP::Request::Common::_simple_req1605,68
+sub form_data HTTP::Request::Common::form_data1894,84
+sub form_data form_data1894,84
+sub boundaryHTTP::Request::Common::boundary3747,153
+
+f:/perllib/lib/site_perl/http/negotiate.pm,190
+package HTTP::Negotiate;HTTP::Negotiate68,4
+sub Version HTTP::Negotiate::Version158,7
+sub Version Version158,7
+sub choose ($HTTP::Negotiate::choose307,18
+sub choose ($choose307,18
+
+f:/perllib/lib/site_perl/http/message.pm,537
+package HTTP::Message;HTTP::Message67,4
+ package HTTP::Request;HTTP::Request173,12
+sub newHTTP::Request::new869,42
+sub cloneHTTP::Request::clone1261,65
+sub protocol HTTP::Request::protocol1532,79
+sub protocol protocol1532,79
+sub content HTTP::Request::content1905,94
+sub content content1905,94
+sub add_contentHTTP::Request::add_content1955,96
+sub content_refcontent_ref2434,117
+sub as_stringas_string2503,123
+sub headers_as_string headers_as_string3387,164
+sub AUTOLOADAUTOLOAD3514,167
+sub _elem_elem3736,176
+
+f:/perllib/lib/site_perl/http/headers.pm,1987
+package HTTP::Headers;HTTP::Headers67,4
+sub newHTTP::Headers::new2197,88
+sub headerHTTP::Headers::header3205,124
+sub _headerHTTP::Headers::_header3395,134
+sub _header_cmpHTTP::Headers::_header_cmp4491,175
+sub scanHTTP::Headers::scan5277,198
+sub as_stringHTTP::Headers::as_string6075,228
+sub cloneHTTP::Headers::clone11108,400
+sub push_headerHTTP::Headers::push_header11243,408
+sub remove_headerHTTP::Headers::remove_header11365,415
+sub _date_headerHTTP::Headers::_date_header11560,427
+sub date HTTP::Headers::date11800,438
+sub date date11800,438
+sub expires HTTP::Headers::expires11872,439
+sub expires expires11872,439
+sub if_modified_since HTTP::Headers::if_modified_since11944,440
+sub if_modified_since if_modified_since11944,440
+sub last_modified HTTP::Headers::last_modified12016,441
+sub last_modified last_modified12016,441
+sub client_date HTTP::Headers::client_date12223,445
+sub client_date client_date12223,445
+sub content_type HTTP::Headers::content_type12580,453
+sub content_type content_type12580,453
+sub title HTTP::Headers::title12757,460
+sub title title12757,460
+sub content_encoding HTTP::Headers::content_encoding12827,461
+sub content_encoding content_encoding12827,461
+sub content_length HTTP::Headers::content_length12897,462
+sub content_length content_length12897,462
+sub user_agent HTTP::Headers::user_agent12968,464
+sub user_agent user_agent12968,464
+sub server HTTP::Headers::server13038,465
+sub server server13038,465
+sub from HTTP::Headers::from13109,467
+sub from from13109,467
+sub referer HTTP::Headers::referer13179,468
+sub referer referer13179,468
+sub www_authenticate HTTP::Headers::www_authenticate13250,470
+sub www_authenticate www_authenticate13250,470
+sub authorization HTTP::Headers::authorization13320,471
+sub authorization authorization13320,471
+sub authorization_basic HTTP::Headers::authorization_basic13391,473
+sub authorization_basic authorization_basic13391,473
+
+f:/perllib/lib/site_perl/http/date.pm,420
+package HTTP::Date;HTTP::Date63,3
+sub Version HTTP::Date::Version3690,103
+sub Version Version3690,103
+sub time2str (;$HTTP::Date::time2str4216,130
+sub time2str (;$time4216,130
+sub str2time ($HTTP::Date::str2time4495,143
+sub str2time ($str4495,143
+sub time2iso (;$HTTP::Date::time2iso8907,304
+sub time2iso (;$time8907,304
+sub time2isoz (;$HTTP::Date::time2isoz9146,314
+sub time2isoz (;$time9146,314
+
+f:/perllib/lib/site_perl/http/daemon.pm,733
+package HTTP::Daemon;HTTP::Daemon79,6
+sub newHTTP::Daemon::new2337,85
+sub acceptaccept2898,111
+sub urlurl3185,129
+sub product_tokensproduct_tokens3551,148
+package HTTP::Daemon::ClientConn;HTTP::Daemon::ClientConn3629,154
+sub get_requestHTTP::Daemon::ClientConn::get_request4569,191
+sub antique_clientantique_client8595,354
+sub send_status_linesend_status_line8800,367
+sub send_crlfsend_crlf9064,378
+sub send_basic_headersend_basic_header9275,392
+sub send_responsesend_response9682,410
+sub send_redirectsend_redirect10336,435
+sub send_errorsend_error11120,461
+sub send_file_responsesend_file_response11798,489
+sub send_dirsend_dir12481,517
+sub send_filesend_file12785,532
+sub daemondaemon13230,561
+
+f:/perllib/lib/site_perl/html/treebuilder.pm,679
+package HTML::TreeBuilder;HTML::TreeBuilder9,1
+sub newHTML::TreeBuilder::new3118,121
+sub _elemHTML::TreeBuilder::_elem3654,143
+sub implicit_tags HTML::TreeBuilder::implicit_tags3792,151
+sub implicit_tags implicit_tags3792,151
+sub ignore_unknown HTML::TreeBuilder::ignore_unknown3852,152
+sub ignore_unknown ignore_unknown3852,152
+sub ignore_text HTML::TreeBuilder::ignore_text3912,153
+sub ignore_text ignore_text3912,153
+sub warn HTML::TreeBuilder::warn3972,154
+sub warn warn3972,154
+sub warningHTML::TreeBuilder::warning4033,156
+sub startHTML::TreeBuilder::start4125,162
+sub endHTML::TreeBuilder::end7040,264
+sub textHTML::TreeBuilder::text7823,302
+
+f:/perllib/lib/site_perl/html/parser.pm,479
+package HTML::Parser;HTML::Parser9,1
+sub newHTML::Parser::new3658,122
+sub eofHTML::Parser::eof4445,149
+sub parseHTML::Parser::parse4484,155
+sub netscape_buggy_commentHTML::Parser::netscape_buggy_comment9414,318
+sub parse_fileHTML::Parser::parse_file9577,326
+sub textHTML::Parser::text9970,344
+sub declarationHTML::Parser::declaration10013,349
+sub commentHTML::Parser::comment10063,354
+sub startHTML::Parser::start10112,359
+sub endHTML::Parser::end10251,365
+
+f:/perllib/lib/site_perl/html/parse.pm,289
+package HTML::Parse;HTML::Parse9,1
+sub parse_html ($HTML::Parse::parse_html2972,121
+sub parse_html ($parse_html2972,121
+sub parse_htmlfile ($HTML::Parse::parse_htmlfile3082,129
+sub parse_htmlfile ($parse_htmlfile3082,129
+sub _new_tree_makerHTML::Parse::_new_tree_maker3243,138
+
+f:/perllib/lib/site_perl/html/linkextor.pm,304
+package HTML::LinkExtor;HTML::LinkExtor9,1
+ sub cb HTML::LinkExtor::cb198,11
+sub newHTML::LinkExtor::new1871,68
+sub startHTML::LinkExtor::start2037,77
+sub linksHTML::LinkExtor::links3119,118
+sub parse_fileHTML::LinkExtor::parse_file3324,126
+  sub callback HTML::LinkExtor::callback3739,147
+
+f:/perllib/lib/site_perl/html/headparser.pm,401
+package HTML::HeadParser;HTML::HeadParser9,1
+sub newHTML::HeadParser::new2421,100
+sub parseHTML::HeadParser::parse2749,111
+sub headerHTML::HeadParser::header2942,123
+sub as_stringHTML::HeadParser::as_string3015,129
+sub flush_textHTML::HeadParser::flush_text3090,135
+sub startHTML::HeadParser::start3776,160
+sub endHTML::HeadParser::end4982,197
+sub textHTML::HeadParser::text5132,205
+
+f:/perllib/lib/site_perl/html/formattext.pm,553
+package HTML::FormatText;HTML::FormatText9,1
+sub beginHTML::FormatText::begin839,45
+sub endHTML::FormatText::end1123,55
+sub header_startHTML::FormatText::header_start1163,61
+sub header_endHTML::FormatText::header_end1323,70
+sub hr_startHTML::FormatText::hr_start1578,84
+sub pre_outHTML::FormatText::pre_out1713,92
+sub outHTML::FormatText::out2073,109
+sub goto_lmHTML::FormatText::goto_lm2892,146
+sub nlHTML::FormatText::nl3078,157
+sub adjust_lmHTML::FormatText::adjust_lm3217,166
+sub adjust_rmHTML::FormatText::adjust_rm3304,173
+
+f:/perllib/lib/site_perl/html/formatter.pm,3953
+package HTML::Formatter;HTML::Formatter9,1
+ package HTML::FormatXX;HTML::FormatXX174,11
+sub newHTML::FormatXX::new929,46
+sub formatHTML::FormatXX::format988,52
+sub beginHTML::FormatXX::begin1503,76
+sub endHTML::FormatXX::end2009,98
+sub html_start HTML::FormatXX::html_start2022,102
+sub html_start html_start2022,102
+sub head_start HTML::FormatXX::head_start2061,103
+sub head_start head_start2061,103
+sub body_start HTML::FormatXX::body_start2083,104
+sub body_start body_start2083,104
+sub header_startHTML::FormatXX::header_start2123,106
+sub header_endHTML::FormatXX::header_end2304,116
+sub h1_start HTML::FormatXX::h1_start2476,125
+sub h1_start h2476,125
+sub h2_start HTML::FormatXX::h2_start2520,126
+sub h2_start h2520,126
+sub h3_start HTML::FormatXX::h3_start2564,127
+sub h3_start h2564,127
+sub h4_start HTML::FormatXX::h4_start2608,128
+sub h4_start h2608,128
+sub h5_start HTML::FormatXX::h5_start2652,129
+sub h5_start h2652,129
+sub h6_start HTML::FormatXX::h6_start2696,130
+sub h6_start h2696,130
+sub h1_end HTML::FormatXX::h1_end2741,132
+sub h1_end h2741,132
+sub h2_end HTML::FormatXX::h2_end2783,133
+sub h2_end h2783,133
+sub h3_end HTML::FormatXX::h3_end2825,134
+sub h3_end h2825,134
+sub h4_end HTML::FormatXX::h4_end2867,135
+sub h4_end h2867,135
+sub h5_end HTML::FormatXX::h5_end2909,136
+sub h5_end h2909,136
+sub h6_end HTML::FormatXX::h6_end2951,137
+sub h6_end h2951,137
+sub br_startHTML::FormatXX::br_start2994,139
+sub hr_startHTML::FormatXX::hr_start3087,147
+sub img_startHTML::FormatXX::img_start3179,154
+sub a_startHTML::FormatXX::a_start3247,159
+sub a_endHTML::FormatXX::a_end3294,165
+sub u_startHTML::FormatXX::u_start3332,170
+sub u_endHTML::FormatXX::u_end3382,176
+sub b_startHTML::FormatXX::b_start3423,181
+sub b_endHTML::FormatXX::b_end3468,187
+sub tt_startHTML::FormatXX::tt_start3504,192
+sub tt_endHTML::FormatXX::tt_end3554,198
+sub i_startHTML::FormatXX::i_start3595,203
+sub i_endHTML::FormatXX::i_end3642,209
+sub center_startHTML::FormatXX::center_start3680,214
+sub center_endHTML::FormatXX::center_end3732,220
+sub nobr_startHTML::FormatXX::nobr_start3775,225
+sub nobr_endHTML::FormatXX::nobr_end3823,231
+sub wbr_startHTML::FormatXX::wbr_start3862,236
+sub font_startHTML::FormatXX::font_start3888,241
+sub font_endHTML::FormatXX::font_end4153,254
+sub basefont_startHTML::FormatXX::basefont_start4299,262
+sub basefont_endHTML::FormatXX::basefont_end4470,271
+sub p_startHTML::FormatXX::p_start5092,297
+sub p_endHTML::FormatXX::p_end5190,305
+sub pre_startHTML::FormatXX::pre_start5227,310
+sub pre_endHTML::FormatXX::pre_end5317,318
+sub blockquote_startHTML::FormatXX::blockquote_start5541,332
+sub blockquote_endHTML::FormatXX::blockquote_end5704,342
+sub address_startHTML::FormatXX::address_start5828,350
+sub address_endHTML::FormatXX::address_end5956,359
+sub ul_startHTML::FormatXX::ul_start6072,368
+sub ul_endHTML::FormatXX::ul_end6205,377
+sub li_startHTML::FormatXX::li_start6323,385
+sub bulletHTML::FormatXX::bullet6467,394
+sub li_endHTML::FormatXX::li_end6503,399
+sub ol_startHTML::FormatXX::ol_start6843,418
+sub ol_endHTML::FormatXX::ol_end6973,428
+sub dl_startHTML::FormatXX::dl_start7090,437
+sub dl_endHTML::FormatXX::dl_end7185,445
+sub dt_startHTML::FormatXX::dt_start7271,452
+sub dt_endHTML::FormatXX::dt_end7370,460
+sub dd_startHTML::FormatXX::dd_start7386,464
+sub dd_endHTML::FormatXX::dd_end7511,473
+sub table_start HTML::FormatXX::table_start7583,480
+sub table_start table_start7583,480
+sub form_start HTML::FormatXX::form_start7639,481
+sub form_start form_start7639,481
+sub textflowHTML::FormatXX::textflow7698,485
+sub eat_leading_spaceHTML::FormatXX::eat_leading_space7987,504
+sub vspaceHTML::FormatXX::vspace8051,510
+sub collectHTML::FormatXX::collect8187,517
+sub outHTML::FormatXX::out8238,522
+sub pre_outHTML::FormatXX::pre_out8297,527
+
+f:/perllib/lib/site_perl/html/formatps.pm,1240
+package HTML::FormatPS;HTML::FormatPS9,1
+sub mm HTML::FormatPS::mm2304,117
+sub mm mm2304,117
+sub in HTML::FormatPS::in2334,118
+sub in in2334,118
+sub BOLD HTML::FormatPS::BOLD3215,158
+sub BOLD BOLD3215,158
+sub ITALIC HTML::FormatPS::ITALIC3236,159
+sub ITALIC ITALIC3236,159
+sub newHTML::FormatPS::new3678,179
+sub papersizeHTML::FormatPS::papersize4500,219
+sub fontsizeHTML::FormatPS::fontsize4761,232
+sub findfontHTML::FormatPS::findfont4941,242
+sub widthHTML::FormatPS::width5890,276
+sub beginHTML::FormatPS::begin6074,289
+sub endHTML::FormatPS::end6842,321
+sub header_startHTML::FormatPS::header_start10898,435
+sub header_endHTML::FormatPS::header_end11195,448
+sub hr_startHTML::FormatPS::hr_start11332,457
+sub skip_vspaceHTML::FormatPS::skip_vspace11645,472
+sub showHTML::FormatPS::show11958,489
+sub showlineHTML::FormatPS::showline12186,500
+sub endpageendpage13984,560
+sub newpagenewpage14105,569
+sub outout15192,607
+sub pre_outpre_out15869,636
+sub bulletbullet16227,655
+sub adjust_lmadjust_lm16342,662
+sub adjust_rmadjust_rm16445,670
+sub head_start head_start16547,677
+sub head_end head_end16574,681
+sub title_start title_start16599,685
+sub title_end title_end16684,691
+
+f:/perllib/lib/site_perl/html/entities.pm,239
+package HTML::Entities;HTML::Entities9,1
+sub Version HTML::Entities::Version1581,64
+sub Version Version1581,64
+sub decode_entitiesHTML::Entities::decode_entities5607,189
+sub encode_entitiesHTML::Entities::encode_entities5749,198
+
+f:/perllib/lib/site_perl/html/element.pm,1015
+package HTML::Element;HTML::Element9,1
+sub Version HTML::Element::Version1019,46
+sub Version Version1019,46
+sub newHTML::Element::new3045,115
+sub tagHTML::Element::tag3549,141
+sub starttagHTML::Element::starttag3797,160
+sub endtagHTML::Element::endtag4593,198
+sub parentHTML::Element::parent4734,211
+sub implicitHTML::Element::implicit5094,231
+sub is_insideHTML::Element::is_inside5260,244
+sub posHTML::Element::pos5761,271
+sub attrHTML::Element::attr6021,290
+sub contentHTML::Element::content6354,311
+sub is_emptyHTML::Element::is_empty6465,324
+sub insert_elementHTML::Element::insert_element6736,339
+sub push_contentHTML::Element::push_content7309,368
+sub delete_contentHTML::Element::delete_content7834,398
+sub deleteHTML::Element::delete8177,419
+sub traverseHTML::Element::traverse8761,442
+sub extract_linksHTML::Element::extract_links9705,480
+sub dumpHTML::Element::dump10488,514
+sub as_HTMLHTML::Element::as_HTML10901,539
+sub formatHTML::Element::format11392,563
+
+f:/perllib/lib/site_perl/html/assubs.pm,101
+package HTML::AsSubs;HTML::AsSubs9,1
+ sub html HTML::AsSubs::html1005,41
+sub _elem_elem2096,90
+
+f:/perllib/lib/site_perl/ftpt.pl,0
+
+f:/perllib/lib/site_perl/freezethaw.pm,2989
+  sub UNIVERSAL::Freeze UNIVERSAL::Freeze2768,99
+  sub UNIVERSAL::Thaw UNIVERSAL::Thaw2875,104
+package FreezeThaw;FreezeThaw7921,267
+sub flushCache FreezeThaw::flushCache8129,279
+sub flushCache flushCache8129,279
+sub getref FreezeThaw::getref8176,281
+sub getref getref8176,281
+sub freezeString FreezeThaw::freezeString8337,292
+sub freezeString freezeString8337,292
+sub freezeNumber FreezeThaw::freezeNumber8403,294
+sub freezeNumber freezeNumber8403,294
+sub thawString FreezeThaw::thawString8446,296
+sub thawString thawString8446,296
+sub thawNumber FreezeThaw::thawNumber8868,304
+sub thawNumber thawNumber8868,304
+sub freezeArray FreezeThaw::freezeArray9078,309
+sub freezeArray freezeArray9078,309
+sub thawArray FreezeThaw::thawArray9180,316
+sub thawArray thawArray9180,316
+sub freezeHash FreezeThaw::freezeHash9622,331
+sub freezeHash freezeHash9622,331
+sub thawHash FreezeThaw::thawHash9766,339
+sub thawHash thawHash9766,339
+sub freezeScalar FreezeThaw::freezeScalar10050,352
+sub freezeScalar freezeScalar10050,352
+sub freezePackage FreezeThaw::freezePackage11779,399
+sub freezePackage freezePackage11779,399
+sub thawPackage FreezeThaw::thawPackage12072,412
+sub thawPackage thawPackage12072,412
+sub thawScalar FreezeThaw::thawScalar12449,427
+sub thawScalar thawScalar12449,427
+sub freezeEmpty FreezeThaw::freezeEmpty14088,474
+sub freezeEmpty freezeEmpty14088,474
+sub freeze FreezeThaw::freeze14453,491
+sub freeze freeze14453,491
+sub safeFreeze FreezeThaw::safeFreeze16446,555
+sub safeFreeze safeFreeze16446,555
+sub copyContents FreezeThaw::copyContents16496,560
+sub copyContents copyContents16496,560
+sub thaw FreezeThaw::thaw17075,579
+sub thaw thaw17075,579
+sub cmpStr FreezeThaw::cmpStr18613,632
+sub cmpStr cmpStr18613,632
+sub cmpStrHard FreezeThaw::cmpStrHard18723,637
+sub cmpStrHard cmpStrHard18723,637
+sub FreezeThaw::FCooky::FreezeScalar FreezeThaw::FCooky::FreezeScalar20175,688
+sub FreezeThaw::FCooky::isSafe FreezeThaw::FCooky::isSafe20243,693
+sub FreezeThaw::FCooky::makeSafe FreezeThaw::FCooky::makeSafe20300,697
+sub FreezeThaw::FCooky::repeatedOK FreezeThaw::FCooky::repeatedOK20354,701
+sub FreezeThaw::FCooky::noRepeated FreezeThaw::FCooky::noRepeated20410,705
+sub FreezeThaw::TCooky::repeatedOK FreezeThaw::TCooky::repeatedOK20469,709
+sub FreezeThaw::TCooky::noRepeated FreezeThaw::TCooky::noRepeated20522,713
+sub FreezeThaw::TCooky::isSafe FreezeThaw::TCooky::isSafe20581,717
+sub FreezeThaw::TCooky::makeSafe FreezeThaw::TCooky::makeSafe20629,721
+sub FreezeThaw::TCooky::ThawScalar FreezeThaw::TCooky::ThawScalar20684,725
+sub UNIVERSAL::Freeze UNIVERSAL::Freeze20810,732
+sub UNIVERSAL::Thaw UNIVERSAL::Thaw20909,737
+sub UNIVERSAL::FreezeInstance UNIVERSAL::FreezeInstance21032,743
+sub UNIVERSAL::Instantiate UNIVERSAL::Instantiate21115,748
+sub UNIVERSAL::Allocate UNIVERSAL::Allocate21243,754
+sub UNIVERSAL::FreezeEmpty UNIVERSAL::FreezeEmpty21322,759
+
+f:/perllib/lib/site_perl/font/metrics/timesroman.pm,67
+package Font::Metrics::TimesRoman;Font::Metrics::TimesRoman299,9
+
+f:/perllib/lib/site_perl/font/metrics/timesitalic.pm,69
+package Font::Metrics::TimesItalic;Font::Metrics::TimesItalic300,9
+
+f:/perllib/lib/site_perl/font/metrics/timesbolditalic.pm,77
+package Font::Metrics::TimesBoldItalic;Font::Metrics::TimesBoldItalic304,9
+
+f:/perllib/lib/site_perl/font/metrics/timesbold.pm,65
+package Font::Metrics::TimesBold;Font::Metrics::TimesBold298,9
+
+f:/perllib/lib/site_perl/font/metrics/helveticaoblique.pm,79
+package Font::Metrics::HelveticaOblique;Font::Metrics::HelveticaOblique309,9
+
+f:/perllib/lib/site_perl/font/metrics/helveticaboldoblique.pm,87
+package Font::Metrics::HelveticaBoldOblique;Font::Metrics::HelveticaBoldOblique313,9
+
+f:/perllib/lib/site_perl/font/metrics/helveticabold.pm,73
+package Font::Metrics::HelveticaBold;Font::Metrics::HelveticaBold306,9
+
+f:/perllib/lib/site_perl/font/metrics/helvetica.pm,65
+package Font::Metrics::Helvetica;Font::Metrics::Helvetica301,9
+
+f:/perllib/lib/site_perl/font/metrics/courieroblique.pm,75
+package Font::Metrics::CourierOblique;Font::Metrics::CourierOblique224,9
+
+f:/perllib/lib/site_perl/font/metrics/courierboldoblique.pm,83
+package Font::Metrics::CourierBoldOblique;Font::Metrics::CourierBoldOblique228,9
+
+f:/perllib/lib/site_perl/font/metrics/courierbold.pm,69
+package Font::Metrics::CourierBold;Font::Metrics::CourierBold221,9
+
+f:/perllib/lib/site_perl/font/metrics/courier.pm,61
+package Font::Metrics::Courier;Font::Metrics::Courier216,9
+
+f:/perllib/lib/site_perl/font/afm.pm,377
+package Font::AFM;Font::AFM138,4
+sub ModuleVersion Font::AFM::ModuleVersion4557,189
+sub ModuleVersion ModuleVersion4557,189
+sub newFont::AFM::new6831,236
+sub latin1_wx_tableFont::AFM::latin1_wx_table8435,288
+sub latin1_wx_tablelatin8435,288
+sub stringwidthFont::AFM::stringwidth8638,298
+sub AUTOLOADFont::AFM::AUTOLOAD9333,338
+sub dumpFont::AFM::dump9692,356
+
+f:/perllib/lib/site_perl/file/listing.pm,861
+package File::Listing;File::Listing66,4
+sub Version File::Listing::Version86,6
+sub Version Version86,6
+sub parse_dir ($File::Listing::parse_dir2565,81
+sub parse_dir ($parse_dir2565,81
+sub line File::Listing::line2808,95
+sub line line2808,95
+sub init File::Listing::init2857,96
+sub init init2857,96
+sub file_mode ($File::Listing::file_mode2894,98
+sub file_mode ($file_mode2894,98
+sub parseFile::Listing::parse3495,128
+package File::Listing::unix;File::Listing::unix4750,180
+sub initFile::Listing::unix::init4940,191
+sub lineFile::Listing::unix::line4972,196
+package File::Listing::dosftp;File::Listing::dosftp7195,264
+sub initFile::Listing::dosftp::init7386,274
+sub lineFile::Listing::dosftp::line7418,279
+package File::Listing::vms;File::Listing::vms8603,321
+package File::Listing::netware;File::Listing::netware8679,324
+
+f:/perllib/lib/site_perl/file/counterfile.pm,502
+package File::CounterFile;File::CounterFile137,6
+sub Version File::CounterFile::Version2761,88
+sub Version Version2761,88
+sub newFile::CounterFile::new3221,105
+sub lockedFile::CounterFile::locked4135,139
+sub lockFile::CounterFile::lock4180,145
+sub unlockFile::CounterFile::unlock4675,170
+sub incFile::CounterFile::inc5024,190
+sub decFile::CounterFile::dec5252,207
+sub valueFile::CounterFile::value5650,228
+sub DESTROYFile::CounterFile::DESTROY5839,243
+package main;main6375,262
+
+f:/perllib/lib/site_perl/devel/peek.pm,37
+package Devel::Peek;Devel::Peek9,1
+
+f:/perllib/lib/site_perl/devel/dprof.pm,139
+	sub entry(entry2130,69
+package DB;DB2810,94
+sub sub DB::sub2895,97
+sub sub sub2895,97
+sub DB DB::DB3090,111
+sub DB DB3090,111
+
+f:/perllib/lib/site_perl/data/flow.pm,259
+package Data::Flow;Data::Flow9,1
+sub new Data::Flow::new425,20
+sub new new425,20
+sub set Data::Flow::set596,29
+sub set set596,29
+sub get Data::Flow::get753,36
+sub get get753,36
+sub request Data::Flow::request863,43
+sub request request863,43
+
+f:/perllib/lib/site_perl/data/dumper.pm,1298
+package Data::Dumper;Data::Dumper152,10
+sub new Data::Dumper::new1061,47
+sub new new1061,47
+sub Seen Data::Dumper::Seen2656,85
+sub Seen Seen2656,85
+sub Values Data::Dumper::Values3269,115
+sub Values Values3269,115
+sub Names Data::Dumper::Names3498,128
+sub Names Names3498,128
+sub DESTROY Data::Dumper::DESTROY3669,138
+sub DESTROY DESTROY3669,138
+sub Dump Data::Dumper::Dump3792,144
+sub Dump Dump3792,144
+sub _dump Data::Dumper::_dump4889,196
+sub _dump _dump4889,196
+sub Dumper Dumper10500,396
+sub DumperX DumperX10589,403
+sub Dumpf Dumpf10647,407
+sub Dumpp Dumpp10692,409
+sub Reset Reset10766,414
+sub Indent Indent10818,419
+sub Pad Pad11060,435
+sub Varname Varname11138,440
+sub Purity Purity11228,445
+sub Useqq Useqq11315,450
+sub Terse Terse11399,455
+sub Freezer Freezer11483,460
+sub Toaster Toaster11573,465
+sub Deepcopy Deepcopy11663,470
+sub qquote qquote11794,476
+    package Foo;Foo22136,753
+    sub new Foo::new22149,754
+    package Fuz;Fuz22222,756
+    sub new Fuz::new22289,757
+    package main;main22340,759
+    package Foo;Foo24273,835
+    sub new Foo::new24286,836
+    sub Freeze Foo::Freeze24336,837
+    package Foo::ZZZ;Foo::ZZZ24484,844
+    sub Thaw Foo::ZZZ::Thaw24502,845
+    package Foo;Foo24633,852
+
+f:/perllib/lib/site_perl/curses.pm,754
+package Curses;Curses9,1
+sub newCurses::new346,16
+sub AUTOLOADCurses::AUTOLOAD591,25
+sub _unimplCurses::_unimpl857,38
+sub tstp Curses::tstp945,43
+sub tstp tstp945,43
+sub printw Curses::printw984,44
+sub printw printw984,44
+sub scanw Curses::scanw1023,45
+sub scanw scanw1023,45
+sub _putchar Curses::_putchar1062,46
+sub _putchar _putchar1062,46
+sub fullname Curses::fullname1101,47
+sub fullname fullname1101,47
+sub KEY_F Curses::KEY_F3738,103
+sub KEY_F KEY_F3738,103
+    sub wprintw Curses::wprintw4916,138
+    sub mvprintw Curses::mvprintw4959,139
+    sub mvwprintw{Curses::mvwprintw5002,140
+    sub wscanw Curses::wscanw5045,141
+    sub mvscanw Curses::mvscanw5088,142
+    sub mvwscanw Curses::mvwscanw5131,143
+
+f:/perllib/lib/site_perl/cpan/wait.pm,294
+package CPAN::WAIT;CPAN::WAIT448,15
+sub wq CPAN::WAIT::wq2228,77
+sub wq wq2228,77
+sub wr CPAN::WAIT::wr2606,95
+sub wr wr2606,95
+sub wd CPAN::WAIT::wd2883,111
+sub wd wd2883,111
+sub wl CPAN::WAIT::wl3593,140
+sub wl wl3593,140
+sub wh CPAN::WAIT::wh6345,215
+sub wh wh6345,215
+
+f:/perllib/lib/site_perl/c/scan.pm,2013
+package C::Scan;C::Scan9,1
+sub from_chunks C::Scan::from_chunks4806,115
+sub from_chunks from_chunks4806,115
+sub includes C::Scan::includes5093,130
+sub includes includes5093,130
+sub defines_maybe C::Scan::defines_maybe5534,148
+sub defines_maybe defines_maybe5534,148
+sub typedef_texts C::Scan::typedef_texts6993,199
+sub typedef_texts typedef_texts6993,199
+sub typedef_chunks C::Scan::typedef_chunks7193,209
+sub typedef_chunks typedef_chunks7193,209
+sub functions_in C::Scan::functions_in7523,224
+sub functions_in functions_in7523,224
+sub typedefs_maybe C::Scan::typedefs_maybe9320,283
+sub typedefs_maybe typedefs_maybe9320,283
+sub typedef_words C::Scan::typedef_words9560,294
+sub typedef_words typedef_words9560,294
+sub matchingbrace C::Scan::matchingbrace10496,322
+sub matchingbrace matchingbrace10496,322
+sub remove_Comments_no_Strings C::Scan::remove_Comments_no_Strings10745,333
+sub remove_Comments_no_Strings remove_Comments_no_Strings10745,333
+sub sanitize C::Scan::sanitize10948,340
+sub sanitize sanitize10948,340
+sub top_level C::Scan::top_level11643,363
+sub top_level top_level11643,363
+sub remove_type_decl C::Scan::remove_type_decl11998,377
+sub remove_type_decl remove_type_decl11998,377
+sub new C::Scan::new12310,386
+sub new new12310,386
+sub do_declarations C::Scan::do_declarations12385,388
+sub do_declarations do_declarations12385,388
+sub do_declaration C::Scan::do_declaration12575,396
+sub do_declaration do_declaration12575,396
+sub do_declaration1 C::Scan::do_declaration114670,465
+sub do_declaration1 do_declaration14670,465
+package C::Preprocessed;C::Preprocessed16800,535
+sub new C::Preprocessed::new16905,540
+sub new new16905,540
+sub text C::Preprocessed::text17865,560
+sub text text17865,560
+sub text_only_from C::Preprocessed::text_only_from18099,573
+sub text_only_from text_only_from18099,573
+sub DESTROY C::Preprocessed::DESTROY18452,589
+sub DESTROY DESTROY18452,589
+package C::Scan;C::Scan18684,596
+
+f:/perllib/lib/site_perl/bundle/lwp.pm,37
+package Bundle::LWP;Bundle::LWP9,1
+
+f:/perllib/lib/sigtrap.pm,307
+package sigtrap;sigtrap9,1
+sub import sigtrap::import143,14
+sub import import143,14
+sub handler_die sigtrap::handler_die1690,78
+sub handler_die handler_die1690,78
+sub handler_traceback sigtrap::handler_traceback1742,82
+sub handler_traceback handler_traceback1742,82
+    package DB;DB1774,83
+
+f:/perllib/lib/shellwords.pl,76
+sub shellwords shellwords202,11
+    package shellwords;shellwords227,12
+
+f:/perllib/lib/shell.pm,80
+package Shell;Shell9,1
+sub import Shell::import34,5
+sub import import34,5
+
+f:/perllib/lib/selfloader.pm,622
+package SelfLoader;SelfLoader9,1
+sub load_stubs SelfLoader::load_stubs1095,35
+sub load_stubs load_stubs1095,35
+sub _load_stubs SelfLoader::_load_stubs1147,37
+sub _load_stubs _load_stubs1147,37
+sub _add_to_cache SelfLoader::_add_to_cache3408,90
+sub _add_to_cache _add_to_cache3408,90
+sub _package_defined SelfLoader::_package_defined3823,100
+sub _package_defined _package_defined3823,100
+    package FOOBAR;FOOBAR3942,111
+package ''main'4574,133
+package that that4920,140
+package using using6444,171
+   sub foo::bar foo::bar11411,284
+   package baz;baz11436,285
+   sub dob baz::dob11448,286
+
+f:/perllib/lib/selectsaver.pm,159
+package SelectSaver;SelectSaver9,1
+sub new SelectSaver::new795,39
+sub new new795,39
+sub DESTROY SelectSaver::DESTROY991,47
+sub DESTROY DESTROY991,47
+
+f:/perllib/lib/search/dict.pm,97
+package Search::Dict;Search::Dict9,1
+sub look Search::Dict::look628,32
+sub look look628,32
+
+f:/perllib/lib/pwd.pl,96
+package pwd;pwd252,13
+sub main'initpwd main'initpwd267,15
+sub main'chdir main'chdir676,35
+
+f:/perllib/lib/pod/text.pm,544
+package Pod::Text;Pod::Text9,1
+sub pod2text Pod::Text::pod2text1550,66
+sub pod2text pod1550,66
+sub prepare_for_output Pod::Text::prepare_for_output3160,145
+sub prepare_for_output prepare_for_output3160,145
+sub makespace makespace6213,301
+sub bold bold6297,308
+sub italic italic6524,320
+sub fill fill6912,335
+sub IP_output IP_output7537,365
+sub output output8172,389
+sub noremap noremap8578,409
+sub init_noremap init_noremap8704,415
+sub clear_noremap clear_noremap8858,421
+sub internal_lrefs internal_lrefs9418,450
+
+f:/perllib/lib/pod/html.pm,2406
+package Pod::Html;Pod::Html9,1
+sub init_globals Pod::Html::init_globals4505,202
+sub init_globals init_globals4505,202
+sub pod2html Pod::Html::pod2html6398,250
+sub pod2html pod6398,250
+sub usage Pod::Html::usage10645,411
+sub usage usage10645,411
+sub parse_command_line Pod::Html::parse_command_line12537,452
+sub parse_command_line parse_command_line12537,452
+sub get_cache Pod::Html::get_cache14265,498
+sub get_cache get_cache14265,498
+sub cache_key Pod::Html::cache_key15196,527
+sub cache_key cache_key15196,527
+sub load_cache Pod::Html::load_cache15590,539
+sub load_cache load_cache15590,539
+sub scan_podpath Pod::Html::scan_podpath17047,611
+sub scan_podpath scan_podpath17047,611
+sub scan_dir Pod::Html::scan_dir19906,709
+sub scan_dir scan_dir19906,709
+sub scan_headings Pod::Html::scan_headings20976,750
+sub scan_headings scan_headings20976,750
+sub scan_items Pod::Html::scan_items22310,800
+sub scan_items scan_items22310,800
+sub process_head Pod::Html::process_head23070,837
+sub process_head process_head23070,837
+sub process_item Pod::Html::process_item23820,861
+sub process_item process_item23820,861
+sub process_over Pod::Html::process_over26229,949
+sub process_over process_over26229,949
+sub process_back Pod::Html::process_back26367,957
+sub process_back process_back26367,957
+sub process_cut Pod::Html::process_cut27061,980
+sub process_cut process_cut27061,980
+sub process_pod Pod::Html::process_pod27205,988
+sub process_pod process_pod27205,988
+sub process_for Pod::Html::process_for27396,996
+sub process_for process_for27396,996
+sub process_begin Pod::Html::process_begin27665,1008
+sub process_begin process_begin27665,1008
+sub process_end Pod::Html::process_end27935,1021
+sub process_end process_end27935,1021
+sub process_text Pod::Html::process_text28297,1035
+sub process_text process_text28297,1035
+sub html_escape Pod::Html::html_escape33253,1211
+sub html_escape html_escape33253,1211
+sub process_puretext process_puretext33552,1224
+sub pre_escape pre_escape35939,1305
+sub process_L process_L36460,1321
+sub process_BFI process_BFI38613,1397
+sub process_C process_C38928,1412
+sub process_E process_E39802,1441
+sub process_Z process_Z40048,1455
+sub process_S process_S40320,1467
+sub process_X process_X40556,1479
+sub finish_list finish_list40726,1488
+sub htmlify htmlify40963,1499
+
+f:/perllib/lib/pod/functions.pm,136
+package Pod::Functions;Pod::Functions9,1
+package	Modules,Modules7367,195
+sub	Flow	Modules::Flow10616,264
+sub	Flow	Flow10616,264
+
+f:/perllib/lib/perl5db.pl,3287
+package DB;DB9,1
+sub DB DB::DB11499,352
+sub DB DB11499,352
+sub sub DB::sub33710,1101
+sub sub sub33710,1101
+sub save DB::save34988,1139
+sub save save34988,1139
+sub eval DB::eval35156,1146
+sub eval eval35156,1146
+sub postponed_sub DB::postponed_sub35689,1170
+sub postponed_sub postponed_sub35689,1170
+sub postponed DB::postponed36405,1193
+sub postponed postponed36405,1193
+sub dumpit DB::dumpit37102,1213
+sub dumpit dumpit37102,1213
+sub print_trace DB::print_trace37603,1235
+sub print_trace print_trace37603,1235
+sub dump_trace DB::dump_trace38460,1263
+sub dump_trace dump_trace38460,1263
+sub action DB::action39820,1314
+sub action action39820,1314
+sub gets DB::gets39969,1324
+sub gets gets39969,1324
+sub system DB::system40034,1330
+sub system system40034,1330
+sub setterm DB::setterm40791,1347
+sub setterm setterm40791,1347
+sub readline DB::readline42235,1391
+sub readline readline42235,1391
+sub dump_option DB::dump_option42565,1405
+sub dump_option dump_option42565,1405
+sub option_val DB::option_val42722,1412
+sub option_val option_val42722,1412
+sub parse_options DB::parse_options43229,1432
+sub parse_options parse_options43229,1432
+sub set_list DB::set_list44823,1477
+sub set_list set_list44823,1477
+sub get_list DB::get_list45082,1489
+sub get_list get_list45082,1489
+sub catch DB::catch45340,1502
+sub catch catch45340,1502
+sub warn DB::warn45433,1507
+sub warn warn45433,1507
+sub TTY DB::TTY45538,1513
+sub TTY TTY45538,1513
+sub noTTY DB::noTTY45682,1521
+sub noTTY noTTY45682,1521
+sub ReadLine DB::ReadLine45821,1529
+sub ReadLine ReadLine45821,1529
+sub tkRunning DB::tkRunning45960,1537
+sub tkRunning tkRunning45960,1537
+sub NonStop DB::NonStop46151,1546
+sub NonStop NonStop46151,1546
+sub pager DB::pager46312,1554
+sub pager pager46312,1554
+sub shellBang DB::shellBang46427,1562
+sub shellBang shellBang46427,1562
+sub ornaments DB::ornaments46609,1574
+sub ornaments ornaments46609,1574
+sub recallCommand DB::recallCommand46825,1584
+sub recallCommand recallCommand46825,1584
+sub LineInfo DB::LineInfo47011,1596
+sub LineInfo LineInfo47011,1596
+sub list_versions DB::list_versions47374,1609
+sub list_versions list_versions47374,1609
+sub sethelp DB::sethelp47906,1632
+sub sethelp sethelp47906,1632
+sub diesignal DB::diesignal54757,1763
+sub diesignal diesignal54757,1763
+sub dbwarn DB::dbwarn55111,1779
+sub dbwarn dbwarn55111,1779
+sub dbdie DB::dbdie55745,1798
+sub dbdie dbdie55745,1798
+sub warnLevel DB::warnLevel56784,1829
+sub warnLevel warnLevel56784,1829
+sub dieLevel DB::dieLevel57019,1842
+sub dieLevel dieLevel57019,1842
+sub signalLevel DB::signalLevel57556,1861
+sub signalLevel signalLevel57556,1861
+sub find_sub DB::find_sub57901,1877
+sub find_sub find_sub57901,1877
+sub methods DB::methods58133,1890
+sub methods methods58133,1890
+sub methods_via DB::methods_via58313,1899
+sub methods_via methods_via58313,1899
+sub db_complete DB::db_complete59800,1949
+sub db_complete db_complete59800,1949
+sub end_report DB::end_report62936,2029
+sub end_report end_report62936,2029
+package DB::fake;DB::fake63258,2040
+sub at_exit DB::fake::at_exit63273,2042
+sub at_exit at_exit63273,2042
+package DB;DB63364,2046
+
+f:/perllib/lib/os2/rexx.pm,1068
+package OS2::REXX;OS2::REXX9,1
+sub AUTOLOAD OS2::REXX::AUTOLOAD337,13
+sub loadOS2::REXX::load908,32
+sub findOS2::REXX::find1516,51
+sub prefixOS2::REXX::prefix2084,72
+sub queueOS2::REXX::queue2145,78
+sub dropOS2::REXX::drop2204,84
+sub dropallOS2::REXX::dropall2417,91
+sub TIESCALAROS2::REXX::TIESCALAR2867,107
+sub TIEARRAYOS2::REXX::TIEARRAY2985,114
+sub TIEHASHOS2::REXX::TIEHASH3104,121
+package OS2::REXX::_SCALAR;OS2::REXX::_SCALAR3308,129
+sub FETCHOS2::REXX::_SCALAR::FETCH3333,131
+sub STORESTORE3385,136
+sub DESTROYDESTROY3442,141
+package OS2::REXX::_ARRAY;OS2::REXX::_ARRAY3577,147
+sub FETCHOS2::REXX::_ARRAY::FETCH3601,149
+sub STOREOS2::REXX::_ARRAY::STORE3712,155
+package OS2::REXX::_HASH;OS2::REXX::_HASH3910,162
+sub FIRSTKEYOS2::REXX::_HASH::FIRSTKEY3975,167
+sub NEXTKEYOS2::REXX::_HASH::NEXTKEY4319,186
+sub EXISTSOS2::REXX::_HASH::EXISTS4366,191
+sub FETCHOS2::REXX::_HASH::FETCH4438,196
+sub STOREOS2::REXX::_HASH::STORE4501,201
+sub DELETEOS2::REXX::_HASH::DELETE4569,206
+package OS2::REXX;OS2::REXX4707,212
+
+f:/perllib/lib/os2/process.pm,83
+package OS2::Process;OS2::Process9,1
+sub AUTOLOAD OS2::Process::AUTOLOAD556,32
+
+f:/perllib/lib/os2/prfdb.pm,1000
+package OS2::PrfDB;OS2::PrfDB9,1
+sub AnyIni OS2::PrfDB::AnyIni492,22
+sub UserIni OS2::PrfDB::UserIni606,27
+sub SystemIni OS2::PrfDB::SystemIni705,31
+sub TIEHASH OS2::PrfDB::TIEHASH945,41
+sub STORE OS2::PrfDB::STORE1291,51
+sub FETCH OS2::PrfDB::FETCH1468,60
+sub DELETE OS2::PrfDB::DELETE1599,68
+sub EXISTS OS2::PrfDB::EXISTS1773,78
+sub FIRSTKEY OS2::PrfDB::FIRSTKEY1901,84
+sub NEXTKEY OS2::PrfDB::NEXTKEY2274,96
+package OS2::PrfDB::Hini;OS2::PrfDB::Hini2513,104
+sub new OS2::PrfDB::Hini::new2536,106
+sub new_from_int OS2::PrfDB::Hini::new_from_int2795,117
+sub DESTROY OS2::PrfDB::Hini::DESTROY2902,121
+package OS2::PrfDB::Sub;OS2::PrfDB::Sub3073,129
+sub TIEHASH OS2::PrfDB::Sub::TIEHASH3245,137
+sub STORE OS2::PrfDB::Sub::STORE3617,147
+sub FETCH OS2::PrfDB::Sub::FETCH3743,153
+sub DELETE OS2::PrfDB::Sub::DELETE3857,159
+sub EXISTS OS2::PrfDB::Sub::EXISTS4017,167
+sub FIRSTKEY OS2::PrfDB::Sub::FIRSTKEY4150,173
+sub NEXTKEY OS2::PrfDB::Sub::NEXTKEY4528,185
+
+f:/perllib/lib/os2/extattr.pm,490
+package OS2::ExtAttr;OS2::ExtAttr9,1
+sub TIEHASH OS2::ExtAttr::TIEHASH563,25
+sub DESTROY OS2::ExtAttr::DESTROY962,40
+sub FIRSTKEY OS2::ExtAttr::FIRSTKEY1170,48
+sub NEXTKEY OS2::ExtAttr::NEXTKEY1340,56
+sub FETCH OS2::ExtAttr::FETCH1474,63
+sub EXISTS OS2::ExtAttr::EXISTS1613,70
+sub STORE OS2::ExtAttr::STORE1686,75
+sub DELETE OS2::ExtAttr::DELETE1803,81
+sub CLEAR OS2::ExtAttr::CLEAR2044,91
+sub copy OS2::ExtAttr::copy2167,101
+sub update OS2::ExtAttr::update2533,114
+
+f:/perllib/lib/os2/5.00401/socket.pm,267
+package Socket;Socket9,1
+sub sockaddr_in Socket::sockaddr_in6216,242
+sub sockaddr_in sockaddr_in6216,242
+sub sockaddr_un Socket::sockaddr_un6688,256
+sub sockaddr_un sockaddr_un6688,256
+sub AUTOLOAD Socket::AUTOLOAD6944,267
+sub AUTOLOAD AUTOLOAD6944,267
+
+f:/perllib/lib/os2/5.00401/sdbm_file.pm,33
+package SDBM_File;SDBM_File9,1
+
+f:/perllib/lib/os2/5.00401/safe.pm,1210
+package Safe;Safe9,1
+sub new Safe::new396,23
+sub new new396,23
+sub DESTROY Safe::DESTROY1454,54
+sub DESTROY DESTROY1454,54
+sub erase Safe::erase1526,59
+sub erase erase1526,59
+sub reinit Safe::reinit2463,92
+sub reinit reinit2463,92
+sub root Safe::root2538,98
+sub root root2538,98
+sub mask Safe::mask2650,105
+sub mask mask2650,105
+sub trap Safe::trap2772,112
+sub trap trap2772,112
+sub untrap Safe::untrap2805,113
+sub untrap untrap2805,113
+sub deny Safe::deny2839,115
+sub deny deny2839,115
+sub deny_only Safe::deny_only2904,119
+sub deny_only deny_only2904,119
+sub permit Safe::permit2974,124
+sub permit permit2974,124
+sub permit_only Safe::permit_only3078,129
+sub permit_only permit_only3078,129
+sub dump_mask Safe::dump_mask3164,135
+sub dump_mask dump_mask3164,135
+sub share Safe::share3249,142
+sub share share3249,142
+sub share_from Safe::share_from3336,147
+sub share_from share_from3336,147
+sub share_record share_record4379,178
+sub share_redo share_redo4622,186
+sub share_forget share_forget4845,195
+sub varglob varglob4895,199
+sub reval reval4998,206
+sub rdo rdo5530,222
+    sub wrapper wrapper8007,300
+package that that10897,396
+
+f:/perllib/lib/os2/5.00401/posix.pm,9787
+package POSIX;POSIX9,1
+sub import POSIX::import6452,185
+sub import import6452,185
+sub AUTOLOAD POSIX::AUTOLOAD6715,198
+sub AUTOLOAD AUTOLOAD6715,198
+sub usage POSIX::usage7337,223
+sub usage usage7337,223
+sub redef POSIX::redef7407,228
+sub redef redef7407,228
+sub unimpl POSIX::unimpl7482,233
+sub unimpl unimpl7482,233
+package POSIX::SigAction;POSIX::SigAction7616,240
+sub new POSIX::SigAction::new7639,242
+sub new new7639,242
+package POSIX;POSIX7758,247
+sub assert POSIX::assert7829,251
+sub assert assert7829,251
+sub tolower POSIX::tolower7933,258
+sub tolower tolower7933,258
+sub toupper POSIX::toupper8005,263
+sub toupper toupper8005,263
+sub closedir POSIX::closedir8077,268
+sub closedir closedir8077,268
+sub opendir POSIX::opendir8160,273
+sub opendir opendir8160,273
+sub readdir POSIX::readdir8303,281
+sub readdir readdir8303,281
+sub rewinddir POSIX::rewinddir8383,286
+sub rewinddir rewinddir8383,286
+sub errno POSIX::errno8469,291
+sub errno errno8469,291
+sub creat POSIX::creat8528,296
+sub creat creat8528,296
+sub fcntl POSIX::fcntl8647,301
+sub fcntl fcntl8647,301
+sub getgrgid POSIX::getgrgid8746,306
+sub getgrgid getgrgid8746,306
+sub getgrnam POSIX::getgrnam8823,311
+sub getgrnam getgrnam8823,311
+sub atan2 POSIX::atan28901,316
+sub atan2 atan8901,316
+sub cos POSIX::cos8976,321
+sub cos cos8976,321
+sub exp POSIX::exp9036,326
+sub exp exp9036,326
+sub fabs POSIX::fabs9096,331
+sub fabs fabs9096,331
+sub log POSIX::log9158,336
+sub log log9158,336
+sub pow POSIX::pow9218,341
+sub pow pow9218,341
+sub sin POSIX::sin9291,346
+sub sin sin9291,346
+sub sqrt POSIX::sqrt9351,351
+sub sqrt sqrt9351,351
+sub getpwnam POSIX::getpwnam9414,356
+sub getpwnam getpwnam9414,356
+sub getpwuid POSIX::getpwuid9492,361
+sub getpwuid getpwuid9492,361
+sub longjmp POSIX::longjmp9569,366
+sub longjmp longjmp9569,366
+sub setjmp POSIX::setjmp9641,370
+sub setjmp setjmp9641,370
+sub siglongjmp POSIX::siglongjmp9715,374
+sub siglongjmp siglongjmp9715,374
+sub sigsetjmp POSIX::sigsetjmp9793,378
+sub sigsetjmp sigsetjmp9793,378
+sub kill POSIX::kill9873,382
+sub kill kill9873,382
+sub raise POSIX::raise9949,387
+sub raise raise9949,387
+sub offsetof POSIX::offsetof10042,392
+sub offsetof offsetof10042,392
+sub clearerr POSIX::clearerr10108,396
+sub clearerr clearerr10108,396
+sub fclose POSIX::fclose10162,400
+sub fclose fclose10162,400
+sub fdopen POSIX::fdopen10211,404
+sub fdopen fdopen10211,404
+sub feof POSIX::feof10266,408
+sub feof feof10266,408
+sub fgetc POSIX::fgetc10311,412
+sub fgetc fgetc10311,412
+sub fgets POSIX::fgets10358,416
+sub fgets fgets10358,416
+sub fileno POSIX::fileno10405,420
+sub fileno fileno10405,420
+sub fopen POSIX::fopen10455,424
+sub fopen fopen10455,424
+sub fprintf POSIX::fprintf10500,428
+sub fprintf fprintf10500,428
+sub fputc POSIX::fputc10575,432
+sub fputc fputc10575,432
+sub fputs POSIX::fputs10645,436
+sub fputs fputs10645,436
+sub fread POSIX::fread10715,440
+sub fread fread10715,440
+sub freopen POSIX::freopen10784,444
+sub freopen freopen10784,444
+sub fscanf POSIX::fscanf10857,448
+sub fscanf fscanf10857,448
+sub fseek POSIX::fseek10950,452
+sub fseek fseek10950,452
+sub ferror POSIX::ferror10999,456
+sub ferror ferror10999,456
+sub fflush POSIX::fflush11048,460
+sub fflush fflush11048,460
+sub fgetpos POSIX::fgetpos11097,464
+sub fgetpos fgetpos11097,464
+sub fsetpos POSIX::fsetpos11150,468
+sub fsetpos fsetpos11150,468
+sub ftell POSIX::ftell11203,472
+sub ftell ftell11203,472
+sub fwrite POSIX::fwrite11252,476
+sub fwrite fwrite11252,476
+sub getc POSIX::getc11324,480
+sub getc getc11324,480
+sub getchar POSIX::getchar11392,485
+sub getchar getchar11392,485
+sub gets POSIX::gets11460,490
+sub gets gets11460,490
+sub perror POSIX::perror11525,495
+sub perror perror11525,495
+sub printf POSIX::printf11598,500
+sub printf printf11598,500
+sub putc POSIX::putc11684,505
+sub putc putc11684,505
+sub putchar POSIX::putchar11752,509
+sub putchar putchar11752,509
+sub puts POSIX::puts11826,513
+sub puts puts11826,513
+sub remove POSIX::remove11894,517
+sub remove remove11894,517
+sub rename POSIX::rename11970,522
+sub rename rename11970,522
+sub rewind POSIX::rewind12069,527
+sub rewind rewind12069,527
+sub scanf POSIX::scanf12149,532
+sub scanf scanf12149,532
+sub sprintf POSIX::sprintf12240,536
+sub sprintf sprintf12240,536
+sub sscanf POSIX::sscanf12326,541
+sub sscanf sscanf12326,541
+sub tmpfile POSIX::tmpfile12412,545
+sub tmpfile tmpfile12412,545
+sub ungetc POSIX::ungetc12466,549
+sub ungetc ungetc12466,549
+sub vfprintf POSIX::vfprintf12516,553
+sub vfprintf vfprintf12516,553
+sub vprintf POSIX::vprintf12573,557
+sub vprintf vprintf12573,557
+sub vsprintf POSIX::vsprintf12628,561
+sub vsprintf vsprintf12628,561
+sub abs POSIX::abs12685,565
+sub abs abs12685,565
+sub atexit POSIX::atexit12745,570
+sub atexit atexit12745,570
+sub atof POSIX::atof12818,574
+sub atof atof12818,574
+sub atoi POSIX::atoi12876,578
+sub atoi atoi12876,578
+sub atol POSIX::atol12934,582
+sub atol atol12934,582
+sub bsearch POSIX::bsearch12992,586
+sub bsearch bsearch12992,586
+sub calloc POSIX::calloc13046,590
+sub calloc calloc13046,590
+sub div POSIX::div13108,594
+sub div div13108,594
+sub exit POSIX::exit13164,598
+sub exit exit13164,598
+sub free POSIX::free13232,603
+sub free free13232,603
+sub getenv POSIX::getenv13290,607
+sub getenv getenv13290,607
+sub labs POSIX::labs13360,612
+sub labs labs13360,612
+sub ldiv POSIX::ldiv13426,616
+sub ldiv ldiv13426,616
+sub malloc POSIX::malloc13498,620
+sub malloc malloc13498,620
+sub qsort POSIX::qsort13560,624
+sub qsort qsort13560,624
+sub rand POSIX::rand13629,628
+sub rand rand13629,628
+sub realloc POSIX::realloc13705,632
+sub realloc realloc13705,632
+sub srand POSIX::srand13769,636
+sub srand srand13769,636
+sub system POSIX::system13806,640
+sub system system13806,640
+sub memchr POSIX::memchr13881,645
+sub memchr memchr13881,645
+sub memcmp POSIX::memcmp13955,649
+sub memcmp memcmp13955,649
+sub memcpy POSIX::memcpy14024,653
+sub memcpy memcpy14024,653
+sub memmove POSIX::memmove14092,657
+sub memmove memmove14092,657
+sub memset POSIX::memset14162,661
+sub memset memset14162,661
+sub strcat POSIX::strcat14230,665
+sub strcat strcat14230,665
+sub strchr POSIX::strchr14299,669
+sub strchr strchr14299,669
+sub strcmp POSIX::strcmp14373,673
+sub strcmp strcmp14373,673
+sub strcpy POSIX::strcpy14442,677
+sub strcpy strcpy14442,677
+sub strcspn POSIX::strcspn14510,681
+sub strcspn strcspn14510,681
+sub strerror POSIX::strerror14598,685
+sub strerror strerror14598,685
+sub strlen POSIX::strlen14691,691
+sub strlen strlen14691,691
+sub strncat POSIX::strncat14764,695
+sub strncat strncat14764,695
+sub strncmp POSIX::strncmp14835,699
+sub strncmp strncmp14835,699
+sub strncpy POSIX::strncpy14906,703
+sub strncpy strncpy14906,703
+sub strpbrk POSIX::strpbrk14976,707
+sub strpbrk strpbrk14976,707
+sub strrchr POSIX::strrchr15040,711
+sub strrchr strrchr15040,711
+sub strspn POSIX::strspn15117,715
+sub strspn strspn15117,715
+sub strstr POSIX::strstr15179,719
+sub strstr strstr15179,719
+sub strtok POSIX::strtok15264,724
+sub strtok strtok15264,724
+sub chmod POSIX::chmod15326,728
+sub chmod chmod15326,728
+sub fstat POSIX::fstat15412,733
+sub fstat fstat15412,733
+sub mkdir POSIX::mkdir15560,742
+sub mkdir mkdir15560,742
+sub stat POSIX::stat15651,747
+sub stat stat15651,747
+sub umask POSIX::umask15721,752
+sub umask umask15721,752
+sub wait POSIX::wait15790,757
+sub wait wait15790,757
+sub waitpid POSIX::waitpid15847,762
+sub waitpid waitpid15847,762
+sub gmtime POSIX::gmtime15937,767
+sub gmtime gmtime15937,767
+sub localtime POSIX::localtime16009,772
+sub localtime localtime16009,772
+sub time POSIX::time16090,777
+sub time time16090,777
+sub alarm POSIX::alarm16145,782
+sub alarm alarm16145,782
+sub chdir POSIX::chdir16217,787
+sub chdir chdir16217,787
+sub chown POSIX::chown16291,792
+sub chown chown16291,792
+sub execl POSIX::execl16388,797
+sub execl execl16388,797
+sub execle POSIX::execle16448,801
+sub execle execle16448,801
+sub execlp POSIX::execlp16510,805
+sub execlp execlp16510,805
+sub execv POSIX::execv16572,809
+sub execv execv16572,809
+sub execve POSIX::execve16632,813
+sub execve execve16632,813
+sub execvp POSIX::execvp16694,817
+sub execvp execvp16694,817
+sub fork POSIX::fork16756,821
+sub fork fork16756,821
+sub getcwdPOSIX::getcwd16811,826
+sub getegid POSIX::getegid16894,833
+sub getegid getegid16894,833
+sub geteuid POSIX::geteuid16957,838
+sub geteuid geteuid16957,838
+sub getgid POSIX::getgid17020,843
+sub getgid getgid17020,843
+sub getgroups POSIX::getgroups17081,848
+sub getgroups getgroups17081,848
+sub getlogin POSIX::getlogin17191,854
+sub getlogin getlogin17191,854
+sub getpgrp POSIX::getpgrp17260,859
+sub getpgrp getpgrp17260,859
+sub getpid POSIX::getpid17331,864
+sub getpid getpid17331,864
+sub getppid POSIX::getppid17388,869
+sub getppid getppid17388,869
+sub getuid POSIX::getuid17452,874
+sub getuid getuid17452,874
+sub isatty POSIX::isatty17509,879
+sub isatty isatty17509,879
+sub link POSIX::link17582,884
+sub link link17582,884
+sub rmdir POSIX::rmdir17675,889
+sub rmdir rmdir17675,889
+sub setgid POSIX::setgid17753,894
+sub setgid setgid17753,894
+sub setuid POSIX::setuid17821,899
+sub setuid setuid17821,899
+sub sleep POSIX::sleep17889,904
+sub sleep sleep17889,904
+sub unlink POSIX::unlink17961,909
+sub unlink unlink17961,909
+sub utime POSIX::utime18037,914
+sub utime utime18037,914
+
+f:/perllib/lib/os2/5.00401/overload.pm,569
+package overload;overload9,1
+sub nil overload::nil24,3
+sub nil nil24,3
+sub OVERLOAD overload::OVERLOAD36,5
+sub OVERLOAD OVERLOAD36,5
+sub import import653,27
+sub unimport unimport787,34
+sub Overloaded Overloaded1044,47
+sub ov_method ov_method1153,53
+sub OverloadedStringify OverloadedStringify1322,61
+sub Method Method1487,68
+sub AddrRef AddrRef1722,77
+sub StrVal StrVal1952,86
+sub mycan mycan2037,92
+    package SomeThing;SomeThing2413,113
+    package main;main2505,121
+    package Number;Number2986,142
+Package C<Number::C14726,507
+
+f:/perllib/lib/os2/5.00401/ops.pm,139
+package ops;ops9,1
+sub import ops::import66,5
+sub import import66,5
+sub unimport ops::unimport335,13
+sub unimport unimport335,13
+
+f:/perllib/lib/os2/5.00401/opcode.pm,349
+package Opcode;Opcode9,1
+sub ops_to_opset Opcode::ops_to_opset539,35
+sub ops_to_opset ops_to_opset539,35
+sub opset_to_hex ($Opcode::opset_to_hex605,37
+sub opset_to_hex ($opset_to_hex605,37
+sub opdump (;$Opcode::opdump707,42
+sub opdump (;$opdump707,42
+sub _init_optags Opcode::_init_optags958,54
+sub _init_optags _init_optags958,54
+
+f:/perllib/lib/os2/5.00401/io.pm,20
+package IO;IO12,3
+
+f:/perllib/lib/os2/5.00401/io/socket.pm,1880
+package IO::Socket;IO::Socket222,7
+sub import IO::Socket::import3343,123
+sub import import3343,123
+sub new IO::Socket::new3451,129
+sub new new3451,129
+sub register_domain register_domain3664,141
+sub configure configure3735,146
+sub socket socket4158,163
+sub socketpair socketpair4486,177
+sub connect connect4916,192
+sub bind bind5592,223
+sub listen listen5810,232
+sub accept accept6016,242
+sub sockname sockname6645,266
+sub peername peername6734,271
+sub send send6893,279
+sub recv recv7370,299
+sub setsockopt setsockopt7641,310
+sub getsockopt getsockopt7794,317
+sub sockopt sockopt8008,326
+sub timeout timeout8129,332
+sub sockdomain sockdomain8352,343
+sub socktype socktype8474,349
+sub protocol protocol8589,355
+package IO::Socket::INET;IO::Socket::INET8755,369
+sub _sock_info IO::Socket::INET::_sock_info11512,465
+sub _sock_info _sock_info11512,465
+sub _error IO::Socket::INET::_error12209,501
+sub _error _error12209,501
+sub configure IO::Socket::INET::configure12360,510
+sub configure configure12360,510
+sub sockaddr IO::Socket::INET::sockaddr13805,574
+sub sockaddr sockaddr13805,574
+sub sockport IO::Socket::INET::sockport13925,580
+sub sockport sockport13925,580
+sub sockhost IO::Socket::INET::sockhost14045,586
+sub sockhost sockhost14045,586
+sub peeraddr IO::Socket::INET::peeraddr14158,592
+sub peeraddr peeraddr14158,592
+sub peerport IO::Socket::INET::peerport14278,598
+sub peerport peerport14278,598
+sub peerhost IO::Socket::INET::peerhost14398,604
+sub peerhost peerhost14398,604
+package IO::Socket::UNIX;IO::Socket::UNIX14533,614
+sub configure IO::Socket::UNIX::configure15215,652
+sub configure configure15215,652
+sub hostpath IO::Socket::UNIX::hostpath15722,679
+sub hostpath hostpath15722,679
+sub peerpath IO::Socket::UNIX::peerpath15858,685
+sub peerpath peerpath15858,685
+
+f:/perllib/lib/os2/5.00401/io/select.pm,897
+package IO::Select;IO::Select196,7
+sub VEC_BITS (IO::Select::VEC_BITS4315,164
+sub VEC_BITS (VEC_BITS4315,164
+sub FD_COUNT (IO::Select::FD_COUNT4335,165
+sub FD_COUNT (FD_COUNT4335,165
+sub FIRST_FD (IO::Select::FIRST_FD4355,166
+sub FIRST_FD (FIRST_FD4355,166
+sub newIO::Select::new4367,168
+sub addIO::Select::add4503,181
+sub removeIO::Select::remove4545,187
+sub existsIO::Select::exists4593,193
+sub _filenoIO::Select::_fileno4670,200
+sub _updateIO::Select::_update4781,207
+sub can_readIO::Select::can_read5473,242
+sub can_writeIO::Select::can_write5647,253
+sub has_errorIO::Select::has_error5822,264
+sub countIO::Select::count5997,275
+sub bitsIO::Select::bits6049,281
+sub as_string IO::Select::as_string6100,287
+sub as_string as_string6100,287
+sub _maxIO::Select::_max6439,303
+sub selectIO::Select::select6563,315
+sub handlesIO::Select::handles7414,353
+
+f:/perllib/lib/os2/5.00401/io/seekable.pm,210
+package IO::Seekable;IO::Seekable12,3
+    package IO::Something;IO::Something149,12
+sub seek IO::Something::seek1243,58
+sub seek seek1243,58
+sub tell IO::Something::tell1342,63
+sub tell tell1342,63
+
+f:/perllib/lib/os2/5.00401/io/pipe.pm,375
+package IO::Pipe;IO::Pipe220,7
+sub new IO::Pipe::new347,19
+sub new new347,19
+sub handles IO::Pipe::handles687,36
+sub handles handles687,36
+sub _doit IO::Pipe::_doit832,43
+sub _doit _doit832,43
+sub reader reader2057,90
+sub writer writer2452,107
+package IO::Pipe::End;IO::Pipe::End2851,124
+sub close IO::Pipe::End::close2915,130
+sub close close2915,130
+
+f:/perllib/lib/os2/5.00401/io/handle.pm,3234
+package IO::Handle;IO::Handle10,2
+sub AUTOLOAD IO::Handle::AUTOLOAD5975,248
+sub AUTOLOAD AUTOLOAD5975,248
+sub new IO::Handle::new6426,267
+sub new new6426,267
+sub new_from_fd IO::Handle::new_from_fd6578,274
+sub new_from_fd new_from_fd6578,274
+sub DESTROY IO::Handle::DESTROY7073,290
+sub DESTROY DESTROY7073,290
+sub _open_mode_string IO::Handle::_open_mode_string7162,297
+sub _open_mode_string _open_mode_string7162,297
+sub fdopen IO::Handle::fdopen7403,307
+sub fdopen fdopen7403,307
+sub close IO::Handle::close7852,326
+sub close close7852,326
+sub opened IO::Handle::opened8042,340
+sub opened opened8042,340
+sub fileno IO::Handle::fileno8130,345
+sub fileno fileno8130,345
+sub getc IO::Handle::getc8210,350
+sub getc getc8210,350
+sub eof IO::Handle::eof8284,355
+sub eof eof8284,355
+sub print IO::Handle::print8355,360
+sub print print8355,360
+sub printf IO::Handle::printf8457,366
+sub printf printf8457,366
+sub getline IO::Handle::getline8571,372
+sub getline getline8571,372
+sub getlines IO::Handle::getlines8716,380
+sub getlines getlines8716,380
+sub truncate IO::Handle::truncate8913,388
+sub truncate truncate8913,388
+sub read IO::Handle::read9009,393
+sub read read9009,393
+sub sysread IO::Handle::sysread9132,398
+sub sysread sysread9132,398
+sub write IO::Handle::write9264,403
+sub write write9264,403
+sub syswrite IO::Handle::syswrite9420,409
+sub syswrite syswrite9420,409
+sub stat IO::Handle::stat9555,414
+sub stat stat9555,414
+sub autoflush IO::Handle::autoflush9715,423
+sub autoflush autoflush9715,423
+sub output_field_separator IO::Handle::output_field_separator9847,430
+sub output_field_separator output_field_separator9847,430
+sub output_record_separator IO::Handle::output_record_separator9989,437
+sub output_record_separator output_record_separator9989,437
+sub input_record_separator IO::Handle::input_record_separator10132,444
+sub input_record_separator input_record_separator10132,444
+sub input_line_number IO::Handle::input_line_number10274,451
+sub input_line_number input_line_number10274,451
+sub format_page_number IO::Handle::format_page_number10411,458
+sub format_page_number format_page_number10411,458
+sub format_lines_per_page IO::Handle::format_lines_per_page10549,465
+sub format_lines_per_page format_lines_per_page10549,465
+sub format_lines_left IO::Handle::format_lines_left10690,472
+sub format_lines_left format_lines_left10690,472
+sub format_name IO::Handle::format_name10827,479
+sub format_name format_name10827,479
+sub format_top_name IO::Handle::format_top_name10975,486
+sub format_top_name format_top_name10975,486
+sub format_line_break_characters IO::Handle::format_line_break_characters11127,493
+sub format_line_break_characters format_line_break_characters11127,493
+sub format_formfeed IO::Handle::format_formfeed11275,500
+sub format_formfeed format_formfeed11275,500
+sub formline IO::Handle::formline11412,507
+sub formline formline11412,507
+sub format_write IO::Handle::format_write11564,516
+sub format_write format_write11564,516
+sub fcntl IO::Handle::fcntl11798,528
+sub fcntl fcntl11798,528
+sub ioctl IO::Handle::ioctl11981,535
+sub ioctl ioctl11981,535
+
+f:/perllib/lib/os2/5.00401/io/file.pm,210
+package IO::File;IO::File12,3
+sub import IO::File::import2852,122
+sub import import2852,122
+sub new IO::File::new3204,142
+sub new new3204,142
+sub open IO::File::open3534,159
+sub open open3534,159
+
+f:/perllib/lib/os2/5.00401/filehandle.pm,159
+package FileHandle;FileHandle9,1
+sub import FileHandle::import1324,69
+sub import import1324,69
+sub pipe FileHandle::pipe1720,89
+sub pipe pipe1720,89
+
+f:/perllib/lib/os2/5.00401/fcntl.pm,94
+package Fcntl;Fcntl9,1
+sub AUTOLOAD Fcntl::AUTOLOAD2388,78
+sub AUTOLOAD AUTOLOAD2388,78
+
+f:/perllib/lib/os2/5.00401/dynaloader.pm,660
+package DynaLoader;DynaLoader9,1
+sub dl_load_flags DynaLoader::dl_load_flags1181,39
+sub dl_load_flags dl_load_flags1181,39
+sub bootstrap DynaLoader::bootstrap2881,88
+sub bootstrap bootstrap2881,88
+sub _check_file DynaLoader::_check_file6233,176
+sub _check_file _check_file6233,176
+sub dl_findfile DynaLoader::dl_findfile6553,188
+sub dl_findfile dl_findfile6553,188
+sub dl_expandspec DynaLoader::dl_expandspec9537,265
+sub dl_expandspec dl_expandspec9537,265
+sub dl_find_symbol_anywhereDynaLoader::dl_find_symbol_anywhere10508,290
+    package YourPackage;YourPackage11018,309
+    sub dl_load_flags YourPackage::dl_load_flags11169,315
+
+f:/perllib/lib/os2/5.00401/db_file.pm,1686
+package DB_File::HASHINFO DB_File::HASHINFO357,12
+sub newDB_File::HASHINFO::new482,21
+sub TIEHASHDB_File::HASHINFO::TIEHASH571,30
+sub FETCH DB_File::HASHINFO::FETCH752,42
+sub FETCH FETCH752,42
+sub STORE DB_File::HASHINFO::STORE964,54
+sub STORE STORE964,54
+sub DELETE DB_File::HASHINFO::DELETE1243,70
+sub DELETE DELETE1243,70
+sub EXISTSDB_File::HASHINFO::EXISTS1507,85
+sub NotHereDB_File::HASHINFO::NotHere1604,93
+sub DESTROY DB_File::HASHINFO::DESTROY1735,101
+sub DESTROY DESTROY1735,101
+sub FIRSTKEY DB_File::HASHINFO::FIRSTKEY1767,102
+sub FIRSTKEY FIRSTKEY1767,102
+sub NEXTKEY DB_File::HASHINFO::NEXTKEY1830,103
+sub NEXTKEY NEXTKEY1830,103
+sub CLEAR DB_File::HASHINFO::CLEAR1892,104
+sub CLEAR CLEAR1892,104
+package DB_File::RECNOINFO DB_File::RECNOINFO1957,106
+sub TIEHASHDB_File::RECNOINFO::TIEHASH2049,112
+package DB_File::BTREEINFO DB_File::BTREEINFO2240,123
+sub TIEHASHDB_File::BTREEINFO::TIEHASH2332,129
+package DB_File DB_File2553,142
+sub AUTOLOAD DB_File::AUTOLOAD3348,195
+sub AUTOLOAD AUTOLOAD3348,195
+sub import DB_File::import3874,217
+sub import import3874,217
+sub tie_hash_or_arrayDB_File::tie_hash_or_array4213,232
+sub TIEHASHDB_File::TIEHASH4451,243
+sub TIEARRAYDB_File::TIEARRAY4496,248
+sub get_dupDB_File::get_dup4542,253
+    sub hashDB_File::hash11651,478
+    sub compareDB_File::compare11773,486
+    sub prefixDB_File::prefix11984,496
+    sub CompareDB_File::Compare14926,607
+    sub matchDB_File::match21646,842
+    sub LOCK_SH DB_File::LOCK_SH33926,1300
+    sub LOCK_EX DB_File::LOCK_EX33948,1301
+    sub LOCK_NB DB_File::LOCK_NB33970,1302
+    sub LOCK_UN DB_File::LOCK_UN33992,1303
+
+f:/perllib/lib/os2/5.00401/config.pm,875
+package Config;Config9,1
+sub myconfig Config::myconfig12758,574
+sub myconfig myconfig12758,574
+sub FETCH Config::FETCH12889,581
+sub FETCH FETCH12889,581
+sub FIRSTKEY Config::FIRSTKEY13735,604
+sub FIRSTKEY FIRSTKEY13735,604
+sub NEXTKEY Config::NEXTKEY13878,611
+sub NEXTKEY NEXTKEY13878,611
+sub EXISTS Config::EXISTS14078,618
+sub EXISTS EXISTS14078,618
+sub STORE Config::STORE14287,625
+sub STORE STORE14287,625
+sub DELETE Config::DELETE14340,626
+sub DELETE DELETE14340,626
+sub CLEAR Config::CLEAR14362,627
+sub CLEAR CLEAR14362,627
+sub config_sh Config::config_sh14386,630
+sub config_sh config_sh14386,630
+sub config_re Config::config_re14420,634
+sub config_re config_re14420,634
+sub config_vars Config::config_vars14568,640
+sub config_vars config_vars14568,640
+sub TIEHASH Config::TIEHASH14993,657
+sub TIEHASH TIEHASH14993,657
+
+f:/perllib/lib/open3.pl,26
+package main;main154,10
+
+f:/perllib/lib/open2.pl,26
+package main;main154,10
+
+f:/perllib/lib/newgetopt.pl,29
+sub NGetOpt NGetOpt1027,40
+
+f:/perllib/lib/net/servent.pm,543
+package Net::servent;Net::servent9,1
+sub import Net::servent::import383,14
+sub import import383,14
+sub populate (Net::servent::populate562,24
+sub populate (populate562,24
+sub getservent    (Net::servent::getservent837,34
+sub getservent    (getservent837,34
+sub getservbyname ($Net::servent::getservbyname895,35
+sub getservbyname ($getservbyname895,35
+sub getservbyport ($Net::servent::getservbyport973,36
+sub getservbyport ($getservbyport973,36
+sub getserv ($Net::servent::getserv1046,38
+sub getserv ($getserv1046,38
+
+f:/perllib/lib/net/protoent.pm,581
+package Net::protoent;Net::protoent9,1
+sub import Net::protoent::import374,14
+sub import import374,14
+sub populate (Net::protoent::populate537,23
+sub populate (populate537,23
+sub getprotoent      (Net::protoent::getprotoent773,32
+sub getprotoent      (getprotoent773,32
+sub getprotobyname   ($Net::protoent::getprotobyname835,33
+sub getprotobyname   ($getprotobyname835,33
+sub getprotobynumber ($Net::protoent::getprotobynumber904,34
+sub getprotobynumber ($getprotobynumber904,34
+sub getproto ($Net::protoent::getproto968,36
+sub getproto ($getproto968,36
+
+f:/perllib/lib/net/ping.pm,348
+package Net::Ping;Net::Ping9,1
+sub pingechoNet::Ping::pingecho1186,39
+sub newNet::Ping::new1871,57
+sub pingNet::Ping::ping4999,135
+sub ping_icmpNet::Ping::ping_icmp5974,171
+sub checksumNet::Ping::checksum9757,261
+sub ping_tcpNet::Ping::ping_tcp11108,294
+sub ping_udpNet::Ping::ping_udp12306,328
+sub closeNet::Ping::close14698,394
+
+f:/perllib/lib/net/netent.pm,432
+package Net::netent;Net::netent9,1
+sub import Net::netent::import388,17
+sub import import388,17
+sub populate (Net::netent::populate568,27
+sub populate (populate568,27
+sub getnetbyname ($Net::netent::getnetbyname846,37
+sub getnetbyname ($getnetbyname846,37
+sub getnetbyaddr ($Net::netent::getnetbyaddr910,39
+sub getnetbyaddr ($getnetbyaddr910,39
+sub getnet($Net::netent::getnet1102,47
+sub getnet($getnet1102,47
+
+f:/perllib/lib/net/hostent.pm,513
+package Net::hostent;Net::hostent9,1
+sub import Net::hostent::import420,18
+sub import import420,18
+sub addr Net::hostent::addr617,29
+sub addr addr617,29
+sub populate (Net::hostent::populate662,31
+sub populate (populate662,31
+sub gethostbyname ($Net::hostent::gethostbyname1058,43
+sub gethostbyname ($gethostbyname1058,43
+sub gethostbyaddr ($Net::hostent::gethostbyaddr1124,45
+sub gethostbyaddr ($gethostbyaddr1124,45
+sub gethost($Net::hostent::gethost1325,53
+sub gethost($gethost1325,53
+
+f:/perllib/lib/math/trig.pm,525
+package Math::Trig;Math::Trig208,8
+sub remt (Math::Trig::remt750,41
+sub remt (remt750,41
+sub rad2deg ($Math::Trig::rad2deg914,50
+sub rad2deg ($rad914,50
+sub deg2rad ($Math::Trig::deg2rad958,52
+sub deg2rad ($deg958,52
+sub grad2deg ($Math::Trig::grad2deg1003,54
+sub grad2deg ($grad1003,54
+sub deg2grad ($Math::Trig::deg2grad1047,56
+sub deg2grad ($deg1047,56
+sub rad2grad ($Math::Trig::rad2grad1091,58
+sub rad2grad ($rad1091,58
+sub grad2rad ($Math::Trig::grad2rad1135,60
+sub grad2rad ($grad1135,60
+
+f:/perllib/lib/math/complex.pm,5148
+package Math::Complex;Math::Complex177,8
+sub make Math::Complex::make1546,85
+sub make make1546,85
+sub emake Math::Complex::emake1772,99
+sub emake emake1772,99
+sub new Math::Complex::new1972,109
+sub new new1972,109
+sub cplx Math::Complex::cplx2155,117
+sub cplx cplx2155,117
+sub cplxe Math::Complex::cplxe2380,128
+sub cplxe cplxe2380,128
+sub i (Math::Complex::i2695,154
+sub i (i2695,154
+sub cartesian Math::Complex::cartesian2900,168
+sub cartesian cartesian2900,168
+sub polar Math::Complex::polar2987,170
+sub polar polar2987,170
+sub set_cartesian Math::Complex::set_cartesian3067,173
+sub set_cartesian set_cartesian3067,173
+sub set_polar Math::Complex::set_polar3138,174
+sub set_polar set_polar3138,174
+sub update_cartesian Math::Complex::update_cartesian3303,181
+sub update_cartesian update_cartesian3303,181
+sub update_polar Math::Complex::update_polar3561,194
+sub update_polar update_polar3561,194
+sub plus Math::Complex::plus3820,207
+sub plus plus3820,207
+sub minus Math::Complex::minus4176,224
+sub minus minus4176,224
+sub multiply Math::Complex::multiply4578,244
+sub multiply multiply4578,244
+sub _divbyzero Math::Complex::_divbyzero4931,261
+sub _divbyzero _divbyzero4931,261
+sub divide Math::Complex::divide5281,282
+sub divide divide5281,282
+sub _zerotozero Math::Complex::_zerotozero5833,306
+sub _zerotozero _zerotozero5833,306
+sub power Math::Complex::power6073,321
+sub power power6073,321
+sub spaceship Math::Complex::spaceship6697,349
+sub spaceship spaceship6697,349
+sub negate Math::Complex::negate7009,363
+sub negate negate7009,363
+sub conjugate Math::Complex::conjugate7256,378
+sub conjugate conjugate7256,378
+sub abs Math::Complex::abs7496,393
+sub abs abs7496,393
+sub arg Math::Complex::arg7651,405
+sub arg arg7651,405
+sub sqrt Math::Complex::sqrt7795,417
+sub sqrt sqrt7795,417
+sub cbrt Math::Complex::cbrt7972,429
+sub cbrt cbrt7972,429
+sub _rootbad Math::Complex::_rootbad8152,441
+sub _rootbad _rootbad8152,441
+sub root Math::Complex::root8562,461
+sub root root8562,461
+sub Re Math::Complex::Re8991,482
+sub Re Re8991,482
+sub Im Math::Complex::Im9119,494
+sub Im Im9119,494
+sub exp Math::Complex::exp9252,506
+sub exp exp9252,506
+sub log Math::Complex::log9416,518
+sub log log9416,518
+sub ln Math::Complex::ln9690,533
+sub ln ln9690,533
+sub log10 Math::Complex::log109760,541
+sub log10 log9760,541
+sub logn Math::Complex::logn9981,554
+sub logn logn9981,554
+sub cos Math::Complex::cos10218,567
+sub cos cos10218,567
+sub sin Math::Complex::sin10496,582
+sub sin sin10496,582
+sub tan Math::Complex::tan10765,597
+sub tan tan10765,597
+sub sec Math::Complex::sec10938,609
+sub sec sec10938,609
+sub csc Math::Complex::csc11107,621
+sub csc csc11107,621
+sub cosec Math::Complex::cosec11252,633
+sub cosec cosec11252,633
+sub cot Math::Complex::cot11334,640
+sub cot cot11334,640
+sub cotan Math::Complex::cotan11485,652
+sub cotan cotan11485,652
+sub acos Math::Complex::acos11597,659
+sub acos acos11597,659
+sub asin Math::Complex::asin11805,670
+sub asin asin11805,670
+sub atan Math::Complex::atan11985,681
+sub atan atan11985,681
+sub asec Math::Complex::asec12194,693
+sub asec asec12194,693
+sub acsc Math::Complex::acsc12349,704
+sub acsc acsc12349,704
+sub acosec Math::Complex::acosec12476,715
+sub acosec acosec12476,715
+sub acot Math::Complex::acot12592,722
+sub acot acot12592,722
+sub acotan Math::Complex::acotan12777,734
+sub acotan acotan12777,734
+sub cosh Math::Complex::cosh12895,741
+sub cosh cosh12895,741
+sub sinh Math::Complex::sinh13279,761
+sub sinh sinh13279,761
+sub tanh Math::Complex::tanh13663,781
+sub tanh tanh13663,781
+sub sech Math::Complex::sech13855,793
+sub sech sech13855,793
+sub csch Math::Complex::csch14042,805
+sub csch csch14042,805
+sub cosech Math::Complex::cosech14193,817
+sub cosech cosech14193,817
+sub coth Math::Complex::coth14311,824
+sub coth coth14311,824
+sub cotanh Math::Complex::cotanh14469,836
+sub cotanh cotanh14469,836
+sub acosh Math::Complex::acosh14593,843
+sub acosh acosh14593,843
+sub asinh Math::Complex::asinh14772,854
+sub asinh asinh14772,854
+sub atanh Math::Complex::atanh14957,865
+sub atanh atanh14957,865
+sub asech Math::Complex::asech15196,878
+sub asech asech15196,878
+sub acsch Math::Complex::acsch15368,889
+sub acsch acsch15368,889
+sub acosech Math::Complex::acosech15499,900
+sub acosech acosech15499,900
+sub acoth Math::Complex::acoth15630,907
+sub acoth acoth15630,907
+sub acotanh Math::Complex::acotanh15829,920
+sub acotanh acotanh15829,920
+sub atan2 Math::Complex::atan215910,927
+sub atan2 atan15910,927
+sub display_format Math::Complex::display_format16752,955
+sub display_format display_format16752,955
+sub stringify Math::Complex::stringify17503,986
+sub stringify stringify17503,986
+sub stringify_cartesian Math::Complex::stringify_cartesian17789,1002
+sub stringify_cartesian stringify_cartesian17789,1002
+sub stringify_polar Math::Complex::stringify_polar18426,1032
+sub stringify_polar stringify_polar18426,1032
+
+f:/perllib/lib/math/bigint.pm,552
+package Math::BigInt;Math::BigInt9,1
+sub new new843,29
+sub stringify stringify1005,35
+sub numify numify1034,36
+sub bnorm bnorm1344,47
+sub internal internal1728,61
+sub external external2059,70
+sub bneg bneg2291,77
+sub babs babs2481,85
+sub abs abs2543,89
+sub bcmp bcmp2712,96
+sub cmp cmp2917,107
+sub badd badd3433,128
+sub bsub bsub4014,151
+sub bgcd bgcd4148,156
+sub add add4521,169
+sub sub sub4924,184
+sub bmul bmul5203,195
+sub mul mul5589,210
+sub bmod bmod6049,228
+sub bdiv bdiv6121,232
+sub bpow bpow7887,297
+
+f:/perllib/lib/math/bigfloat.pm,448
+package Math::BigFloat;Math::BigFloat9,1
+sub new new748,28
+sub numify numify906,34
+sub stringify stringify1033,37
+sub fnorm fnorm1782,75
+sub norm norm2113,86
+sub fneg fneg2465,102
+sub fabs fabs2649,110
+sub fmul fmul2796,117
+sub fadd fadd3087,129
+sub fsub fsub3450,142
+sub fdiv fdiv3675,149
+sub round round4281,167
+sub fround fround5101,191
+sub ffround ffround5514,208
+sub fcmp fcmp6122,232
+sub fsqrt fsqrt6495,248
+
+f:/perllib/lib/look.pl,21
+sub look look204,6
+
+f:/perllib/lib/locale.pm,155
+package locale;locale9,1
+sub import locale::import595,25
+sub import import595,25
+sub unimport locale::unimport629,29
+sub unimport unimport629,29
+
+f:/perllib/lib/lib.pm,143
+package lib;lib9,1
+sub import lib::import153,11
+sub import import153,11
+sub unimport lib::unimport696,32
+sub unimport unimport696,32
+
+f:/perllib/lib/less.pm,23
+package less;less9,1
+
+f:/perllib/lib/ipc/open3.pm,541
+package IPC::Open3;IPC::Open39,1
+sub xfork IPC::Open3::xfork3417,101
+sub xfork xfork3417,101
+sub xpipe IPC::Open3::xpipe3519,107
+sub xpipe xpipe3519,107
+sub xopen IPC::Open3::xopen3734,114
+sub xopen xopen3734,114
+sub xclose IPC::Open3::xclose3818,118
+sub xclose xclose3818,118
+sub _open3 IPC::Open3::_open33921,124
+sub _open3 _open3921,124
+sub open3 IPC::Open3::open37149,244
+sub open3 open7149,244
+sub spawn_with_handles IPC::Open3::spawn_with_handles7293,252
+sub spawn_with_handles spawn_with_handles7293,252
+
+f:/perllib/lib/ipc/open2.pm,96
+package IPC::Open2;IPC::Open29,1
+sub open2 IPC::Open2::open22646,88
+sub open2 open2646,88
+
+f:/perllib/lib/integer.pm,159
+package integer;integer9,1
+sub import integer::import528,24
+sub import import528,24
+sub unimport integer::unimport558,28
+sub unimport unimport558,28
+
+f:/perllib/lib/importenv.pl,0
+
+f:/perllib/lib/i18n/collate.pm,240
+package I18N::Collate;I18N::Collate306,6
+sub new I18N::Collate::new3750,111
+sub setlocale I18N::Collate::setlocale4433,139
+sub C I18N::Collate::C4641,147
+sub collate_xfrm collate_xfrm4797,156
+sub collate_cmp collate_cmp4941,167
+
+f:/perllib/lib/hostname.pl,27
+sub hostnamehostname49,3
+
+f:/perllib/lib/getopts.pl,27
+sub Getopts Getopts171,7
+
+f:/perllib/lib/getopt.pl,26
+sub Getopt Getopt542,12
+
+f:/perllib/lib/getopt/std.pm,183
+package Getopt::Std;Getopt::Std9,1
+sub getopt ($Getopt::Std::getopt1858,51
+sub getopt ($getopt1858,51
+sub getopts ($Getopt::Std::getopts2858,98
+sub getopts ($getopts2858,98
+
+f:/perllib/lib/getopt/long.pm,205
+package Getopt::Long;Getopt::Long57,3
+sub GetOptions Getopt::Long::GetOptions17414,564
+sub GetOptions GetOptions17414,564
+sub config (config26360,901
+sub require_version require_version27619,952
+
+f:/perllib/lib/getcwd.pl,23
+sub getcwdgetcwd57,5
+
+f:/perllib/lib/ftp.pl,1306
+package from from3630,96
+package ftp;ftp3807,102
+sub ftp'debugftp'debug5022,148
+sub ftp'set_timeoutftp'set_timeout5122,156
+sub ftp'open_alarmftp'open_alarm5295,167
+sub ftp'timed_openftp'timed_open5341,172
+sub ftp'openftp'open6856,235
+sub ftp'loginftp'login7122,250
+sub ftp'closeftp'close8211,299
+sub ftp'cwdftp'cwd8321,308
+sub ftp'dir_openftp'dir_open9031,332
+sub ftp'dir_closeftp'dir_close9822,378
+sub ftp'quitftp'quit10415,405
+sub ftp'read_alarmftp'read_alarm10636,418
+sub ftp'timed_readftp'timed_read10682,423
+sub ftp'readftp'read10773,429
+sub ftp'getftp'get11067,445
+sub ftp'deleteftp'delete14016,583
+sub ftp'deldirftp'deldir14229,595
+sub ftp'putftp'put14380,605
+sub ftp'restartftp'restart16120,698
+sub ftp'typeftp'type16600,721
+sub ftp'site_commandsftp'site_commands17087,745
+sub ftp'pwdftp'pwd17675,774
+sub ftp'mkdirftp'mkdir18164,800
+sub ftp'chmodftp'chmod18641,824
+sub ftp'renameftp'rename19140,848
+sub ftp'quoteftp'quote20211,896
+sub ftp'expectgotftp'expectgot20539,910
+sub ftp'expect ftp'expect21034,929
+sub ftp'open_data_socketftp'open_data_socket22243,986
+sub ftp'close_data_socketftp'close_data_socket23554,1039
+sub ftp'sendftp'send23597,1044
+sub ftp'printargsftp'printargs23907,1063
+sub ftp'filesizeftp'filesize23982,1070
+
+f:/perllib/lib/flush.pl,57
+sub flush flush157,7
+sub printflush printflush261,15
+
+f:/perllib/lib/finddepth.pl,33
+sub finddepth finddepth1071,42
+
+f:/perllib/lib/findbin.pm,78
+package FindBin;FindBin1863,73
+sub is_abs_pathFindBin::is_abs_path2228,87
+
+f:/perllib/lib/find.pl,23
+sub find find1136,43
+
+f:/perllib/lib/filecache.pm,290
+package FileCache;FileCache9,1
+sub cacheout_open FileCache::cacheout_open648,37
+sub cacheout_open cacheout_open648,37
+sub cacheout_close FileCache::cacheout_close739,42
+sub cacheout_close cacheout_close739,42
+sub cacheout FileCache::cacheout914,52
+sub cacheout cacheout914,52
+
+f:/perllib/lib/file/stat.pm,299
+package File::stat;File::stat9,1
+sub import File::stat::import495,19
+sub import import495,19
+sub populate (File::stat::populate710,29
+sub populate (populate710,29
+sub lstat ($File::stat::lstat965,39
+sub lstat ($lstat965,39
+sub stat ($File::stat::stat1013,41
+sub stat ($stat1013,41
+
+f:/perllib/lib/file/path.pm,171
+package File::Path;File::Path9,1
+sub mkpath File::Path::mkpath3033,117
+sub mkpath mkpath3033,117
+sub rmtree File::Path::rmtree3863,140
+sub rmtree rmtree3863,140
+
+f:/perllib/lib/file/find.pm,507
+package File::Find;File::Find9,1
+    sub wanted File::Find::wanted283,19
+    sub wanted File::Find::wanted371,23
+    sub wanted File::Find::wanted1093,44
+    sub wanted File::Find::wanted1636,64
+sub find File::Find::find1771,74
+sub find find1771,74
+sub finddir File::Find::finddir2631,109
+sub finddir finddir2631,109
+sub finddepth File::Find::finddepth3880,163
+sub finddepth finddepth3880,163
+sub finddepthdir File::Find::finddepthdir4735,199
+sub finddepthdir finddepthdir4735,199
+
+f:/perllib/lib/file/dosglob.pm,243
+package File::DosGlob;File::DosGlob56,7
+sub doglob File::DosGlob::doglob416,24
+sub doglob doglob416,24
+sub glob File::DosGlob::glob2857,106
+sub glob glob2857,106
+sub import File::DosGlob::import2884,108
+sub import import2884,108
+
+f:/perllib/lib/file/copy.pm,227
+package File::Copy;File::Copy335,8
+sub _catname File::Copy::_catname970,30
+sub _catname _catname970,30
+sub copy File::Copy::copy1427,42
+sub copy copy1427,42
+sub move File::Copy::move3602,139
+sub move move3602,139
+
+f:/perllib/lib/file/compare.pm,183
+package File::Compare;File::Compare9,1
+sub VERSION File::Compare::VERSION277,17
+sub VERSION VERSION277,17
+sub compare File::Compare::compare361,22
+sub compare compare361,22
+
+f:/perllib/lib/file/checktree.pm,201
+package File::CheckTree;File::CheckTree9,1
+sub validate File::CheckTree::validate2574,78
+sub validate validate2574,78
+sub valmess File::CheckTree::valmess3295,106
+sub valmess valmess3295,106
+
+f:/perllib/lib/file/basename.pm,195
+package File::Basename;File::Basename9,1
+sub fileparse_set_fstype fileparse_set_fstype4758,140
+sub fileparse fileparse5119,154
+sub basename basename6341,197
+sub dirname dirname6880,210
+
+f:/perllib/lib/fastcwd.pl,27
+sub fastcwd fastcwd193,8
+
+f:/perllib/lib/extutils/testlib.pm,49
+package ExtUtils::testlib;ExtUtils::testlib9,1
+
+f:/perllib/lib/extutils/mm_win32.pm,1104
+package ExtUtils::MM_Win32;ExtUtils::MM_Win329,1
+sub dlsyms ExtUtils::MM_Win32::dlsyms759,36
+sub dlsyms dlsyms759,36
+sub replace_manpage_separator replace_manpage_separator1479,60
+sub maybe_command maybe_command1571,66
+sub file_name_is_absolute file_name_is_absolute1674,72
+sub find_perl find_perl1766,77
+sub catdir catdir2866,114
+sub catfile catfile3245,132
+sub init_othersinit_others3482,142
+sub constants constants4833,174
+sub path path8828,315
+sub static_lib static_lib9113,330
+sub dynamic_bs dynamic_bs10149,367
+sub dynamic_lib dynamic_lib11102,400
+sub perl_archiveperl_archive12203,431
+sub export_listexport_list12263,436
+sub canonpath canonpath12487,449
+sub perl_script perl_script13129,470
+sub pm_to_blib pm_to_blib13392,483
+sub test_via_harness test_via_harness13946,507
+sub tool_autosplit{tool_autosplit14244,519
+sub tools_other tools_other14816,539
+sub xs_o xs_o16997,602
+sub top_targets top_targets17179,613
+sub manifypods manifypods18835,695
+sub dist_ci dist_ci18995,705
+sub dist_core dist_core19432,724
+sub pasthru pasthru20438,771
+
+f:/perllib/lib/extutils/mm_vms.pm,3262
+package ExtUtils::MM_VMS;ExtUtils::MM_VMS260,8
+sub eliminate_macros ExtUtils::MM_VMS::eliminate_macros1137,49
+sub eliminate_macros eliminate_macros1137,49
+sub fixpath ExtUtils::MM_VMS::fixpath2545,91
+sub fixpath fixpath2545,91
+sub catdir ExtUtils::MM_VMS::catdir3911,131
+sub catdir catdir3911,131
+sub catfile ExtUtils::MM_VMS::catfile4697,158
+sub catfile catfile4697,158
+sub wraplist ExtUtils::MM_VMS::wraplist5408,184
+sub wraplist wraplist5408,184
+sub curdir ExtUtils::MM_VMS::curdir5981,208
+sub curdir curdir5981,208
+sub rootdir ExtUtils::MM_VMS::rootdir6100,218
+sub rootdir rootdir6100,218
+sub updir ExtUtils::MM_VMS::updir6218,228
+sub updir updir6218,228
+package ExtUtils::MM_VMS;ExtUtils::MM_VMS6255,232
+sub AUTOLOAD ExtUtils::MM_VMS::AUTOLOAD7845,282
+sub AUTOLOAD AUTOLOAD7845,282
+sub ext ExtUtils::MM_VMS::ext8583,313
+sub ext ext8583,313
+package name.name9366,336
+sub guess_name name::guess_name9383,340
+sub guess_name guess_name9383,340
+sub find_perl name::find_perl10901,387
+sub find_perl find_perl10901,387
+sub path name::path14183,460
+sub path path14183,460
+sub maybe_command name::maybe_command14727,477
+sub maybe_command maybe_command14727,477
+sub maybe_command_in_dirs name::maybe_command_in_dirs15385,506
+sub maybe_command_in_dirs maybe_command_in_dirs15385,506
+sub perl_script name::perl_script16487,544
+sub perl_script perl_script16487,544
+sub file_name_is_absolute name::file_name_is_absolute16776,558
+sub file_name_is_absolute file_name_is_absolute16776,558
+sub replace_manpage_separator ExtUtils::MM_VMS::replace_manpage_separator17127,571
+sub replace_manpage_separator replace_manpage_separator17127,571
+sub init_others ExtUtils::MM_VMS::init_others17384,585
+sub init_others init_others17384,585
+sub constants ExtUtils::MM_VMS::constants18424,611
+sub constants constants18424,611
+sub cflags ExtUtils::MM_VMS::cflags24099,794
+sub cflags cflags24099,794
+sub const_cccmd ExtUtils::MM_VMS::const_cccmd26175,857
+sub const_cccmd const_cccmd26175,857
+sub pm_to_blib ExtUtils::MM_VMS::pm_to_blib27548,896
+sub pm_to_blib pm_to_blib27548,896
+sub tool_autosplit{tool_autosplit28721,939
+sub tool_xsubpp tool_xsubpp29156,955
+sub xsubpp_versionxsubpp_version30842,1011
+sub tools_other tools_other32622,1081
+sub dist dist33975,1119
+sub c_o c_o34668,1143
+sub xs_c xs_c34995,1165
+sub xs_o xs_o35253,1180
+sub top_targets top_targets35620,1196
+sub dlsyms dlsyms37135,1268
+sub dynamic_lib dynamic_lib39139,1340
+sub dynamic_bs dynamic_bs40133,1372
+sub static_lib static_lib40994,1401
+sub manifypods manifypods42876,1464
+sub processPL processPL44359,1512
+sub installbin installbin44986,1538
+sub subdir_x subdir_x46294,1591
+sub clean clean46797,1614
+sub realclean realclean48688,1667
+sub dist_basics dist_basics50798,1733
+sub dist_core dist_core51389,1757
+sub dist_dir dist_dir52126,1794
+sub dist_test dist_test52469,1811
+sub install install52915,1833
+sub perldepend perldepend58644,1958
+sub makefile makefile61011,2019
+sub test test62072,2051
+sub test_via_harness test_via_harness64006,2113
+sub test_via_script test_via_script64358,2125
+sub makeaperl makeaperl64834,2140
+sub nicetext nicetext72007,2358
+
+f:/perllib/lib/extutils/mm_unix.pm,3202
+package ExtUtils::MM_Unix;ExtUtils::MM_Unix9,1
+sub canonpath canonpath2390,78
+sub catdir catdir3044,99
+sub catfile catfile3523,120
+sub curdir curdir3838,137
+sub rootdir rootdir3960,147
+sub updir updir4083,157
+package ExtUtils::MM_Unix;ExtUtils::MM_Unix6694,234
+sub c_o ExtUtils::MM_Unix::c_o6896,255
+sub c_o c_o6896,255
+sub cflags ExtUtils::MM_Unix::cflags7781,293
+sub cflags cflags7781,293
+sub clean ExtUtils::MM_Unix::clean9963,388
+sub clean clean9963,388
+sub const_cccmd const_cccmd11196,428
+sub const_config const_config11618,445
+sub const_loadlibs const_loadlibs12292,469
+sub constants constants12775,494
+sub depend depend16789,636
+sub dir_target dir_target17307,656
+sub dist dist18576,696
+sub dist_basics dist_basics20330,750
+sub dist_ci dist_ci20882,783
+sub dist_core dist_core21318,802
+sub dist_dir dist_dir22341,849
+sub dist_test dist_test22771,869
+sub dlsyms dlsyms23115,888
+sub dynamic dynamic23942,923
+sub dynamic_bs dynamic_bs24375,942
+sub dynamic_lib dynamic_lib25328,975
+sub exescan exescan26926,1025
+sub extliblist extliblist27099,1037
+sub file_name_is_absolute file_name_is_absolute27315,1049
+sub find_perl find_perl27457,1060
+sub force force28827,1112
+sub guess_name guess_name29140,1130
+sub has_link_code has_link_code29706,1149
+sub init_dirscan init_dirscan30074,1165
+sub init_main init_main37028,1368
+sub init_others init_others50008,1729
+sub install install52475,1797
+sub installbin installbin55205,1890
+sub libscan libscan56338,1935
+sub linkext linkext56531,1947
+sub lsdir lsdir56920,1965
+sub macro macro57267,1984
+sub makeaperl makeaperl57775,2005
+sub makefile makefile64914,2243
+sub manifypods manifypods66358,2282
+sub maybe_command maybe_command67920,2328
+sub maybe_command_in_dirs maybe_command_in_dirs68114,2340
+sub needs_linking needs_linking69393,2380
+sub nicetext nicetext70307,2411
+sub parse_version parse_version70461,2422
+	    package ExtUtils::MakeMaker::_version;ExtUtils::MakeMaker::_version70814,2435
+sub pasthru pasthru71165,2459
+sub path path71570,2481
+sub perl_script perl_script71989,2499
+sub perldepend perldepend72195,2512
+sub pm_to_blib pm_to_blib73961,2557
+sub post_constants{post_constants74478,2576
+sub post_initialize post_initialize74699,2588
+sub postamble postamble74883,2600
+sub prefixify prefixify75178,2615
+sub processPL processPL75473,2628
+sub realclean realclean75890,2649
+sub replace_manpage_separator replace_manpage_separator77142,2683
+sub static static77287,2695
+sub static_lib static_lib77704,2714
+sub staticmake staticmake78743,2751
+sub subdir_x subdir_x79893,2793
+sub subdirs subdirs80100,2810
+sub test test80759,2839
+sub test_via_harness test_via_harness82493,2897
+sub test_via_script test_via_script82860,2909
+sub tool_autosplit tool_autosplit83195,2923
+sub tools_other tools_other83777,2943
+sub tool_xsubpp tool_xsubpp85837,3005
+sub xsubpp_versionxsubpp_version87166,3053
+sub top_targets top_targets88745,3114
+sub writedoc writedoc90386,3196
+sub xs_c xs_c90727,3211
+sub xs_o xs_o91074,3227
+sub perl_archiveperl_archive91571,3245
+sub export_listexport_list91788,3258
+
+f:/perllib/lib/extutils/mm_os2.pm,605
+package ExtUtils::MM_OS2;ExtUtils::MM_OS29,1
+sub dlsyms ExtUtils::MM_OS2::dlsyms252,14
+sub dlsyms dlsyms252,14
+sub replace_manpage_separator ExtUtils::MM_OS2::replace_manpage_separator971,38
+sub replace_manpage_separator replace_manpage_separator971,38
+sub maybe_command ExtUtils::MM_OS2::maybe_command1063,44
+sub maybe_command maybe_command1063,44
+sub file_name_is_absolute ExtUtils::MM_OS2::file_name_is_absolute1268,52
+sub file_name_is_absolute file_name_is_absolute1268,52
+sub perl_archiveExtUtils::MM_OS2::perl_archive1360,57
+sub export_listExtUtils::MM_OS2::export_list1425,62
+
+f:/perllib/lib/extutils/mksymlists.pm,520
+package ExtUtils::Mksymlists;ExtUtils::Mksymlists9,1
+sub Mksymlists ExtUtils::Mksymlists::Mksymlists267,12
+sub Mksymlists Mksymlists267,12
+sub _write_aix ExtUtils::Mksymlists::_write_aix1953,57
+sub _write_aix _write_aix1953,57
+sub _write_os2 ExtUtils::Mksymlists::_write_os22313,70
+sub _write_os2 _write_os2313,70
+sub _write_win32 ExtUtils::Mksymlists::_write_win323186,97
+sub _write_win32 _write_win3186,97
+sub _write_vms ExtUtils::Mksymlists::_write_vms4233,130
+sub _write_vms _write_vms4233,130
+
+f:/perllib/lib/extutils/mkbootstrap.pm,231
+package ExtUtils::Mkbootstrap;ExtUtils::Mkbootstrap9,1
+sub Mkbootstrap ExtUtils::Mkbootstrap::Mkbootstrap181,11
+sub Mkbootstrap Mkbootstrap181,11
+	package DynaLoader;DynaLoader748,28
+	package DynaLoader;DynaLoader1015,38
+
+f:/perllib/lib/extutils/miniperl.pm,212
+package ExtUtils::Miniperl;ExtUtils::Miniperl220,10
+sub writemain{ExtUtils::Miniperl::writemain1360,85
+sub writemain{writemain1360,85
+sub canon{ExtUtils::Miniperl::canon2476,127
+sub canon{canon2476,127
+
+f:/perllib/lib/extutils/manifest.pm,1191
+package ExtUtils::Manifest;ExtUtils::Manifest9,1
+sub mkmanifest ExtUtils::Manifest::mkmanifest608,31
+sub mkmanifest mkmanifest608,31
+sub manifind ExtUtils::Manifest::manifind1500,59
+sub manifind manifind1500,59
+sub fullcheck ExtUtils::Manifest::fullcheck1764,69
+sub fullcheck fullcheck1764,69
+sub manicheck ExtUtils::Manifest::manicheck1802,73
+sub manicheck manicheck1802,73
+sub filecheck ExtUtils::Manifest::filecheck1855,77
+sub filecheck filecheck1855,77
+sub skipcheck ExtUtils::Manifest::skipcheck1908,81
+sub skipcheck skipcheck1908,81
+sub _manicheck ExtUtils::Manifest::_manicheck1946,85
+sub _manicheck _manicheck1946,85
+sub maniread ExtUtils::Manifest::maniread2774,119
+sub maniread maniread2774,119
+sub _maniskip ExtUtils::Manifest::_maniskip3580,150
+sub _maniskip _maniskip3580,150
+sub manicopy ExtUtils::Manifest::manicopy4132,175
+sub manicopy manicopy4132,175
+sub cp_if_diff ExtUtils::Manifest::cp_if_diff4867,196
+sub cp_if_diff cp_if_diff4867,196
+sub cp ExtUtils::Manifest::cp5623,224
+sub cp cp5623,224
+sub ln ExtUtils::Manifest::ln5892,233
+sub ln ln5892,233
+sub best ExtUtils::Manifest::best6169,242
+sub best best6169,242
+
+f:/perllib/lib/extutils/makemaker.pm,2456
+package ExtUtils::MakeMaker;ExtUtils::MakeMaker109,3
+    package MY;MY1615,56
+    package MM;MM1772,59
+    sub DESTROY MM::DESTROY1784,60
+package ExtUtils::Liblist;ExtUtils::Liblist1905,65
+package ExtUtils::MakeMaker;ExtUtils::MakeMaker1933,67
+sub AUTOLOAD ExtUtils::MakeMaker::AUTOLOAD2602,96
+sub AUTOLOAD AUTOLOAD2602,96
+sub Version_check ExtUtils::MakeMaker::Version_check3194,122
+sub Version_check Version_check3194,122
+sub warnhandler ExtUtils::MakeMaker::warnhandler3689,134
+sub warnhandler warnhandler3689,134
+package ExtUtils::MakeMaker;ExtUtils::MakeMaker4552,163
+sub WriteMakefile ExtUtils::MakeMaker::WriteMakefile4578,165
+sub WriteMakefile WriteMakefile4578,165
+sub prompt ($ExtUtils::MakeMaker::prompt4869,177
+sub prompt ($prompt4869,177
+sub eval_in_subdirs ExtUtils::MakeMaker::eval_in_subdirs5244,192
+sub eval_in_subdirs eval_in_subdirs5244,192
+sub eval_in_x ExtUtils::MakeMaker::eval_in_x5465,205
+sub eval_in_x eval_in_x5465,205
+    package main;main5514,207
+sub full_setup ExtUtils::MakeMaker::full_setup6172,229
+sub full_setup full_setup6172,229
+sub writeMakefile ExtUtils::MakeMaker::writeMakefile9490,343
+sub writeMakefile writeMakefile9490,343
+sub ExtUtils::MakeMaker::new ExtUtils::MakeMaker::new10140,363
+sub check_manifest ExtUtils::MakeMaker::check_manifest15611,540
+sub check_manifest check_manifest15611,540
+sub parse_args{ExtUtils::MakeMaker::parse_args16090,555
+sub parse_args{parse_args16090,555
+sub check_hints ExtUtils::MakeMaker::check_hints18540,623
+sub check_hints check_hints18540,623
+sub mv_all_methods ExtUtils::MakeMaker::mv_all_methods19449,659
+sub mv_all_methods mv_all_methods19449,659
+sub skipcheck ExtUtils::MakeMaker::skipcheck21446,716
+sub skipcheck skipcheck21446,716
+sub flush ExtUtils::MakeMaker::flush22410,741
+sub flush flush22410,741
+sub mkbootstrap ExtUtils::MakeMaker::mkbootstrap23501,776
+sub mkbootstrap mkbootstrap23501,776
+sub mksymlists ExtUtils::MakeMaker::mksymlists23764,785
+sub mksymlists mksymlists23764,785
+sub neatvalue ExtUtils::MakeMaker::neatvalue23980,793
+sub neatvalue neatvalue23980,793
+sub selfdocument ExtUtils::MakeMaker::selfdocument24549,817
+sub selfdocument selfdocument24549,817
+package ExtUtils::MakeMaker;ExtUtils::MakeMaker24957,833
+	sub MY::c_o MY::c_o51061,1691
+	sub MY::c_o MY::c_o51153,1695
+	    package MY;MY51176,1696
+    sub MY::postamble MY::postamble51894,1716
+
+f:/perllib/lib/extutils/liblist.pm,370
+package ExtUtils::Liblist;ExtUtils::Liblist9,1
+sub ext ExtUtils::Liblist::ext193,11
+sub ext ext193,11
+sub _unix_os2_ext ExtUtils::Liblist::_unix_os2_ext365,17
+sub _unix_os2_ext _unix_os365,17
+sub _win32_ext ExtUtils::Liblist::_win32_ext6659,185
+sub _win32_ext _win6659,185
+sub _vms_ext ExtUtils::Liblist::_vms_ext8897,261
+sub _vms_ext _vms_ext8897,261
+
+f:/perllib/lib/extutils/install.pm,860
+package ExtUtils::Install;ExtUtils::Install9,1
+sub forceunlink ExtUtils::Install::forceunlink533,21
+sub forceunlink forceunlink533,21
+sub install ExtUtils::Install::install641,26
+sub install install641,26
+sub my_cmp ExtUtils::Install::my_cmp4404,147
+sub my_cmp my_cmp4404,147
+sub uninstall ExtUtils::Install::uninstall4900,173
+sub uninstall uninstall4900,173
+sub inc_uninstall ExtUtils::Install::inc_uninstall5412,189
+sub inc_uninstall inc_uninstall5412,189
+sub pm_to_blib ExtUtils::Install::pm_to_blib6613,228
+sub pm_to_blib pm_to_blib6613,228
+package ExtUtils::Install::Warn;ExtUtils::Install::Warn7959,273
+sub new ExtUtils::Install::Warn::new7989,275
+sub new new7989,275
+sub add ExtUtils::Install::Warn::add8018,277
+sub add add8018,277
+sub DESTROY ExtUtils::Install::Warn::DESTROY8110,282
+sub DESTROY DESTROY8110,282
+
+f:/perllib/lib/extutils/embed.pm,990
+package ExtUtils::Embed;ExtUtils::Embed52,4
+sub Version ExtUtils::Embed::Version466,24
+sub Version Version466,24
+sub xsinit ExtUtils::Embed::xsinit796,38
+sub xsinit xsinit796,38
+sub xsi_header ExtUtils::Embed::xsi_header1548,74
+sub xsi_header xsi_header1548,74
+sub xsi_protos ExtUtils::Embed::xsi_protos1824,97
+sub xsi_protos xsi_protos1824,97
+sub xsi_body ExtUtils::Embed::xsi_body2207,113
+sub xsi_body xsi_body2207,113
+sub static_ext ExtUtils::Embed::static_ext3168,139
+sub static_ext static_ext3168,139
+sub ldopts ExtUtils::Embed::ldopts3337,147
+sub ldopts ldopts3337,147
+sub ccflags ExtUtils::Embed::ccflags5518,219
+sub ccflags ccflags5518,219
+sub ccdlflags ExtUtils::Embed::ccdlflags5566,223
+sub ccdlflags ccdlflags5566,223
+sub perl_inc ExtUtils::Embed::perl_inc5618,227
+sub perl_inc perl_inc5618,227
+sub ccopts ExtUtils::Embed::ccopts5677,231
+sub ccopts ccopts5677,231
+sub canon ExtUtils::Embed::canon5718,236
+sub canon canon5718,236
+
+f:/perllib/lib/extutils/command.pm,562
+package ExtUtils::Command;ExtUtils::Command9,1
+sub expand_wildcardsExtUtils::Command::expand_wildcards1113,41
+sub cat (ExtUtils::Command::cat1269,52
+sub cat (cat1269,52
+sub eqtimeExtUtils::Command::eqtime1392,64
+sub rm_rfExtUtils::Command::rm_rf1577,78
+sub rm_fExtUtils::Command::rm_f1701,89
+sub touchExtUtils::Command::touch1964,107
+sub mvExtUtils::Command::mv2277,125
+sub cpExtUtils::Command::cp2616,144
+sub chmodExtUtils::Command::chmod2902,162
+sub mkpathExtUtils::Command::mkpath3116,174
+sub test_fExtUtils::Command::test_f3232,185
+
+f:/perllib/lib/exporter.pm,587
+package Exporter;Exporter9,1
+sub export Exporter::export221,13
+sub export export221,13
+sub import Exporter::import4380,168
+sub import import4380,168
+sub _push_tags Exporter::_push_tags4510,177
+sub _push_tags _push_tags4510,177
+sub export_tags export_tags4889,191
+sub export_ok_tags export_ok_tags4954,192
+sub export_fail export_fail5040,197
+sub require_version require_version5091,202
+package Test;Test5609,221
+sub export_fail Test::export_fail5882,229
+sub export_fail export_fail5882,229
+package main;main5967,233
+  package ModuleName;ModuleName6292,250
+
+f:/perllib/lib/exceptions.pl,118
+sub catch catch1031,30
+    package exception;exception1051,31
+sub throw throw1367,45
+sub thrown thrown1446,50
+
+f:/perllib/lib/env.pm,163
+package Env;Env9,1
+sub import Env::import1072,45
+sub import import1072,45
+sub TIESCALAR TIESCALAR1393,59
+sub FETCH FETCH1432,63
+sub STORE STORE1486,68
+
+f:/perllib/lib/english.pm,90
+package English;English9,1
+sub import English::import782,35
+sub import import782,35
+
+f:/perllib/lib/dumpvar.pl,1474
+package dumpvar;dumpvar46,2
+sub main::dumpValue main::dumpValue615,26
+sub unctrl dumpvar::unctrl851,36
+sub unctrl unctrl851,36
+sub stringify dumpvar::stringify988,45
+sub stringify stringify988,45
+sub ShortArray dumpvar::ShortArray1778,77
+sub ShortArray ShortArray1778,77
+sub DumpElem dumpvar::DumpElem2204,91
+sub DumpElem DumpElem2204,91
+sub unwrap dumpvar::unwrap2735,108
+sub unwrap unwrap2735,108
+sub matchvar dumpvar::matchvar6228,224
+sub matchvar matchvar6228,224
+sub compactDump dumpvar::compactDump6377,230
+sub compactDump compactDump6377,230
+sub veryCompact dumpvar::veryCompact6506,236
+sub veryCompact veryCompact6506,236
+sub unctrlSet dumpvar::unctrlSet6625,242
+sub unctrlSet unctrlSet6625,242
+sub quote dumpvar::quote6821,254
+sub quote quote6821,254
+sub dumpglob dumpvar::dumpglob7071,268
+sub dumpglob dumpglob7071,268
+sub dumpsub dumpvar::dumpsub8045,300
+sub dumpsub dumpsub8045,300
+sub findsubs dumpvar::findsubs8396,310
+sub findsubs findsubs8396,310
+sub main::dumpvar main::dumpvar8612,321
+sub scalarUsage dumpvar::scalarUsage9423,348
+sub scalarUsage scalarUsage9423,348
+sub arrayUsage dumpvar::arrayUsage9521,355
+sub arrayUsage arrayUsage9521,355
+sub hashUsage dumpvar::hashUsage9785,366
+sub hashUsage hashUsage9785,366
+sub globUsage dumpvar::globUsage10149,379
+sub globUsage globUsage10149,379
+sub packageUsage dumpvar::packageUsage10494,389
+sub packageUsage packageUsage10494,389
+
+f:/perllib/lib/dotsh.pl,24
+sub dotsh dotsh838,27
+
+f:/perllib/lib/dirhandle.pm,389
+package DirHandle;DirHandle9,1
+sub new DirHandle::new671,32
+sub new new671,32
+sub DESTROY DirHandle::DESTROY888,43
+sub DESTROY DESTROY888,43
+sub open DirHandle::open943,48
+sub open open943,48
+sub close DirHandle::close1064,54
+sub close close1064,54
+sub read DirHandle::read1161,60
+sub read read1161,60
+sub rewind DirHandle::rewind1255,66
+sub rewind rewind1255,66
+
+f:/perllib/lib/diagnostics.pm,961
+package diagnostics;diagnostics9,1
+sub transmo diagnostics::transmo7501,274
+sub transmo transmo7501,274
+	    sub noop diagnostics::noop7863,290
+	    sub bold diagnostics::bold7919,291
+	    sub italic diagnostics::italic7994,292
+sub import diagnostics::import9900,370
+sub import import9900,370
+sub enable diagnostics::enable10557,404
+sub enable enable10557,404
+sub disable diagnostics::disable10581,406
+sub disable disable10581,406
+sub warn_trap diagnostics::warn_trap10737,414
+sub warn_trap warn_trap10737,414
+sub death_trap diagnostics::death_trap10943,422
+sub death_trap death_trap10943,422
+sub splainthis diagnostics::splainthis11992,452
+sub splainthis splainthis11992,452
+sub autodescribe diagnostics::autodescribe12891,491
+sub autodescribe autodescribe12891,491
+sub unescape diagnostics::unescape13058,498
+sub unescape unescape13058,498
+sub shorten diagnostics::shorten13408,515
+sub shorten shorten13408,515
+
+f:/perllib/lib/devel/selfstubber.pm,327
+package Devel::SelfStubber;Devel::SelfStubber9,1
+sub _add_to_cache Devel::SelfStubber::_add_to_cache549,16
+sub _add_to_cache _add_to_cache549,16
+sub _package_defined Devel::SelfStubber::_package_defined735,23
+sub _package_defined _package_defined735,23
+sub stub Devel::SelfStubber::stub810,28
+sub stub stub810,28
+
+f:/perllib/lib/cwd.pm,833
+package Cwd;Cwd9,1
+sub _backtick_pwd Cwd::_backtick_pwd1411,59
+sub _backtick_pwd _backtick_pwd1411,59
+sub getcwdCwd::getcwd1705,75
+sub fastcwd Cwd::fastcwd3045,144
+sub fastcwd fastcwd3045,144
+sub chdir_init Cwd::chdir_init3829,181
+sub chdir_init chdir_init3829,181
+sub chdir Cwd::chdir4405,203
+sub chdir chdir4405,203
+sub abs_pathCwd::abs_path5108,230
+sub fast_abs_path Cwd::fast_abs_path6076,283
+sub fast_abs_path fast_abs_path6076,283
+sub _vms_cwd Cwd::_vms_cwd6794,303
+sub _vms_cwd _vms_cwd6794,303
+sub _vms_abs_path Cwd::_vms_abs_path6840,307
+sub _vms_abs_path _vms_abs_path6840,307
+sub _os2_cwd Cwd::_os2_cwd7050,314
+sub _os2_cwd _os7050,314
+sub _win32_cwd Cwd::_win32_cwd7175,321
+sub _win32_cwd _win7175,321
+sub _msdos_cwd Cwd::_msdos_cwd7462,332
+sub _msdos_cwd _msdos_cwd7462,332
+
+f:/perllib/lib/ctime.pl,88
+    package ctime;ctime546,16
+sub ctime ctime709,23
+    package ctime;ctime729,24
+
+f:/perllib/lib/cpan.pm,10404
+package CPAN;CPAN9,1
+package CPAN;CPAN977,50
+sub AUTOLOAD CPAN::AUTOLOAD1834,88
+sub AUTOLOAD AUTOLOAD1834,88
+sub all CPAN::all2119,104
+sub all all2119,104
+sub checklock CPAN::checklock2354,113
+sub checklock checklock2354,113
+sub DESTROY CPAN::DESTROY4552,189
+sub DESTROY DESTROY4552,189
+sub exists CPAN::exists4622,194
+sub exists exists4622,194
+sub hasFTP CPAN::hasFTP4839,203
+sub hasFTP hasFTP4839,203
+sub hasLWP CPAN::hasLWP5103,215
+sub hasLWP hasLWP5103,215
+sub hasMD5 CPAN::hasMD55402,228
+sub hasMD5 hasMD5402,228
+sub hasWAIT CPAN::hasWAIT5816,246
+sub hasWAIT hasWAIT5816,246
+sub instance CPAN::instance6130,262
+sub instance instance6130,262
+sub new CPAN::new6458,272
+sub new new6458,272
+sub cleanup CPAN::cleanup6516,277
+sub cleanup cleanup6516,277
+sub shell CPAN::shell6960,293
+sub shell shell6960,293
+	    package CPAN::Eval;CPAN::Eval8470,346
+package CPAN::CacheMgr;CPAN::CacheMgr9160,374
+sub as_string CPAN::CacheMgr::as_string9293,380
+sub as_string as_string9293,380
+sub cachesize CPAN::CacheMgr::cachesize9486,390
+sub cachesize cachesize9486,390
+sub dir CPAN::CacheMgr::dir10058,415
+sub dir dir10058,415
+sub entries CPAN::CacheMgr::entries10122,420
+sub entries entries10122,420
+sub disk_usage CPAN::CacheMgr::disk_usage10898,445
+sub disk_usage disk_usage10898,445
+sub force_clean_cache CPAN::CacheMgr::force_clean_cache11674,474
+sub force_clean_cache force_clean_cache11674,474
+sub new CPAN::CacheMgr::new11947,484
+sub new new11947,484
+package CPAN::Debug;CPAN::Debug12568,510
+sub debug CPAN::Debug::debug12615,513
+sub debug debug12615,513
+package CPAN::Config;CPAN::Config13322,536
+sub edit CPAN::Config::edit13579,547
+sub edit edit13579,547
+sub commit CPAN::Config::commit14721,589
+sub commit commit14721,589
+sub defaults CPAN::Config::defaults16126,639
+sub defaults defaults16126,639
+sub init CPAN::Config::init16207,646
+sub init init16207,646
+sub load CPAN::Config::load16646,659
+sub load load16646,659
+sub not_loaded CPAN::Config::not_loaded19001,732
+sub not_loaded not_loaded19001,732
+sub unload CPAN::Config::unload19368,745
+sub unload unload19368,745
+sub help CPAN::Config::help19498,752
+sub help help19498,752
+sub complete CPAN::Config::complete19942,774
+sub complete complete19942,774
+package CPAN::Shell;CPAN::Shell20118,781
+sub AUTOLOAD CPAN::Shell::AUTOLOAD20371,789
+sub AUTOLOAD AUTOLOAD20371,789
+sub h CPAN::Shell::h20894,812
+sub h h20894,812
+sub a CPAN::Shell::a21952,845
+sub a a21952,845
+sub b CPAN::Shell::b22027,847
+sub b b22027,847
+sub d CPAN::Shell::d22573,865
+sub d d22573,865
+sub m CPAN::Shell::m22654,867
+sub m m22654,867
+sub i CPAN::Shell::i22730,870
+sub i i22730,870
+sub o CPAN::Shell::o23196,888
+sub o o23196,888
+sub reload CPAN::Shell::reload25303,967
+sub reload reload25303,967
+sub _binary_extensions CPAN::Shell::_binary_extensions26089,999
+sub _binary_extensions _binary_extensions26089,999
+sub recompile CPAN::Shell::recompile26588,1018
+sub recompile recompile26588,1018
+sub _u_r_common CPAN::Shell::_u_r_common27352,1039
+sub _u_r_common _u_r_common27352,1039
+sub r CPAN::Shell::r29537,1118
+sub r r29537,1118
+sub u CPAN::Shell::u29605,1123
+sub u u29605,1123
+sub autobundle CPAN::Shell::autobundle29682,1128
+sub autobundle autobundle29682,1128
+sub expand CPAN::Shell::expand31133,1174
+sub expand expand31133,1174
+sub format_result CPAN::Shell::format_result32069,1220
+sub format_result format_result32069,1220
+sub rematein CPAN::Shell::rematein32437,1233
+sub rematein rematein32437,1233
+sub force CPAN::Shell::force33699,1283
+sub force force33699,1283
+sub get CPAN::Shell::get33771,1285
+sub get get33771,1285
+sub readme CPAN::Shell::readme33844,1287
+sub readme readme33844,1287
+sub make CPAN::Shell::make33918,1289
+sub make make33918,1289
+sub test CPAN::Shell::test33990,1291
+sub test test33990,1291
+sub install CPAN::Shell::install34065,1293
+sub install install34065,1293
+sub clean CPAN::Shell::clean34141,1295
+sub clean clean34141,1295
+sub look CPAN::Shell::look34214,1297
+sub look look34214,1297
+package CPAN::FTP;CPAN::FTP34262,1299
+sub ftp_get CPAN::FTP::ftp_get34360,1304
+sub ftp_get ftp_get34360,1304
+sub localize CPAN::FTP::localize35288,1334
+sub localize localize35288,1334
+sub ls CPAN::FTP::ls43619,1610
+sub ls ls43619,1610
+package CPAN::FTP::netrc;CPAN::FTP::netrc45314,1673
+sub new CPAN::FTP::netrc::new45337,1675
+sub new new45337,1675
+sub hasdefault CPAN::FTP::netrc::hasdefault46327,1719
+sub hasdefault hasdefault46327,1719
+sub netrc CPAN::FTP::netrc::netrc46368,1720
+sub netrc netrc46368,1720
+sub protected CPAN::FTP::netrc::protected46409,1721
+sub protected protected46409,1721
+sub contains CPAN::FTP::netrc::contains46450,1722
+sub contains contains46450,1722
+package CPAN::Complete;CPAN::Complete46577,1730
+sub complete CPAN::Complete::complete46673,1734
+sub complete complete46673,1734
+sub completex CPAN::Complete::completex47902,1776
+sub completex completex47902,1776
+sub complete_any CPAN::Complete::complete_any48052,1782
+sub complete_any complete_any48052,1782
+sub complete_reload CPAN::Complete::complete_reload48317,1793
+sub complete_reload complete_reload48317,1793
+sub complete_option CPAN::Complete::complete_option48658,1804
+sub complete_option complete_option48658,1804
+package CPAN::Index;CPAN::Index49201,1822
+sub force_reload CPAN::Index::force_reload49366,1829
+sub force_reload force_reload49366,1829
+sub reload CPAN::Index::reload49495,1836
+sub reload reload49495,1836
+sub reload_x CPAN::Index::reload_x50619,1875
+sub reload_x reload_x50619,1875
+sub read_authindex CPAN::Index::read_authindex51290,1896
+sub read_authindex read_authindex51290,1896
+sub read_modpacks CPAN::Index::read_modpacks51956,1916
+sub read_modpacks read_modpacks51956,1916
+sub read_modlist CPAN::Index::read_modlist53988,1991
+sub read_modlist read_modlist53988,1991
+package CPAN::InfoObj;CPAN::InfoObj54735,2020
+sub new CPAN::InfoObj::new54823,2024
+sub new new54823,2024
+sub set CPAN::InfoObj::set54912,2027
+sub set set54912,2027
+sub id CPAN::InfoObj::id55034,2034
+sub id id55034,2034
+sub as_glimpse CPAN::InfoObj::as_glimpse55096,2037
+sub as_glimpse as_glimpse55096,2037
+sub as_string CPAN::InfoObj::as_string55311,2047
+sub as_string as_string55311,2047
+sub author CPAN::InfoObj::author55879,2067
+sub author author55879,2067
+package CPAN::Author;CPAN::Author55991,2072
+sub as_glimpse CPAN::Author::as_glimpse56085,2076
+sub as_glimpse as_glimpse56085,2076
+sub fullname CPAN::Author::fullname56498,2092
+sub fullname fullname56498,2092
+sub email CPAN::Author::email56585,2095
+sub email email56585,2095
+package CPAN::Distribution;CPAN::Distribution56624,2097
+sub called_for CPAN::Distribution::called_for56736,2101
+sub called_for called_for56736,2101
+sub get CPAN::Distribution::get56896,2108
+sub get get56896,2108
+sub new CPAN::Distribution::new60666,2218
+sub new new60666,2218
+sub look CPAN::Distribution::look60854,2228
+sub look look60854,2228
+sub readme CPAN::Distribution::readme61521,2254
+sub readme readme61521,2254
+sub verifyMD5 CPAN::Distribution::verifyMD562356,2278
+sub verifyMD5 verifyMD62356,2278
+sub MD5_check_file CPAN::Distribution::MD5_check_file63571,2327
+sub MD5_check_file MD63571,2327
+sub eq_MD5 CPAN::Distribution::eq_MD565366,2388
+sub eq_MD5 eq_MD65366,2388
+sub force CPAN::Distribution::force65567,2397
+sub force force65567,2397
+sub perl CPAN::Distribution::perl65929,2411
+sub perl perl65929,2411
+sub make CPAN::Distribution::make66684,2435
+sub make make66684,2435
+sub test CPAN::Distribution::test68989,2524
+sub test test68989,2524
+sub clean CPAN::Distribution::clean69891,2554
+sub clean clean69891,2554
+sub install CPAN::Distribution::install70506,2574
+sub install install70506,2574
+sub dir CPAN::Distribution::dir72012,2624
+sub dir dir72012,2624
+package CPAN::Bundle;CPAN::Bundle72055,2628
+sub as_string CPAN::Bundle::as_string72147,2632
+sub as_string as_string72147,2632
+sub contains CPAN::Bundle::contains72325,2640
+sub contains contains72325,2640
+sub find_bundle_file CPAN::Bundle::find_bundle_file73636,2680
+sub find_bundle_file find_bundle_file73636,2680
+sub inst_file CPAN::Bundle::inst_file74402,2707
+sub inst_file inst_file74402,2707
+sub rematein CPAN::Bundle::rematein74850,2720
+sub rematein rematein74850,2720
+sub xs_file CPAN::Bundle::xs_file75312,2739
+sub xs_file xs_file75312,2739
+sub force CPAN::Bundle::force75484,2746
+sub force force75484,2746
+sub get CPAN::Bundle::get75557,2748
+sub get get75557,2748
+sub make CPAN::Bundle::make75629,2750
+sub make make75629,2750
+sub test CPAN::Bundle::test75702,2752
+sub test test75702,2752
+sub install CPAN::Bundle::install75778,2754
+sub install install75778,2754
+sub clean CPAN::Bundle::clean75855,2756
+sub clean clean75855,2756
+sub readme CPAN::Bundle::readme75932,2759
+sub readme readme75932,2759
+package CPAN::Module;CPAN::Module76194,2766
+sub as_glimpse CPAN::Module::as_glimpse76288,2770
+sub as_glimpse as_glimpse76288,2770
+sub as_string CPAN::Module::as_string76528,2780
+sub as_string as_string76528,2780
+sub cpan_file CPAN::Module::cpan_file78991,2851
+sub cpan_file cpan_file78991,2851
+sub cpan_version CPAN::Module::cpan_version79467,2869
+sub cpan_version cpan_version79467,2869
+sub force CPAN::Module::force79543,2872
+sub force force79543,2872
+sub rematein CPAN::Module::rematein79642,2878
+sub rematein rematein79642,2878
+sub readme CPAN::Module::readme80095,2892
+sub readme readme80095,2892
+sub look CPAN::Module::look80165,2894
+sub look look80165,2894
+sub get CPAN::Module::get80230,2896
+sub get get80230,2896
+sub make CPAN::Module::make80301,2898
+sub make make80301,2898
+sub test CPAN::Module::test80369,2900
+sub test test80369,2900
+sub install CPAN::Module::install80440,2902
+sub install install80440,2902
+sub clean CPAN::Module::clean81008,2924
+sub clean clean81008,2924
+sub inst_file CPAN::Module::inst_file81083,2927
+sub inst_file inst_file81083,2927
+sub xs_file CPAN::Module::xs_file81378,2942
+sub xs_file xs_file81378,2942
+sub inst_version CPAN::Module::inst_version81743,2958
+sub inst_version inst_version81743,2958
+
+f:/perllib/lib/cpan/nox.pm,0
+
+f:/perllib/lib/cpan/firsttime.pm,622
+package CPAN::Mirrored::By;CPAN::Mirrored::By9,1
+sub new CPAN::Mirrored::By::new34,3
+sub new new34,3
+sub continent CPAN::Mirrored::By::continent97,7
+sub continent continent97,7
+sub country CPAN::Mirrored::By::country126,8
+sub country country126,8
+sub url CPAN::Mirrored::By::url153,9
+sub url url153,9
+package CPAN::FirstTime;CPAN::FirstTime181,11
+sub init CPAN::FirstTime::init589,36
+sub init init589,36
+sub find_exe CPAN::FirstTime::find_exe7038,269
+sub find_exe find_exe7038,269
+sub read_mirrored_by CPAN::FirstTime::read_mirrored_by7254,282
+sub read_mirrored_by read_mirrored_by7254,282
+
+f:/perllib/lib/cpan/config.pm,0
+
+f:/perllib/lib/constant.pm,139
+package constant;constant9,1
+    sub deg2rad constant::deg2rad435,19
+sub import constant::import4738,140
+sub import import4738,140
+
+f:/perllib/lib/complete.pl,106
+    package Complete;Complete629,27
+sub Complete Complete743,35
+    package Complete;Complete766,36
+
+f:/perllib/lib/class/struct.pm,849
+package Class::Struct;Class::Struct9,1
+sub printem Class::Struct::printem308,20
+sub printem printem308,20
+    package Class::Struct::Tie_ISA;Class::Struct::Tie_ISA391,26
+    sub TIEARRAY Class::Struct::Tie_ISA::TIEARRAY424,28
+    sub STORE Class::Struct::Tie_ISA::STORE510,33
+    sub FETCH Class::Struct::Tie_ISA::FETCH616,38
+    sub DESTROY Class::Struct::Tie_ISA::DESTROY697,43
+sub struct Class::Struct::struct716,46
+sub struct struct716,46
+sub _usage_error Class::Struct::_usage_error5190,201
+sub _usage_error _usage_error5190,201
+sub _subclass_error Class::Struct::_subclass_error5246,205
+sub _subclass_error _subclass_error5246,205
+    package CLASS_NAME;CLASS_NAME5713,226
+    package Myobj;Myobj5878,232
+    package MyObj;MyObj11934,416
+    sub count MyObj::count12114,423
+    package main;main12375,433
+
+f:/perllib/lib/chat2.pl,555
+package chat;chat241,7
+sub open_port chat::open_port943,37
+sub open_port open_port943,37
+sub open_listen chat::open_listen2452,83
+sub open_listen open_listen2452,83
+sub open_proc chat::open_proc3187,111
+sub open_proc open_proc3187,111
+sub expect chat::expect5212,170
+sub expect expect5212,170
+sub print chat::print7278,274
+sub print print7278,274
+sub close chat::close7522,289
+sub close close7522,289
+sub select chat::select8025,307
+sub select select8025,307
+sub _getpty chat::_getpty8946,342
+sub _getpty _getpty8946,342
+
+f:/perllib/lib/cgi.pm,5423
+package CGI;CGI9,1
+sub import CGI::import4826,140
+sub import import4826,140
+sub expand_tags expand_tags5564,167
+sub new new5892,181
+sub DESTROY DESTROY6270,193
+sub param param6678,206
+sub delete delete7660,240
+sub self_or_default self_or_default7889,248
+sub _new_request _new_request8325,262
+sub _reset_globals _reset_globals8535,272
+sub self_or_CGI self_or_CGI8597,277
+sub isaCGI isaCGI8823,288
+sub import_names import_names8975,296
+sub use_named_parameters use_named_parameters9619,317
+sub init init10341,338
+sub to_filehandle to_filehandle13695,457
+sub new_MultipartBuffer new_MultipartBuffer13966,468
+sub read_from_client read_from_client14146,474
+sub binmode binmode14358,481
+sub put put14424,486
+sub print print14555,492
+sub unescape unescape14630,498
+sub escape escape14826,506
+sub save_request save_request14957,512
+sub parse_keywordlist parse_keywordlist15322,523
+sub parse_params parse_params15554,531
+sub add_parameter add_parameter15850,544
+sub all_parameters all_parameters15977,550
+sub as_string as_string16222,561
+sub AUTOLOAD AUTOLOAD16256,565
+sub rearrange rearrange17468,604
+sub URL_ENCODED URL_ENCODED18800,650
+sub MULTIPART MULTIPART18902,654
+sub func_name func_name18989,658
+sub keywords keywords19910,693
+sub ReadParse ReadParse20258,705
+sub PrintHeader PrintHeader20447,718
+sub HtmlTop HtmlTop20575,725
+sub HtmlBot HtmlBot20708,732
+sub SplitParam SplitParam20842,739
+sub MethGet MethGet21014,747
+sub MethPost MethPost21112,753
+sub TIEHASH TIEHASH21211,759
+sub STORE STORE21289,765
+sub FETCH FETCH21387,771
+sub FIRSTKEY FIRSTKEY21577,779
+sub NEXTKEY NEXTKEY21719,786
+sub EXISTS EXISTS21831,792
+sub DELETE DELETE21915,798
+sub CLEAR CLEAR21997,804
+sub append append22119,814
+sub delete_all delete_all22505,830
+sub autoEscape autoEscape22742,840
+sub version version22941,851
+sub make_attributes make_attributes23029,857
+sub dump dump23601,877
+sub save save24292,903
+sub header header24912,927
+sub cache cache26440,976
+sub redirect redirect26744,992
+sub start_html start_html28376,1037
+sub end_html end_html30948,1118
+sub isindex isindex31303,1135
+sub startform startform31806,1152
+sub start_form start_form32385,1172
+sub start_multipart_form start_multipart_form32535,1181
+sub endform endform33005,1200
+sub end_form end_form33196,1210
+sub textfield textfield33615,1227
+sub filefield filefield34593,1254
+sub password_field password_field35698,1285
+sub textarea textarea36764,1315
+sub button button37812,1345
+sub submit submit38789,1377
+sub reset reset39484,1404
+sub defaults defaults40185,1427
+sub checkbox checkbox41073,1454
+sub checkbox_group checkbox_group42956,1502
+sub escapeHTML escapeHTML44305,1543
+sub _tableize _tableize44658,1558
+sub radio_group radio_group46211,1603
+sub popup_menu popup_menu48205,1660
+sub scrolling_list scrolling_list50086,1713
+sub hidden hidden51477,1755
+sub image_button image_button52717,1797
+sub self_url self_url53366,1818
+sub state state53957,1836
+sub url url54120,1847
+sub cookie cookie55025,1873
+sub expire_calc expire_calc56911,1933
+sub date date57949,1968
+sub path_info path_info58917,1998
+sub request_method request_method59090,2008
+sub path_translated path_translated59303,2018
+sub query_string query_string59501,2029
+sub accept accept60259,2056
+sub user_agent user_agent61397,2097
+sub raw_cookie raw_cookie61771,2111
+sub virtual_host virtual_host62046,2122
+sub remote_host remote_host62344,2134
+sub remote_addr remote_addr62558,2145
+sub script_name script_name62859,2158
+sub referer referer63153,2172
+sub server_name server_name63347,2183
+sub server_software server_software63540,2192
+sub server_port server_port63740,2201
+sub server_protocol server_protocol63940,2210
+sub http http64177,2220
+sub https https64518,2236
+sub protocol protocol64949,2254
+sub remote_ident remote_ident65379,2270
+sub auth_type auth_type65575,2280
+sub remote_user remote_user65763,2291
+sub user_name user_name65950,2302
+sub nph nph66178,2312
+sub private_tempfiles private_tempfiles66435,2323
+sub previous_or_default previous_or_default66713,2332
+sub register_parameter register_parameter67225,2351
+sub get_fields get_fields67370,2358
+sub read_from_cmdline read_from_cmdline67585,2367
+sub read_multipart read_multipart68491,2402
+sub tmpFileName tmpFileName71593,2490
+sub uploadInfo uploadInfo71825,2499
+package MultipartBuffer;MultipartBuffer72035,2510
+sub new MultipartBuffer::new72719,2530
+sub new new72719,2530
+sub readHeader MultipartBuffer::readHeader74335,2582
+sub readHeader readHeader74335,2582
+sub readBody MultipartBuffer::readBody75016,2608
+sub readBody readBody75016,2608
+sub read MultipartBuffer::read75421,2623
+sub read read75421,2623
+sub fillBuffer MultipartBuffer::fillBuffer77195,2677
+sub fillBuffer fillBuffer77195,2677
+sub eof MultipartBuffer::eof78382,2711
+sub eof eof78382,2711
+package TempFile;TempFile78794,2725
+sub new TempFile::new79598,2750
+sub new new79598,2750
+sub DESTROY TempFile::DESTROY79778,2759
+sub DESTROY DESTROY79778,2759
+sub as_string TempFile::as_string79912,2766
+sub as_string as_string79912,2766
+package CGI;CGI80006,2775
+	sub print_prompt CGI::print_prompt151217,5022
+	sub do_work CGI::do_work152632,5070
+	sub print_tail CGI::print_tail152924,5083
+
+f:/perllib/lib/cgi/switch.pm,218
+package CGI::Switch;CGI::Switch9,1
+sub import CGI::Switch::import135,8
+sub import import135,8
+sub new CGI::Switch::new202,13
+sub new new202,13
+sub isaCGI CGI::Switch::isaCGI938,41
+sub isaCGI isaCGI938,41
+
+f:/perllib/lib/cgi/push.pm,430
+package CGI::Push;CGI::Push9,1
+sub do_push CGI::Push::do_push947,27
+sub do_push do_push947,27
+sub simple_counter CGI::Push::simple_counter2389,69
+sub simple_counter simple_counter2389,69
+sub do_sleep CGI::Push::do_sleep2767,81
+sub do_sleep do_sleep2767,81
+    sub next_page CGI::Push::next_page3140,104
+     sub last_page CGI::Push::last_page3404,113
+    sub my_draw_routine CGI::Push::my_draw_routine5379,171
+
+f:/perllib/lib/cgi/fast.pm,175
+package CGI::Fast;CGI::Fast9,1
+sub save_request CGI::Fast::save_request1040,30
+sub save_request save_request1040,30
+sub new CGI::Fast::new1145,36
+sub new new1145,36
+
+f:/perllib/lib/cgi/carp.pm,841
+package CGI::Carp;CGI::Carp9,1
+sub import CGI::Carp::import4188,143
+sub import import4188,143
+sub realwarn CGI::Carp::realwarn4504,155
+sub realwarn realwarn4504,155
+sub realdie CGI::Carp::realdie4531,156
+sub realdie realdie4531,156
+sub id CGI::Carp::id4557,158
+sub id id4557,158
+sub stamp CGI::Carp::stamp4705,165
+sub stamp stamp4705,165
+sub warn CGI::Carp::warn4935,177
+sub warn warn4935,177
+sub die CGI::Carp::die5148,186
+sub die die5148,186
+sub confess CGI::Carp::confess5585,203
+sub confess confess5585,203
+sub croak CGI::Carp::croak5636,204
+sub croak croak5636,204
+sub carp CGI::Carp::carp5686,205
+sub carp carp5686,205
+sub carpout CGI::Carp::carpout5824,212
+sub carpout carpout5824,212
+sub fatalsToBrowser CGI::Carp::fatalsToBrowser6276,229
+sub fatalsToBrowser fatalsToBrowser6276,229
+
+f:/perllib/lib/cgi/apache.pm,578
+package CGI::Apache;CGI::Apache9,1
+sub import CGI::Apache::import210,11
+sub import import210,11
+sub new CGI::Apache::new344,17
+sub new new344,17
+sub header CGI::Apache::header568,26
+sub header header568,26
+sub print CGI::Apache::print733,33
+sub print print733,33
+sub read_from_client CGI::Apache::read_from_client831,38
+sub read_from_client read_from_client831,38
+sub new_MultipartBuffer CGI::Apache::new_MultipartBuffer996,44
+sub new_MultipartBuffer new_MultipartBuffer996,44
+package CGI::Apache::MultipartBuffer;CGI::Apache::MultipartBuffer1186,51
+
+f:/perllib/lib/carp.pm,204
+package Carp;Carp9,1
+sub longmess Carp::longmess1047,39
+sub longmess longmess1047,39
+sub shortmess shortmess2540,97
+sub confess confess3451,138
+sub croak croak3484,139
+sub carp carp3516,140
+
+f:/perllib/lib/cacheout.pl,181
+sub cacheout'open cacheout'open40,3
+sub cacheout'close cacheout'close104,9
+sub cacheout cacheout183,15
+    package cacheout;cacheout206,16
+package cacheout;cacheout611,32
+
+f:/perllib/lib/bundle/cpan.pm,39
+package Bundle::CPAN;Bundle::CPAN9,1
+
+f:/perllib/lib/blib.pm,54
+package blib;blib9,1
+sub importblib::import695,42
+
+f:/perllib/lib/bigrat.pl,420
+package bigrat;bigrat9,1
+sub main'rnorm main'rnorm1469,37
+sub norm bigrat::norm1681,48
+sub norm norm1681,48
+sub main'rneg main'rneg2143,72
+sub main'rabs main'rabs2275,79
+sub main'rmul main'rmul2420,86
+sub main'rdiv main'rdiv2629,93
+sub main'radd main'radd2839,100
+sub main'rsub main'rsub3075,107
+sub main'rcmp main'rcmp3310,114
+sub main'rmod main'rmod3537,121
+sub main'rsqrt main'rsqrt3836,133
+
+f:/perllib/lib/bigint.pl,592
+package bigint;bigint9,1
+sub main'bnorm main'bnorm1668,44
+sub internal bigint::internal2052,58
+sub internal internal2052,58
+sub external bigint::external2383,67
+sub external external2383,67
+sub main'bneg main'bneg2621,74
+sub main'babs main'babs2817,82
+sub abs abs2880,86
+sub main'bcmp main'bcmp3055,93
+sub cmp cmp3262,104
+sub main'badd main'badd3779,125
+sub main'bsub main'bsub4367,148
+sub main'bgcd main'bgcd4508,153
+sub add add4885,166
+sub sub sub5288,181
+sub main'bmul main'bmul5572,192
+sub main'bmod main'bmod6165,218
+sub main'bdiv main'bdiv6244,222
+
+f:/perllib/lib/bigfloat.pl,532
+package bigfloat;bigfloat9,1
+sub main'fnorm main'fnorm1459,41
+sub norm bigfloat::norm1839,54
+sub norm norm1839,54
+sub main'fneg main'fneg2196,70
+sub main'fabs main'fabs2387,78
+sub main'fmul main'fmul2541,85
+sub main'fadd main'fadd2830,97
+sub main'fsub main'fsub3190,110
+sub main'fdiv main'fdiv3424,117
+sub round bigfloat::round4023,135
+sub round round4023,135
+sub main'fround main'fround4812,159
+sub main'ffround main'ffround5233,176
+sub main'fcmp main'fcmp5848,200
+sub main'fsqrt main'fsqrt6225,216
+
+f:/perllib/lib/benchmark.pm,1331
+package Benchmark;Benchmark9,1
+sub init Benchmark::init5628,218
+sub init init5628,218
+sub debug Benchmark::debug5990,231
+sub debug debug5990,231
+sub clearcache Benchmark::clearcache6028,233
+sub clearcache clearcache6028,233
+sub clearallcache Benchmark::clearallcache6072,234
+sub clearallcache clearallcache6072,234
+sub enablecache Benchmark::enablecache6107,235
+sub enablecache enablecache6107,235
+sub disablecache Benchmark::disablecache6141,236
+sub disablecache disablecache6141,236
+sub new Benchmark::new6225,240
+sub new new6225,240
+sub cpu_p Benchmark::cpu_p6300,242
+sub cpu_p cpu_p6300,242
+sub cpu_c Benchmark::cpu_c6367,243
+sub cpu_c cpu_c6367,243
+sub cpu_a Benchmark::cpu_a6434,244
+sub cpu_a cpu_a6434,244
+sub real Benchmark::real6501,245
+sub real real6501,245
+sub timediff Benchmark::timediff6569,247
+sub timediff timediff6569,247
+sub timestr Benchmark::timestr6705,256
+sub timestr timestr6705,256
+sub timedebug Benchmark::timedebug7479,276
+sub timedebug timedebug7479,276
+sub runloop Benchmark::runloop7638,283
+sub runloop runloop7638,283
+sub timeit Benchmark::timeit8540,315
+sub timeit timeit8540,315
+sub timethis{Benchmark::timethis9009,341
+sub timethis{timethis9009,341
+sub timethese{Benchmark::timethese9595,360
+sub timethese{timethese9595,360
+
+f:/perllib/lib/autouse.pm,230
+package autouse;autouse9,1
+sub croak autouse::croak165,12
+sub croak croak165,12
+sub import autouse::import219,17
+sub import import219,17
+sub vet_import ($autouse::vet_import1698,72
+sub vet_import ($vet_import1698,72
+
+f:/perllib/lib/autosplit.pm,432
+package AutoSplit;AutoSplit9,1
+sub autosplit{AutoSplit::autosplit4221,111
+sub autosplit{autosplit4221,111
+sub autosplit_lib_modules{AutoSplit::autosplit_lib_modules4774,126
+sub autosplit_lib_modules{autosplit_lib_modules4774,126
+sub autosplit_file{autosplit_file5316,147
+sub check_unique{check_unique11162,336
+sub test1{test111775,360
+sub test2{test211800,361
+sub test3{test311825,362
+sub test4{test411850,363
+
+f:/perllib/lib/autoloader.pm,284
+package AutoLoader;AutoLoader9,1
+sub import AutoLoader::import1292,53
+sub import import1292,53
+    package Foo;Foo2513,100
+    package Bar;Bar2605,103
+    sub AUTOLOAD Bar::AUTOLOAD2691,105
+    sub AUTOLOAD Bar::AUTOLOAD5472,173
+Package lexicals Bar::lexicals6207,196
+
+f:/perllib/lib/assert.pl,76
+sub assert assert407,14
+sub panic panic487,18
+    package DB;DB507,19
+
+f:/perllib/lib/anydbm_file.pm,37
+package AnyDBM_File;AnyDBM_File9,1
+
+f:/perllib/lib/abbrev.pl,63
+package abbrev;abbrev89,7
+sub main'abbrev main'abbrev107,9
