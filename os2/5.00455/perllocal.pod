@@ -1,0 +1,814 @@
+=head2 Fri Nov 28 14:39:11 1997: C<Module> L<Data::Flow>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.05>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:40:08 1997: C<Module> L<Term::ReadKey>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.09>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:40:46 1997: C<Module> L<Devel::Peek>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.83>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:41:24 1997: C<Module> L<Data::Dumper>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.07>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:47:59 1997: C<Module> L<MD5>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.7>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:51:31 1997: C<Module> L<GD>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.15>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:51:51 1997: C<Module> L<Curses>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.01>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:53:26 1997: C<Module> L<C::Scan>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.4>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:53:48 1997: C<Module> L<Term::ReadLine>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.9901>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:54:08 1997: C<Module> L<Net::Telnet>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 3.00>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 14:55:44 1997: C<Module> L<Net>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.06>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 15:19:15 1997: C<Module> L<CPAN::WAIT>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.24>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 15:25:53 1997: C<Module> L<MIME::Base64>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.03>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri Nov 28 15:30:23 1997: C<Module> L<libwww-perl>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 5.16>
+
+=item *
+
+C<EXE_FILES: bin/lwp-request bin/lwp-mirror bin/lwp-rget bin/lwp-download>
+
+=back
+
+=head2 Sat Nov 29 13:42:04 1997: C<Module> L<Time-modules>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 97.092101>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Sat Nov 29 13:42:30 1997: C<Module> L<TimeDate>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.07>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Sat Nov 29 15:07:20 1997: C<Module> L<Time::HiRes>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 01.16>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:19:18 1997: C<Module> L<Devel::Peek>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.84>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:21:21 1997: C<Module> L<MIME::Base64>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 2.04>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:24:34 1997: C<Module> L<Data::Flow>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.05>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:26:05 1997: C<Module> L<Term::ReadKey>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 2.09>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:27:06 1997: C<Module> L<Devel::Peek>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.84>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:28:08 1997: C<Module> L<Data::Dumper>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 2.07>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:29:16 1997: C<Module> L<MD5>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 1.7>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:33:30 1997: C<Module> L<GD>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 1.15>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:38:55 1997: C<Module> L<Data::Flow>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.05>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:41:22 1997: C<Module> L<Term::ReadKey>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 2.09>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:42:27 1997: C<Module> L<Devel::Peek>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.84>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:43:31 1997: C<Module> L<Data::Dumper>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 2.07>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:44:28 1997: C<Module> L<MD5>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 1.7>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:45:37 1997: C<Module> L<C::Scan>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.4>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:47:19 1997: C<Module> L<Term::ReadLine>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.9901>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:47:48 1997: C<Module> L<Net::Telnet>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 3.00>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:48:57 1997: C<Module> L<Net>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 1.06>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 13:50:32 1997: C<Module> L<CPAN::WAIT>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 0.24>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 14:09:00 1997: C<Module> L<Curses>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 1.01>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Tue Dec  2 14:15:11 1997: C<Module> L<Time::HiRes>
+
+=over 4
+
+=item *
+
+C<installed into: f:/perllib/lib/site_perl>
+
+=item *
+
+C<LINKTYPE: static>
+
+=item *
+
+C<VERSION: 01.16>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+

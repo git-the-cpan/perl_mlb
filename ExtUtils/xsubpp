@@ -87,7 +87,7 @@ sub Q ;
 
 # Global Constants
 
-$XSUBPP_version = "1.9501";
+$XSUBPP_version = "1.9505";
 
 my ($Is_VMS, $SymSet);
 if ($^O eq 'VMS') {
@@ -247,32 +247,58 @@ sub check_keyword {
 
 
 if ($WantLineNumbers) {
-    $SECTION_END_MARKER = "*/ This cant look like C code!\n";
-    my $cfile = $filename;
-    $cfile =~ s/\.xs$/.c/io or $cfile .= ".c";
-    if (open(PSEUDO_STDOUT, join('', "| $^X -e '",
-	'while (<>) {',
-	    'if ($_ eq "', $SECTION_END_MARKER, '") {',
-		'print ("#line ", $. + 1, " \"' . $cfile . '\"\n");',
-	    '} else {',
-	'print $_; }}\'')))
     {
-	select PSEUDO_STDOUT;
-    } else {
-	print STDERR ("Warning: Can't open pipe; won't use `#line' directives.\n");
-	$WantLineNumbers = 0;
+	package xsubpp::counter;
+	sub TIEHANDLE {
+	    my ($class, $cfile) = @_;
+	    my $buf = "";
+	    $SECTION_END_MARKER = "#line --- \"$cfile\"";
+	    $line_no = 1;
+	    bless \$buf;
+	}
+
+	sub PRINT {
+	    my $self = shift;
+	    for (@_) {
+		$$self .= $_;
+		while ($$self =~ s/^([^\n]*\n)//) {
+		    my $line = $1;
+		    ++ $line_no;
+		    $line =~ s|^\#line\s+---(?=\s)|#line $line_no|;
+		    print STDOUT $line;
+		}
+	    }
+	}
+
+	sub PRINTF {
+	    my $self = shift;
+	    my $fmt = shift;
+	    $self->PRINT(sprintf($fmt, @_));
+	}
+
+	sub DESTROY {
+	    # Not necessary if we're careful to end with a "\n"
+	    my $self = shift;
+	    print STDOUT $$self;
+	}
     }
+
+    my $cfile = $filename;
+    $cfile =~ s/\.xs$/.c/i or $cfile .= ".c";
+    tie(*PSEUDO_STDOUT, 'xsubpp::counter', $cfile);
+    select PSEUDO_STDOUT;
 }
 
 sub print_section {
-    $_ = shift(@line) while !/\S/ && @line;
+    # the "do" is required for right semantics
+    do { $_ = shift(@line) } while !/\S/ && @line;
     
-    print ("#line ", $line_no[@line_no - @line -1], " \"$filename\"\n")
-	if $WantLineNumbers;
+    print("#line ", $line_no[@line_no - @line -1], " \"$filename\"\n")
+	if $WantLineNumbers && !/^\s*#\s*line\b/ && !/^#if XSubPPtmp/;
     for (;  defined($_) && !/^$BLOCK_re/o;  $_ = shift(@line)) {
 	print "$_\n";
     }
-    print $SECTION_END_MARKER if $WantLineNumbers;
+    print "$xsubpp::counter::SECTION_END_MARKER\n" if $WantLineNumbers;
 }
 
 sub process_keyword($)
@@ -677,7 +703,7 @@ print <<EOM ;
 EOM
  
 
-print ("#line 1 \"$filename\"\n")
+print("#line 1 \"$filename\"\n")
     if $WantLineNumbers;
 
 while (<$FH>) {
@@ -815,7 +841,9 @@ while (fetch_para()) {
 
     if (check_keyword("BOOT")) {
 	&check_cpp;
-        push (@BootCode, $_, @line, "") ;
+	push (@BootCode, "#line $line_no[@line_no - @line] \"$filename\"")
+	  if $WantLineNumbers && $line[0] !~ /^\s*#\s*line\b/;
+        push (@BootCode, @line, "") ;
         next PARAGRAPH ;
     }
 
@@ -1091,11 +1119,11 @@ EOF
     if ($ProtoThisXSUB) {
 	$newXS = "newXSproto";
 
-	if ($ProtoThisXSUB == 2) {
+	if ($ProtoThisXSUB eq 2) {
 	    # User has specified empty prototype
 	    $proto = ', ""' ;
 	}
-        elsif ($ProtoThisXSUB != 1) {
+        elsif ($ProtoThisXSUB ne 1) {
             # User has specified a prototype
             $proto = ', "' . $ProtoThisXSUB . '"';
         }
@@ -1162,8 +1190,9 @@ EOF
 
 if (@BootCode)
 {
-    print "\n    /* Initialisation Section */\n" ;
-    print grep (s/$/\n/, @BootCode) ;
+    print "\n    /* Initialisation Section */\n\n" ;
+    @line = @BootCode;
+    print_section();
     print "\n    /* End of Initialisation Section */\n\n" ;
 }
 

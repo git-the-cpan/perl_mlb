@@ -17,19 +17,13 @@ $head= <<'EOF!HEAD';
  * "The Road goes ever on and on, down from the door where it began."
  */
 
-#ifdef __cplusplus
-extern "C" {
+#ifdef OEMVS
+#pragma runopts(HEAP(1M,32K,ANYWHERE,KEEP,8K,4K))
 #endif
+
 
 #include "EXTERN.h"
 #include "perl.h"
-
-#ifdef __cplusplus
-}
-#  define EXTERN_C extern "C"
-#else
-#  define EXTERN_C extern
-#endif
 
 static void xs_init _((void));
 static PerlInterpreter *my_perl;
@@ -69,6 +63,7 @@ char **env;
     PERL_SYS_TERM();
 
     exit( exitstatus );
+    return exitstatus;
 }
 
 /* Register any extra external extensions */
@@ -77,7 +72,7 @@ EOF!HEAD
 $tail=<<'EOF!TAIL';
 
 static void
-xs_init()
+xs_init(void)
 {
 }
 EOF!TAIL

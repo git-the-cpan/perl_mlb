@@ -2,7 +2,7 @@ package DB;
 
 # Debugger for Perl 5.00x; perl5db.pl patch level:
 
-$VERSION = 1.00;
+$VERSION = 1.02;
 $header = "perl5db.pl version $VERSION";
 
 # Enhanced by ilya@math.ohio-state.edu (Ilya Zakharevich)
@@ -296,6 +296,10 @@ if ($notty) {
     $console = "sys\$command";
   }
 
+  if (($^O eq 'MSWin32') and ($emacs or defined $ENV{EMACS})) {
+    $console = undef;
+  }
+
   # Around a bug:
   if (defined $ENV{OS2_SHELL} and ($emacs or $ENV{WINDOWID})) { # In OS/2
     $console = undef;
@@ -377,8 +381,29 @@ sub DB {
 	}
     }
     my $was_signal = $signal;
+    if ($trace & 2) {
+      for (my $n = 0; $n <= $#to_watch; $n++) {
+	$evalarg = $to_watch[$n];
+	my ($val) = &eval;	# Fix context (&eval is doing array)?
+	$val = ( (defined $val) ? "'$val'" : 'undef' );
+	if ($val ne $old_watch[$n]) {
+	  $signal = 1;
+	  print $OUT <<EOP;
+Watchpoint $n: $to_watch[$n] changed:
+old value: $old_watch[$n]
+new value: $val
+EOP
+	  $old_watch[$n] = $val;
+	}
+      }
+    }
+    if ($trace & 4) {		# User-installed watch
+      return if watchfunction($package, $filename, $line) 
+	and not $single and not $was_signal and not ($trace & ~4);
+    }
+    $was_signal = $signal;
     $signal = 0;
-    if ($single || $trace || $was_signal) {
+    if ($single || ($trace & 1) || $was_signal) {
 	$term || &setterm;
 	if ($emacs) {
 	    $position = "\032\032$filename:$line:0\n";
@@ -428,6 +453,7 @@ sub DB {
 	@typeahead = @$pretype, @typeahead;
       CMD:
 	while (($term || &setterm),
+	       ($term_pid == $$ or &resetterm),
 	       defined ($cmd=&readline("  DB" . ('<' x $level) .
 				       ($#hist+1) . ('>' x $level) .
 				       " "))) {
@@ -444,24 +470,25 @@ sub DB {
 		    eval "\$cmd =~ $alias{$i}", print $OUT $@ if $alias{$i};
 		    $cmd =~ /^q$/ && ($exiting = 1) && exit 0;
 		    $cmd =~ /^h$/ && do {
-			print $OUT $help;
+			print_help($help);
 			next CMD; };
 		    $cmd =~ /^h\s+h$/ && do {
-			print $OUT $summary;
+			print_help($summary);
 			next CMD; };
 		    $cmd =~ /^h\s+(\S)$/ && do {
 			my $asked = "\Q$1";
-			if ($help =~ /^$asked/m) {
-			  while ($help =~ /^($asked([\s\S]*?)\n)(\Z|[^\s$asked])/mg) {
-			    print $OUT $1;
+			if ($help =~ /^(?:[IB]<)$asked/m) {
+			  while ($help =~ /^((?:[IB]<)$asked([\s\S]*?)\n)(?!\s)/mg) {
+			    print_help($1);
 			  }
 			} else {
-			    print $OUT "`$asked' is not a debugger command.\n";
+			    print_help("B<$asked> is not a debugger command.\n");
 			}
 			next CMD; };
 		    $cmd =~ /^t$/ && do {
-			$trace = !$trace;
-			print $OUT "Trace = ".($trace?"on":"off")."\n";
+			($trace & 1) ? ($trace &= ~1) : ($trace |= 1);
+			print $OUT "Trace = " .
+			    (($trace & 1) ? "on" : "off" ) . "\n";
 			next CMD; };
 		    $cmd =~ /^S(\s+(!)?(.+))?$/ && do {
 			$Srev = defined $2; $Spatt = $3; $Snocheck = ! defined $1;
@@ -681,6 +708,14 @@ sub DB {
 			  last if $signal;
 			}
 		      }
+		      if ($trace & 2) {
+			print $OUT "Watch-expressions:\n";
+			my $expr;
+			for $expr (@to_watch) {
+			  print $OUT " $expr\n";
+			  last if $signal;
+			}
+		      }
 		      next CMD; };
 		    $cmd =~ /^b\b\s*load\b\s*(.*)/ && do {
 			my $file = $1; $file =~ s/\s+$//;
@@ -803,9 +838,11 @@ sub DB {
 			last CMD; };
 		    $cmd =~ /^c\b\s*([\w:]*)\s*$/ && do {
 		        end_report(), next CMD if $finished and $level <= 1;
-			$i = $1;
+			$subname = $i = $1;
 			if ($i =~ /\D/) { # subroutine name
-			    ($file,$i) = (find_sub($i) =~ /^(.*):(.*)$/);
+			    $subname = $package."::".$subname 
+			        unless $subname =~ /::/;
+			    ($file,$i) = (find_sub($subname) =~ /^(.*):(.*)$/);
 			    $i += 0;
 			    if ($i) {
 			        $filename = $file;
@@ -917,6 +954,18 @@ sub DB {
 			last CMD; };
 		    $cmd =~ /^T$/ && do {
 			print_trace($OUT, 1); # skip DB
+			next CMD; };
+		    $cmd =~ /^W\s*$/ && do {
+			$trace &= ~2;
+			@to_watch = @old_watch = ();
+			next CMD; };
+		    $cmd =~ /^W\b\s*(.*)/s && do {
+			push @to_watch, $1;
+			$evalarg = $1;
+			my ($val) = &eval;
+			$val = (defined $val) ? "'$val'" : 'undef' ;
+			push @old_watch, $val;
+			$trace |= 2;
 			next CMD; };
 		    $cmd =~ /^\/(.*)$/ && do {
 			$inpat = $1;
@@ -1055,14 +1104,14 @@ sub DB {
 			$cmd =~ s/^\|+\s*//;
 			redo PIPE; };
 		    # XXX Local variants do not work!
-		    $cmd =~ s/^t\s/\$DB::trace = 1;\n/;
+		    $cmd =~ s/^t\s/\$DB::trace |= 1;\n/;
 		    $cmd =~ s/^s\s/\$DB::single = 1;\n/ && do {$laststep = 's'};
 		    $cmd =~ s/^n\s/\$DB::single = 2;\n/ && do {$laststep = 'n'};
 		}		# PIPE:
 	    $evalarg = "\$^D = \$^D | \$DB::db_stop;\n$cmd"; &eval;
 	    if ($onetimeDump) {
 		$onetimeDump = undef;
-	    } else {
+	    } elsif ($term_pid == $$) {
 		print $OUT "\n";
 	    }
 	} continue {		# CMD:
@@ -1123,7 +1172,11 @@ sub sub {
 	  $doret = -2 if $doret eq $#stack or $frame & 16;
 	@ret;
     } else {
-	$ret = &$sub;
+        if (defined wantarray) {
+	    $ret = &$sub;
+        } else {
+            &$sub; undef $ret;
+        };
 	$single |= pop(@stack);
 	($frame & 4 
 	 ? ( (print $LINEINFO ' ' x $#stack, "out "), 
@@ -1165,6 +1218,7 @@ sub eval {
     } elsif ($onetimeDump eq 'methods') {
 	methods($res[0]);
     }
+    @res;
 }
 
 sub postponed_sub {
@@ -1173,8 +1227,8 @@ sub postponed_sub {
     my $offset = $1 || 0;
     # Filename below can contain ':'
     my ($file,$i) = (find_sub($subname) =~ /^(.*):(\d+)-.*$/);
-    $i += $offset;
     if ($i) {
+      $i += $offset;
       local *dbline = $main::{'_<' . $file};
       local $^W = 0;		# != 0 is magical below
       $had_breakpoints{$file}++;
@@ -1386,6 +1440,29 @@ sub setterm {
       $term->SetHistory(@hist);
     }
     ornaments($ornaments) if defined $ornaments;
+    $term_pid = $$;
+}
+
+sub resetterm {			# We forked, so we need a different TTY
+    $term_pid = $$;
+    if (defined &get_fork_TTY) {
+      &get_fork_TTY;
+    } elsif (not defined $fork_TTY 
+	     and defined $ENV{TERM} and $ENV{TERM} eq 'xterm' 
+	     and defined $ENV{WINDOWID} and defined $ENV{DISPLAY}) { 
+        # Possibly _inside_ XTERM
+        open XT, q[3>&1 xterm -title 'Forked Perl debugger' -e sh -c 'tty 1>&3;\
+ sleep 10000000' |];
+        $fork_TTY = <XT>;
+        chomp $fork_TTY;
+    }
+    if (defined $fork_TTY) {
+      TTY($fork_TTY);
+      undef $fork_TTY;
+    } else {
+      print $OUT "Forked, but do not know how to change a TTY.\n",
+          "Define \$DB::fork_TTY or get_fork_TTY().\n";
+    }
 }
 
 sub readline {
@@ -1511,8 +1588,21 @@ sub warn {
 }
 
 sub TTY {
-    if ($term) {
-	&warn("Too late to set TTY, enabled on next `R'!\n") if @_;
+    if (@_ and $term and $term->Features->{newTTY}) {
+      my ($in, $out) = shift;
+      if ($in =~ /,/) {
+	($in, $out) = split /,/, $in, 2;
+      } else {
+	$out = $in;
+      }
+      open IN, $in or die "cannot open `$in' for read: $!";
+      open OUT, ">$out" or die "cannot open `$out' for write: $!";
+      $term->newTTY(\*IN, \*OUT);
+      $IN	= \*IN;
+      $OUT	= \*OUT;
+      return $tty = $in;
+    } elsif ($term and @_) {
+	&warn("Too late to set TTY, enabled on next `R'!\n");
     } 
     $tty = shift if @_;
     $tty or $console;
@@ -1631,133 +1721,145 @@ sub list_versions {
 
 sub sethelp {
     $help = "
-T		Stack trace.
-s [expr]	Single step [in expr].
-n [expr]	Next, steps over subroutine calls [in expr].
-<CR>		Repeat last n or s command.
-r		Return from current subroutine.
-c [line|sub]	Continue; optionally inserts a one-time-only breakpoint
+B<T>		Stack trace.
+B<s> [I<expr>]	Single step [in I<expr>].
+B<n> [I<expr>]	Next, steps over subroutine calls [in I<expr>].
+<B<CR>>		Repeat last B<n> or B<s> command.
+B<r>		Return from current subroutine.
+B<c> [I<line>|I<sub>]	Continue; optionally inserts a one-time-only breakpoint
 		at the specified position.
-l min+incr	List incr+1 lines starting at min.
-l min-max	List lines min through max.
-l line		List single line.
-l subname	List first window of lines from subroutine.
-l		List next window of lines.
--		List previous window of lines.
-w [line]	List window around line.
-.		Return to the executed line.
-f filename	Switch to viewing filename. Must be loaded.
-/pattern/	Search forwards for pattern; final / is optional.
-?pattern?	Search backwards for pattern; final ? is optional.
-L		List all breakpoints and actions.
-S [[!]pattern]	List subroutine names [not] matching pattern.
-t		Toggle trace mode.
-t expr		Trace through execution of expr.
-b [line] [condition]
-		Set breakpoint; line defaults to the current execution line;
-		condition breaks if it evaluates to true, defaults to '1'.
-b subname [condition]
+B<l> I<min>B<+>I<incr>	List I<incr>+1 lines starting at I<min>.
+B<l> I<min>B<->I<max>	List lines I<min> through I<max>.
+B<l> I<line>		List single I<line>.
+B<l> I<subname>	List first window of lines from subroutine.
+B<l>		List next window of lines.
+B<->		List previous window of lines.
+B<w> [I<line>]	List window around I<line>.
+B<.>		Return to the executed line.
+B<f> I<filename>	Switch to viewing I<filename>. Must be loaded.
+B</>I<pattern>B</>	Search forwards for I<pattern>; final B</> is optional.
+B<?>I<pattern>B<?>	Search backwards for I<pattern>; final B<?> is optional.
+B<L>		List all breakpoints and actions.
+B<S> [[B<!>]I<pattern>]	List subroutine names [not] matching I<pattern>.
+B<t>		Toggle trace mode.
+B<t> I<expr>		Trace through execution of I<expr>.
+B<b> [I<line>] [I<condition>]
+		Set breakpoint; I<line> defaults to the current execution line;
+		I<condition> breaks if it evaluates to true, defaults to '1'.
+B<b> I<subname> [I<condition>]
 		Set breakpoint at first line of subroutine.
-b load filename Set breakpoint on `require'ing the given file.
-b postpone subname [condition]
+B<b> B<load> I<filename> Set breakpoint on `require'ing the given file.
+B<b> B<postpone> I<subname> [I<condition>]
 		Set breakpoint at first line of subroutine after 
 		it is compiled.
-b compile subname
+B<b> B<compile> I<subname>
 		Stop after the subroutine is compiled.
-d [line]	Delete the breakpoint for line.
-D		Delete all breakpoints.
-a [line] command
-		Set an action to be done before the line is executed.
-		Sequence is: check for breakpoint, print line if necessary,
-		do action, prompt user if breakpoint or step, evaluate line.
-A		Delete all actions.
-V [pkg [vars]]	List some (default all) variables in package (default current).
-		Use ~pattern and !pattern for positive and negative regexps.
-X [vars]	Same as \"V currentpackage [vars]\".
-x expr		Evals expression in array context, dumps the result.
-m expr		Evals expression in array context, prints methods callable
+B<d> [I<line>]	Delete the breakpoint for I<line>.
+B<D>		Delete all breakpoints.
+B<a> [I<line>] I<command>
+		Set an action to be done before the I<line> is executed.
+		Sequence is: check for breakpoint/watchpoint, print line
+		if necessary, do action, prompt user if necessary,
+		execute expression.
+B<A>		Delete all actions.
+B<W> I<expr>		Add a global watch-expression.
+B<W>		Delete all watch-expressions.
+B<V> [I<pkg> [I<vars>]]	List some (default all) variables in package (default current).
+		Use B<~>I<pattern> and B<!>I<pattern> for positive and negative regexps.
+B<X> [I<vars>]	Same as \"B<V> I<currentpackage> [I<vars>]\".
+B<x> I<expr>		Evals expression in array context, dumps the result.
+B<m> I<expr>		Evals expression in array context, prints methods callable
 		on the first element of the result.
-m class		Prints methods callable via the given class.
-O [opt[=val]] [opt\"val\"] [opt?]...
-		Set or query values of options.  val defaults to 1.  opt can
+B<m> I<class>		Prints methods callable via the given class.
+B<O> [I<opt>[B<=>I<val>]] [I<opt>B<\">I<val>B<\">] [I<opt>B<?>]...
+		Set or query values of options.  I<val> defaults to 1.  I<opt> can
 		be abbreviated.  Several options can be listed.
-    recallCommand, ShellBang:	chars used to recall command or spawn shell;
-    pager:			program for output of \"|cmd\";
-    tkRunning:			run Tk while prompting (with ReadLine);
-    signalLevel warnLevel dieLevel:	level of verbosity;
-    inhibit_exit		Allows stepping off the end of the script.
-  The following options affect what happens with V, X, and x commands:
-    arrayDepth, hashDepth:	print only first N elements ('' for all);
-    compactDump, veryCompact:	change style of array and hash dump;
-    globPrint:			whether to print contents of globs;
-    DumpDBFiles:		dump arrays holding debugged files;
-    DumpPackages:		dump symbol tables of packages;
-    quote, HighBit, undefPrint:	change style of string dump;
-  Option PrintRet affects printing of return value after r command,
-         frame    affects printing messages on entry and exit from subroutines.
-         AutoTrace affects printing messages on every possible breaking point.
-	 maxTraceLen gives maximal length of evals/args listed in stack trace.
-	 ornaments affects screen appearance of the command line.
+    I<recallCommand>, I<ShellBang>:	chars used to recall command or spawn shell;
+    I<pager>:			program for output of \"|cmd\";
+    I<tkRunning>:			run Tk while prompting (with ReadLine);
+    I<signalLevel> I<warnLevel> I<dieLevel>:	level of verbosity;
+    I<inhibit_exit>		Allows stepping off the end of the script.
+  The following options affect what happens with B<V>, B<X>, and B<x> commands:
+    I<arrayDepth>, I<hashDepth>:	print only first N elements ('' for all);
+    I<compactDump>, I<veryCompact>:	change style of array and hash dump;
+    I<globPrint>:			whether to print contents of globs;
+    I<DumpDBFiles>:		dump arrays holding debugged files;
+    I<DumpPackages>:		dump symbol tables of packages;
+    I<quote>, I<HighBit>, I<undefPrint>:	change style of string dump;
+  Option I<PrintRet> affects printing of return value after B<r> command,
+         I<frame>    affects printing messages on entry and exit from subroutines.
+         I<AutoTrace> affects printing messages on every possible breaking point.
+	 I<maxTraceLen> gives maximal length of evals/args listed in stack trace.
+	 I<ornaments> affects screen appearance of the command line.
 		During startup options are initialized from \$ENV{PERLDB_OPTS}.
-		You can put additional initialization options TTY, noTTY,
-		ReadLine, and NonStop there (or use `R' after you set them).
-< command	Define Perl command to run before each prompt.
-<< command	Add to the list of Perl commands to run before each prompt.
-> command	Define Perl command to run after each prompt.
->> command	Add to the list of Perl commands to run after each prompt.
-\{ commandline	Define debugger command to run before each prompt.
-\{{ commandline	Add to the list of debugger commands to run before each prompt.
-$prc number	Redo a previous command (default previous command).
-$prc -number	Redo number'th-to-last command.
-$prc pattern	Redo last command that started with pattern.
-		See 'O recallCommand' too.
-$psh$psh cmd  	Run cmd in a subprocess (reads from DB::IN, writes to DB::OUT)"
+		You can put additional initialization options I<TTY>, I<noTTY>,
+		I<ReadLine>, and I<NonStop> there (or use `B<R>' after you set them).
+B<<> I<expr>		Define Perl command to run before each prompt.
+B<<<> I<expr>		Add to the list of Perl commands to run before each prompt.
+B<>> I<expr>		Define Perl command to run after each prompt.
+B<>>B<>> I<expr>	Add to the list of Perl commands to run after each prompt.
+B<{> I<db_command>	Define debugger command to run before each prompt.
+B<{{> I<db_command>	Add to the list of debugger commands to run before each prompt.
+B<$prc> I<number>	Redo a previous command (default previous command).
+B<$prc> I<-number>	Redo number'th-to-last command.
+B<$prc> I<pattern>	Redo last command that started with I<pattern>.
+		See 'B<O> I<recallCommand>' too.
+B<$psh$psh> I<cmd>  	Run cmd in a subprocess (reads from DB::IN, writes to DB::OUT)"
   . ( $rc eq $sh ? "" : "
-$psh [cmd] 	Run cmd in subshell (forces \"\$SHELL -c 'cmd'\")." ) . "
-		See 'O shellBang' too.
-H -number	Display last number commands (default all).
-p expr		Same as \"print {DB::OUT} expr\" in current package.
-|dbcmd		Run debugger command, piping DB::OUT to current pager.
-||dbcmd		Same as |dbcmd but DB::OUT is temporarilly select()ed as well.
-\= [alias value]	Define a command alias, or list current aliases.
-command		Execute as a perl statement in current package.
-v		Show versions of loaded modules.
-R		Pure-man-restart of debugger, some of debugger state
+B<$psh> [I<cmd>] 	Run I<cmd> in subshell (forces \"\$SHELL -c 'cmd'\")." ) . "
+		See 'B<O> I<shellBang>' too.
+B<H> I<-number>	Display last number commands (default all).
+B<p> I<expr>		Same as \"I<print {DB::OUT} expr>\" in current package.
+B<|>I<dbcmd>		Run debugger command, piping DB::OUT to current pager.
+B<||>I<dbcmd>		Same as B<|>I<dbcmd> but DB::OUT is temporarilly select()ed as well.
+B<\=> [I<alias> I<value>]	Define a command alias, or list current aliases.
+I<command>		Execute as a perl statement in current package.
+B<v>		Show versions of loaded modules.
+B<R>		Pure-man-restart of debugger, some of debugger state
 		and command-line options may be lost.
 		Currently the following setting are preserved: 
-		history, breakpoints and actions, debugger Options 
-		and the following command-line options: -w, -I, -e.
-h [db_command]	Get help [on a specific debugger command], enter |h to page.
-h h		Summary of debugger commands.
-q or ^D		Quit. Set \$DB::finished to 0 to debug global destruction.
+		history, breakpoints and actions, debugger B<O>ptions 
+		and the following command-line options: I<-w>, I<-I>, I<-e>.
+B<h> [I<db_command>]	Get help [on a specific debugger command], enter B<|h> to page.
+B<h h>		Summary of debugger commands.
+B<q> or B<^D>		Quit. Set \$DB::finished to 0 to debug global destruction.
 
 ";
     $summary = <<"END_SUM";
-List/search source lines:               Control script execution:
-  l [ln|sub]  List source code            T           Stack trace
-  - or .      List previous/current line  s [expr]    Single step [in expr]
-  w [line]    List around line            n [expr]    Next, steps over subs
-  f filename  View source in file         <CR>        Repeat last n or s
-  /pattern/ ?patt?   Search forw/backw    r           Return from subroutine
-  v	      Show versions of modules    c [ln|sub]  Continue until position
-Debugger controls:                        L           List break pts & actions
-  O [...]     Set debugger options        t [expr]    Toggle trace [trace expr]
-  <[<] or {[{] [cmd]   Do before prompt   b [ln/event] [c]     Set breakpoint
-  >[>] [cmd]  Do after prompt             b sub [c]   Set breakpoint for sub
-  $prc [N|pat]   Redo a previous command     d [line]    Delete a breakpoint
-  H [-num]    Display last num commands   D           Delete all breakpoints
-  = [a val]   Define/list an alias        a [ln] cmd  Do cmd before line
-  h [db_cmd]  Get help on command         A           Delete all actions
-  |[|]dbcmd   Send output to pager        $psh\[$psh\] syscmd Run cmd in a subprocess
-  q or ^D     Quit			  R	      Attempt a restart
-Data Examination:	      expr     Execute perl code, also see: s,n,t expr
-  x|m expr	Evals expr in array context, dumps the result or lists methods.
-  p expr	Print expression (uses script's current package).
-  S [[!]pat]	List subroutine names [not] matching pattern
-  V [Pk [Vars]]	List Variables in Package.  Vars can be ~pattern or !pattern.
-  X [Vars]	Same as \"V current_package [Vars]\".
+I<List/search source lines:>               I<Control script execution:>
+  B<l> [I<ln>|I<sub>]  List source code            B<T>           Stack trace
+  B<-> or B<.>      List previous/current line  B<s> [I<expr>]    Single step [in expr]
+  B<w> [I<line>]    List around line            B<n> [I<expr>]    Next, steps over subs
+  B<f> I<filename>  View source in file         <B<CR>>        Repeat last B<n> or B<s>
+  B</>I<pattern>B</> B<?>I<patt>B<?>   Search forw/backw    B<r>           Return from subroutine
+  B<v>	      Show versions of modules    B<c> [I<ln>|I<sub>]  Continue until position
+I<Debugger controls:>                        B<L>           List break/watch/actions
+  B<O> [...]     Set debugger options        B<t> [I<expr>]    Toggle trace [trace expr]
+  B<<>[B<<>] or B<{>[B<{>] [I<cmd>]   Do before prompt   B<b> [I<ln>|I<event>] [I<cnd>]  Set breakpoint
+  B<>>[B<>>] [I<cmd>]  Do after prompt             B<b> I<sub> [I<cnd>] Set breakpoint for sub
+  B<$prc> [I<N>|I<pat>]   Redo a previous command     B<d> [I<ln>] or B<D> Delete a/all breakpoints
+  B<H> [I<-num>]    Display last num commands   B<a> [I<ln>] I<cmd>  Do cmd before line
+  B<=> [I<a> I<val>]   Define/list an alias        B<W> I<expr>      Add a watch expression
+  B<h> [I<db_cmd>]  Get help on command         B<A> or B<W>      Delete all actions/watch
+  B<|>[B<|>]I<dbcmd>   Send output to pager        B<$psh>\[B<$psh>\] I<syscmd> Run cmd in a subprocess
+  B<q> or B<^D>     Quit			  B<R>	      Attempt a restart
+I<Data Examination:>	      B<expr>     Execute perl code, also see: B<s>,B<n>,B<t> I<expr>
+  B<x>|B<m> I<expr>	Evals expr in array context, dumps the result or lists methods.
+  B<p> I<expr>	Print expression (uses script's current package).
+  B<S> [[B<!>]I<pat>]	List subroutine names [not] matching pattern
+  B<V> [I<Pk> [I<Vars>]]	List Variables in Package.  Vars can be ~pattern or !pattern.
+  B<X> [I<Vars>]	Same as \"B<V> I<current_package> [I<Vars>]\".
 END_SUM
 				# ')}}; # Fix balance of Emacs parsing
+}
+
+sub print_help {
+  my $message = shift;
+  if (@Term::ReadLine::TermCap::rl_term_set) {
+    $message =~ s/B<([^>]+|>)>/$Term::ReadLine::TermCap::rl_term_set[2]$1$Term::ReadLine::TermCap::rl_term_set[3]/g;
+    $message =~ s/I<([^>]+|>)>/$Term::ReadLine::TermCap::rl_term_set[0]$1$Term::ReadLine::TermCap::rl_term_set[1]/g;
+  }
+  print $OUT $message;
 }
 
 sub diesignal {
@@ -1781,18 +1883,15 @@ sub dbwarn {
   local $doret = -2;
   local $SIG{__WARN__} = '';
   local $SIG{__DIE__} = '';
-  eval { require Carp };	# If error/warning during compilation,
-                                # require may be broken.
-  warn(@_, "\nPossible unrecoverable error"), warn("\nTry to decrease warnLevel `O'ption!\n"), return
-    unless defined &Carp::longmess;
-  #&warn("Entering dbwarn\n");
+  eval { require Carp } if defined $^S;	# If error/warning during compilation,
+                                        # require may be broken.
+  warn(@_, "\nCannot print stack trace, load with -MCarp option to see stack"),
+    return unless defined &Carp::longmess;
   my ($mysingle,$mytrace) = ($single,$trace);
   $single = 0; $trace = 0;
   my $mess = Carp::longmess(@_);
   ($single,$trace) = ($mysingle,$mytrace);
-  #&warn("Warning in dbwarn\n");
   &warn($mess); 
-  #&warn("Exiting dbwarn\n");
 }
 
 sub dbdie {
@@ -1801,28 +1900,24 @@ sub dbdie {
   local $SIG{__DIE__} = '';
   local $SIG{__WARN__} = '';
   my $i = 0; my $ineval = 0; my $sub;
-  #&warn("Entering dbdie\n");
-  if ($dieLevel != 2) {
-    while ((undef,undef,undef,$sub) = caller(++$i)) {
-      $ineval = 1, last if $sub eq '(eval)';
-    }
-    {
+  if ($dieLevel > 2) {
       local $SIG{__WARN__} = \&dbwarn;
-      &warn(@_) if $dieLevel > 2; # Ineval is false during destruction?
-    }
-    #&warn("dieing quietly in dbdie\n") if $ineval and $dieLevel < 2;
-    die @_ if $ineval and $dieLevel < 2;
+      &warn(@_);		# Yell no matter what
+      return;
   }
-  eval { require Carp };	# If error/warning during compilation,
-                                # require may be broken.
-  die(@_, "\nUnrecoverable error") unless defined &Carp::longmess;
+  if ($dieLevel < 2) {
+    die @_ if $^S;		# in eval propagate
+  }
+  eval { require Carp } if defined $^S;	# If error/warning during compilation,
+                                	# require may be broken.
+  die(@_, "\nCannot print stack trace, load with -MCarp option to see stack")
+    unless defined &Carp::longmess;
   # We do not want to debug this chunk (automatic disabling works
   # inside DB::DB, but not in Carp).
   my ($mysingle,$mytrace) = ($single,$trace);
   $single = 0; $trace = 0;
   my $mess = Carp::longmess(@_);
   ($single,$trace) = ($mysingle,$mytrace);
-  #&warn("dieing loudly in dbdie\n");
   die $mess;
 }
 
