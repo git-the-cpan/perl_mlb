@@ -1,7 +1,6 @@
 package ExtUtils::Mkbootstrap;
 
-$VERSION = substr q$Revision: 1.14 $, 10;
-# $Date: 1996/09/03 17:04:43 $
+$VERSION = 1.15;
 
 use Config;
 use Exporter;
@@ -75,14 +74,14 @@ ExtUtils::Mkbootstrap - make a bootstrap file for use by DynaLoader
 
 =head1 SYNOPSIS
 
-C<mkbootstrap>
+C<Mkbootstrap>
 
 =head1 DESCRIPTION
 
 Mkbootstrap typically gets called from an extension Makefile.
 
-There is no C<*.bs> file supplied with the extension. Instead a
-C<*_BS> file which has code for the special cases, like posix for
+There is no C<*.bs> file supplied with the extension. Instead, there may
+be a C<*_BS> file which has code for the special cases, like posix for
 berkeley db on the NeXT.
 
 This file will get parsed, and produce a maybe empty

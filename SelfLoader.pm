@@ -1,17 +1,28 @@
 package SelfLoader;
-use Carp;
+# use Carp;
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw(AUTOLOAD);
-$VERSION = "1.08";
+$VERSION = "1.0904";
 sub Version {$VERSION}
 $DEBUG = 0;
 
 my %Cache;      # private cache for all SelfLoader's client packages
 
+# allow checking for valid ': attrlist' attachments
+# (we use 'our' rather than 'my' here, due to the rather complex and buggy
+# behaviour of lexicals with qr// and (??{$lex}) )
+our $nested;
+$nested = qr{ \( (?: (?> [^()]+ ) | (??{ $nested }) )* \) }x;
+our $one_attr = qr{ (?> (?! \d) \w+ (?:$nested)? ) (?:\s*\:\s*|\s+(?!\:)) }x;
+our $attr_list = qr{ \s* : \s* (?: $one_attr )* }x;
+
+sub croak { require Carp; goto &Carp::croak }
+
 AUTOLOAD {
     print STDERR "SelfLoader::AUTOLOAD for $AUTOLOAD\n" if $DEBUG;
     my $SL_code = $Cache{$AUTOLOAD};
+    my $save = $@; # evals in both AUTOLOAD and _load_stubs can corrupt $@
     unless ($SL_code) {
         # Maybe this pack had stubs before __DATA__, and never initialized.
         # Or, this maybe an automatic DESTROY method call when none exists.
@@ -23,11 +34,13 @@ AUTOLOAD {
         croak "Undefined subroutine $AUTOLOAD" unless $SL_code;
     }
     print STDERR "SelfLoader::AUTOLOAD eval: $SL_code\n" if $DEBUG;
+
     eval $SL_code;
     if ($@) {
         $@ =~ s/ at .*\n//;
         croak $@;
     }
+    $@ = $save;
     defined(&$AUTOLOAD) || die "SelfLoader inconsistency error";
     delete $Cache{$AUTOLOAD};
     goto &$AUTOLOAD
@@ -36,7 +49,8 @@ AUTOLOAD {
 sub load_stubs { shift->_load_stubs((caller)[0]) }
 
 sub _load_stubs {
-    my($self, $callpack) = @_;
+    # $endlines is used by Devel::SelfStubber to capture lines after __END__
+    my($self, $callpack, $endlines) = @_;
     my $fh = \*{"${callpack}::DATA"};
     my $currpack = $callpack;
     my($line,$name,@lines, @stubs, $protoype);
@@ -48,7 +62,7 @@ sub _load_stubs {
 
     local($/) = "\n";
     while(defined($line = <$fh>) and $line !~ m/^__END__/) {
-        if ($line =~ m/^sub\s+([\w:]+)\s*(\([\\\$\@\%\&\*\;]*\))?/) {
+	if ($line =~ m/^sub\s+([\w:]+)\s*((?:\([\\\$\@\%\&\*\;]*\))?(?:$attr_list)?)/) {
             push(@stubs, $self->_add_to_cache($name, $currpack, \@lines, $protoype));
             $protoype = $2;
             @lines = ($line);
@@ -83,7 +97,16 @@ sub _load_stubs {
             push(@lines,$line);
         }
     }
-    close($fh) unless defined($line) && $line =~ /^__END__\s*DATA/;     # __END__
+    if (defined($line) && $line =~ /^__END__/) { # __END__
+        unless ($line =~ /^__END__\s*DATA/) {
+            if ($endlines) {
+                # Devel::SelfStubber would like us to capture the lines after
+                # __END__ so it can write out the entire file
+                @$endlines = <$fh>;
+            }
+            close($fh);
+        }
+    }
     push(@stubs, $self->_add_to_cache($name, $currpack, \@lines, $protoype));
     eval join('', @stubs) if @stubs;
 }
@@ -92,7 +115,8 @@ sub _load_stubs {
 sub _add_to_cache {
     my($self,$fullname,$pack,$lines, $protoype) = @_;
     return () unless $fullname;
-    carp("Redefining sub $fullname") if exists $Cache{$fullname};
+    (require Carp), Carp::carp("Redefining sub $fullname")
+      if exists $Cache{$fullname};
     $Cache{$fullname} = join('', "package $pack; ",@$lines);
     print STDERR "SelfLoader cached $fullname: $Cache{$fullname}" if $DEBUG;
     # return stub to be eval'd
@@ -112,9 +136,9 @@ SelfLoader - load functions only on demand
 
     package FOOBAR;
     use SelfLoader;
-    
+
     ... (initializing code)
-    
+
     __DATA__
     sub {....
 
@@ -133,7 +157,7 @@ is available for reading via the filehandle FOOBAR::DATA,
 where FOOBAR is the name of the current package when the C<__DATA__>
 token is reached. This works just the same as C<__END__> does in
 package 'main', but for other modules data after C<__END__> is not
-automatically retreivable , whereas data after C<__DATA__> is.
+automatically retrievable, whereas data after C<__DATA__> is.
 The C<__DATA__> token is not recognized in versions of perl prior to
 5.001m.
 
@@ -203,7 +227,7 @@ There is no need to inherit from the B<SelfLoader>.
 
 The B<SelfLoader> works similarly to the AutoLoader, but picks up the
 subs from after the C<__DATA__> instead of in the 'lib/auto' directory.
-There is a maintainance gain in not needing to run AutoSplit on the module
+There is a maintenance gain in not needing to run AutoSplit on the module
 at installation, and a runtime gain in not needing to keep opening and
 closing files to load subs. There is a runtime loss in needing
 to parse the code after the C<__DATA__>. Details of the B<AutoLoader> and

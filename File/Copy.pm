@@ -7,17 +7,24 @@
 
 package File::Copy;
 
+use 5.006;
 use strict;
+use warnings;
 use Carp;
-use vars qw(@ISA @EXPORT @EXPORT_OK $VERSION $Too_Big
-	    &copy &syscopy &cp &mv);
+use File::Spec;
+use Config;
+our(@ISA, @EXPORT, @EXPORT_OK, $VERSION, $Too_Big, $Syscopy_is_copy);
+sub copy;
+sub syscopy;
+sub cp;
+sub mv;
 
 # Note that this module implements only *part* of the API defined by
 # the File/Copy.pm module of the File-Tools-2.0 package.  However, that
 # package has not yet been updated to work with Perl 5.004, and so it
 # would be a Bad Thing for the CPAN module to grab it and replace this
 # module.  Therefore, we set this module's version higher than 2.0.
-$VERSION = '2.02';
+$VERSION = '2.06';
 
 require Exporter;
 @ISA = qw(Exporter);
@@ -26,16 +33,26 @@ require Exporter;
 
 $Too_Big = 1024 * 1024 * 2;
 
-sub _catname { #  Will be replaced by File::Spec when it arrives
+my $macfiles;
+if ($^O eq 'MacOS') {
+	$macfiles = eval { require Mac::MoreFiles };
+	warn 'Mac::MoreFiles could not be loaded; using non-native syscopy'
+		if $@ && $^W;
+}
+
+sub _catname {
     my($from, $to) = @_;
     if (not defined &basename) {
 	require File::Basename;
 	import  File::Basename 'basename';
     }
-    if ($^O eq 'VMS')  { $to = VMS::Filespec::vmspath($to) . basename($from); }
-    elsif ($^O eq 'MacOS') { $to .= ':' . basename($from); }
-    elsif ($to =~ m|\\|)   { $to .= '\\' . basename($from); }
-    else                   { $to .= '/' . basename($from); }
+
+    if ($^O eq 'MacOS') {
+	# a partial dir name that's valid only in the cwd (e.g. 'tmp')
+	$to = ':' . $to if $to !~ /:/;
+    }
+
+    return File::Spec->catfile($to, basename($from));
 }
 
 sub copy {
@@ -56,15 +73,34 @@ sub copy {
                             || UNIVERSAL::isa($to, 'IO::Handle'))
 			 : (ref(\$to) eq 'GLOB'));
 
+    if ($from eq $to) { # works for references, too
+	croak("'$from' and '$to' are identical (not copied)");
+    }
+
+    if ($Config{d_symlink} && $Config{d_readlink} &&
+	!($^O eq 'Win32' || $^O eq 'os2' || $^O eq 'vms')) {
+	no warnings 'io'; # don't warn if -l on filehandle
+	if ((-e $from && -l $from) || (-e $to && -l $to)) {
+	    my @fs = stat($from);
+	    my @ts = stat($to);
+	    if (@fs && @ts && $fs[0] == $ts[0] && $fs[1] == $ts[1]) {
+		croak("'$from' and '$to' are identical (not copied)");
+	    }
+	}
+    }
+
     if (!$from_a_handle && !$to_a_handle && -d $to && ! -d $from) {
 	$to = _catname($from, $to);
     }
 
-    if (defined &syscopy && \&syscopy != \&copy
+    if (defined &syscopy && !$Syscopy_is_copy
 	&& !$to_a_handle
 	&& !($from_a_handle && $^O eq 'os2' )	# OS/2 cannot handle handles
 	&& !($from_a_handle && $^O eq 'mpeix')	# and neither can MPE/iX.
-       )	
+	&& !($from_a_handle && $^O eq 'MSWin32')
+	&& !($from_a_handle && $^O eq 'MacOS')
+	&& !($from_a_handle && $^O eq 'NetWare')
+       )
     {
 	return syscopy($from, $to);
     }
@@ -72,32 +108,35 @@ sub copy {
     my $closefrom = 0;
     my $closeto = 0;
     my ($size, $status, $r, $buf);
-    local(*FROM, *TO);
     local($\) = '';
 
+    my $from_h;
     if ($from_a_handle) {
-	*FROM = *$from{FILEHANDLE};
+       $from_h = $from;
     } else {
-	$from = "./$from" if $from =~ /^\s/;
-	open(FROM, "< $from\0") or goto fail_open1;
-	binmode FROM or die "($!,$^E)";
+	$from = _protect($from) if $from =~ /^\s/s;
+       $from_h = \do { local *FH };
+       open($from_h, "< $from\0") or goto fail_open1;
+       binmode $from_h or die "($!,$^E)";
 	$closefrom = 1;
-    } 
- 
+    }
+
+    my $to_h;
     if ($to_a_handle) {
-	*TO = *$to{FILEHANDLE};
-    } else {        
-	$to = "./$to" if $to =~ /^\s/;
-	open(TO,"> $to\0") or goto fail_open2;
-	binmode TO or die "($!,$^E)";
+       $to_h = $to;
+    } else {
+	$to = _protect($to) if $to =~ /^\s/s;
+       $to_h = \do { local *FH };
+       open($to_h,"> $to\0") or goto fail_open2;
+       binmode $to_h or die "($!,$^E)";
 	$closeto = 1;
-    }  
+    }
 
     if (@_) {
 	$size = shift(@_) + 0;
 	croak("Bad buffer size for copy: $size\n") unless ($size > 0);
     } else {
-	$size = -s FROM;
+	$size = tied(*$from_h) ? 0 : -s $from_h || 0;
 	$size = 1024 if ($size < 512);
 	$size = $Too_Big if ($size > $Too_Big);
     }
@@ -105,34 +144,34 @@ sub copy {
     $! = 0;
     for (;;) {
 	my ($r, $w, $t);
-	defined($r = sysread(FROM, $buf, $size))
+       defined($r = sysread($from_h, $buf, $size))
 	    or goto fail_inner;
 	last unless $r;
 	for ($w = 0; $w < $r; $w += $t) {
-	    $t = syswrite(TO, $buf, $r - $w, $w)
+           $t = syswrite($to_h, $buf, $r - $w, $w)
 		or goto fail_inner;
 	}
     }
 
-    close(TO) || goto fail_open2 if $closeto;
-    close(FROM) || goto fail_open1 if $closefrom;
+    close($to_h) || goto fail_open2 if $closeto;
+    close($from_h) || goto fail_open1 if $closefrom;
 
     # Use this idiom to avoid uninitialized value warning.
     return 1;
-    
+
     # All of these contortions try to preserve error messages...
   fail_inner:
     if ($closeto) {
 	$status = $!;
 	$! = 0;
-	close TO;
+       close $to_h;
 	$! = $status unless $!;
     }
   fail_open2:
     if ($closefrom) {
 	$status = $!;
 	$! = 0;
-	close FROM;
+       close $from_h;
 	$! = $status unless $!;
     }
   fail_open1:
@@ -141,7 +180,7 @@ sub copy {
 
 sub move {
     my($from,$to) = @_;
-    my($copied,$fromsz,$tosz1,$tomt1,$tosz2,$tomt2,$sts,$ossts);
+    my($fromsz,$tosz1,$tomt1,$tosz2,$tomt2,$sts,$ossts);
 
     if (-d $to && ! -d $from) {
 	$to = _catname($from, $to);
@@ -155,17 +194,17 @@ sub move {
     }
     return 1 if rename $from, $to;
 
-    ($sts,$ossts) = ($! + 0, $^E + 0);
     # Did rename return an error even though it succeeded, because $to
     # is on a remote NFS file system, and NFS lost the server's ack?
     return 1 if defined($fromsz) && !-e $from &&           # $from disappeared
                 (($tosz2,$tomt2) = (stat($to))[7,9]) &&    # $to's there
                 ($tosz1 != $tosz2 or $tomt1 != $tomt2) &&  #   and changed
                 $tosz2 == $fromsz;                         # it's all there
- 
+
     ($tosz1,$tomt1) = (stat($to))[7,9];  # just in case rename did something
-    return 1 if ($copied = copy($from,$to)) && unlink($from);
-  
+    return 1 if copy($from,$to) && unlink($from);
+    ($sts,$ossts) = ($! + 0, $^E + 0);
+
     ($tosz2,$tomt2) = ((stat($to))[7,9],0,0) if defined $tomt1;
     unlink($to) if !defined($tomt1) or $tomt1 != $tomt2 or $tosz1 != $tosz2;
     ($!,$^E) = ($sts,$ossts);
@@ -174,6 +213,13 @@ sub move {
 
 *cp = \&copy;
 *mv = \&move;
+
+
+if ($^O eq 'MacOS') {
+    *_protect = sub { MacPerl::MakeFSSpec($_[0]) };
+} else {
+    *_protect = sub { "./$_[0]" };
+}
 
 # &syscopy is an XSUB under OS/2
 unless (defined &syscopy) {
@@ -186,7 +232,29 @@ unless (defined &syscopy) {
 	    # preserve MPE file attributes.
 	    return system('/bin/cp', '-f', $_[0], $_[1]) == 0;
 	};
+    } elsif ($^O eq 'MSWin32') {
+	*syscopy = sub {
+	    return 0 unless @_ == 2;
+	    return Win32::CopyFile(@_, 1);
+	};
+    } elsif ($macfiles) {
+	*syscopy = sub {
+	    my($from, $to) = @_;
+	    my($dir, $toname);
+
+	    return 0 unless -e $from;
+
+	    if ($to =~ /(.*:)([^:]+):?$/) {
+		($dir, $toname) = ($1, $2);
+	    } else {
+		($dir, $toname) = (":", $to);
+	    }
+
+	    unlink($to);
+	    Mac::MoreFiles::FSpFileCopy($from, $dir, $toname, 1);
+	};
     } else {
+	$Syscopy_is_copy = 1;
 	*syscopy = \&copy;
     }
 }
@@ -201,16 +269,16 @@ File::Copy - Copy files or filehandles
 
 =head1 SYNOPSIS
 
-  	use File::Copy;
+	use File::Copy;
 
-	copy("file1","file2");
-  	copy("Copy.pm",\*STDOUT);'
+	copy("file1","file2") or die "Copy failed: $!";
+	copy("Copy.pm",\*STDOUT);
 	move("/dev1/fileA","/dev2/fileB");
 
-  	use POSIX;
+	use POSIX;
 	use File::Copy cp;
 
-	$n=FileHandle->new("/dev/null","r");
+	$n = FileHandle->new("/a/file","r");
 	cp($n,"x");'
 
 =head1 DESCRIPTION
@@ -229,13 +297,14 @@ argument may be a string, a FileHandle reference or a FileHandle
 glob. Obviously, if the first argument is a filehandle of some
 sort, it will be read from, and if it is a file I<name> it will
 be opened for reading. Likewise, the second argument will be
-written to (and created if need be).
+written to (and created if need be).  Trying to copy a file on top
+of itself is a fatal error.
 
 B<Note that passing in
 files as handles instead of names may lead to loss of information
 on some operating systems; it is recommended that you use file
 names whenever possible.>  Files are opened in binary mode where
-applicable.  To get a consistent behavour when copying from a
+applicable.  To get a consistent behaviour when copying from a
 filehandle to a file, use C<binmode> on the filehandle.
 
 An optional third parameter can be used to specify the buffer
@@ -270,11 +339,15 @@ File::Copy also provides the C<syscopy> routine, which copies the
 file specified in the first parameter to the file specified in the
 second parameter, preserving OS-specific attributes and file
 structure.  For Unix systems, this is equivalent to the simple
-C<copy> routine.  For VMS systems, this calls the C<rmscopy>
-routine (see below).  For OS/2 systems, this calls the C<syscopy>
-XSUB directly.
+C<copy> routine, which doesn't preserve OS-specific attributes.  For
+VMS systems, this calls the C<rmscopy> routine (see below).  For OS/2
+systems, this calls the C<syscopy> XSUB directly. For Win32 systems,
+this calls C<Win32::CopyFile>.
 
-=head2 Special behavior if C<syscopy> is defined (VMS and OS/2)
+On Mac OS (Classic), C<syscopy> calls C<Mac::MoreFiles::FSpFileCopy>,
+if available.
+
+=head2 Special behaviour if C<syscopy> is defined (OS/2, VMS and Win32)
 
 If both arguments to C<copy> are not file handles,
 then C<copy> will perform a "system copy" of
@@ -332,6 +405,34 @@ it sets C<$!>, deletes the output file, and returns 0.
 
 All functions return 1 on success, 0 on failure.
 $! will be set if an error was encountered.
+
+=head1 NOTES
+
+=over 4
+
+=item *
+
+On Mac OS (Classic), the path separator is ':', not '/', and the 
+current directory is denoted as ':', not '.'. You should be careful 
+about specifying relative pathnames. While a full path always begins 
+with a volume name, a relative pathname should always begin with a 
+':'.  If specifying a volume name only, a trailing ':' is required.
+
+E.g.
+
+  copy("file1", "tmp");        # creates the file 'tmp' in the current directory
+  copy("file1", ":tmp:");      # creates :tmp:file1
+  copy("file1", ":tmp");       # same as above
+  copy("file1", "tmp");        # same as above, if 'tmp' is a directory (but don't do   
+                               # that, since it may cause confusion, see example #1)
+  copy("file1", "tmp:file1");  # error, since 'tmp:' is not a volume
+  copy("file1", ":tmp:file1"); # ok, partial path
+  copy("file1", "DataHD:");    # creates DataHD:file1
+  
+  move("MacintoshHD:fileA", "DataHD:fileB"); # moves (don't copies) files from one 
+                                             # volume to another
+
+=back
 
 =head1 AUTHOR
 

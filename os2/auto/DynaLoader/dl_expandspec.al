@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/DynaLoader.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package DynaLoader;
 
-#line 282 "../../lib/DynaLoader.pm (autosplit into ../../lib/auto/DynaLoader/dl_expandspec.al)"
+#line 376 "../../lib/DynaLoader.pm (autosplit into ../../lib/auto/DynaLoader/dl_expandspec.al)"
 sub dl_expandspec {
     my($spec) = @_;
     # Optional function invoked if DynaLoader.pm sets $do_expand.

@@ -39,9 +39,23 @@ directory.
  $RealBin     - $Bin with all links resolved
  $RealScript  - $Script with all links resolved
 
+=head1 KNOWN ISSUES
+
+If there are two modules using C<FindBin> from different directories
+under the same interpreter, this won't work. Since C<FindBin> uses
+C<BEGIN> block, it'll be executed only once, and only the first caller
+will get it right. This is a problem under mod_perl and other persistent
+Perl environments, where you shouldn't use this module. Which also means
+that you should avoid using C<FindBin> in modules that you plan to put
+on CPAN. The only way to make sure that C<FindBin> will work is to force
+the C<BEGIN> block to be executed again:
+
+  delete $INC{'FindBin.pm'};
+  require FindBin;
+
 =head1 KNOWN BUGS
 
-if perl is invoked as
+If perl is invoked as
 
    perl filename
 
@@ -55,7 +69,10 @@ Workaround is to invoke perl as
 
 =head1 AUTHORS
 
-Graham Barr E<lt>F<bodg@tiuk.ti.com>E<gt>
+FindBin is supported as part of the core perl distribution. Please send bug
+reports to E<lt>F<perlbug@perl.org>E<gt> using the perlbug program included with perl.
+
+Graham Barr E<lt>F<gbarr@pobox.com>E<gt>
 Nick Ing-Simmons E<lt>F<nik@tiuk.ti.com>E<gt>
 
 =head1 COPYRIGHT
@@ -63,10 +80,6 @@ Nick Ing-Simmons E<lt>F<nik@tiuk.ti.com>E<gt>
 Copyright (c) 1995 Graham Barr & Nick Ing-Simmons. All rights reserved.
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
-
-=head1 REVISION
-
-$Revision: 1.4 $
 
 =cut
 
@@ -77,31 +90,13 @@ require Exporter;
 use Cwd qw(getcwd abs_path);
 use Config;
 use File::Basename;
+use File::Spec;
 
 @EXPORT_OK = qw($Bin $Script $RealBin $RealScript $Dir $RealDir);
 %EXPORT_TAGS = (ALL => [qw($Bin $Script $RealBin $RealScript $Dir $RealDir)]);
 @ISA = qw(Exporter);
 
-$VERSION = $VERSION = sprintf("%d.%02d", q$Revision: 1.41 $ =~ /(\d+)\.(\d+)/);
-
-sub is_abs_path
-{
- local $_ = shift if (@_);
- if ($^O eq 'MSWin32' || $^O eq 'dos')
-  {
-   return m#^[a-z]:[\\/]#i;
-  }
- elsif ($^O eq 'VMS')
-  {
-    # If it's a logical name, expand it.
-    $_ = $ENV{$_} while /^[\w\$\-]+$/ and $ENV{$_};
-    return m!^/! or m![<\[][^.\-\]>]! or /:[^<\[]/;
-  }
- else
-  {
-   return m#^/#;
-  }
-}
+$VERSION = "1.43";
 
 BEGIN
 {
@@ -121,23 +116,22 @@ BEGIN
 
    if ($^O eq 'VMS')
     {
-     ($Bin,$Script) = VMS::Filespec::rmsexpand($0) =~ /(.*\])(.*)/;
+     ($Bin,$Script) = VMS::Filespec::rmsexpand($0) =~ /(.*\])(.*)/s;
      ($RealBin,$RealScript) = ($Bin,$Script);
     }
    else
     {
-     my $IsWin32 = $^O eq 'MSWin32';
-     unless(($script =~ m#/# || ($IsWin32 && $script =~ m#\\#))
+     my $dosish = ($^O eq 'MSWin32' or $^O eq 'os2');
+     unless(($script =~ m#/# || ($dosish && $script =~ m#\\#))
             && -f $script)
       {
        my $dir;
-       my $pathvar = 'PATH';
-
-       foreach $dir (split(/$Config{'path_sep'}/,$ENV{$pathvar}))
+       foreach $dir (File::Spec->path)
 	{
-	if(-r "$dir/$script" && (!$IsWin32 || -x _))
+        my $scr = File::Spec->catfile($dir, $script);
+	if(-r $scr && (!$dosish || -x _))
          {
-          $script = "$dir/$script";
+          $script = $scr;
 
 	  if (-f $0)
            {
@@ -160,7 +154,8 @@ BEGIN
 
      # Ensure $script contains the complete path incase we C<chdir>
 
-     $script = getcwd() . "/" . $script unless is_abs_path($script);
+     $script = File::Spec->catfile(getcwd(), $script)
+       unless File::Spec->file_name_is_absolute($script);
 
      ($Script,$Bin) = fileparse($script);
 
@@ -172,9 +167,9 @@ BEGIN
        ($RealScript,$RealBin) = fileparse($script);
        last unless defined $linktext;
 
-       $script = (is_abs_path($linktext))
+       $script = (File::Spec->file_name_is_absolute($linktext))
                   ? $linktext
-                  : $RealBin . "/" . $linktext;
+                  : File::Spec->catfile($RealBin, $linktext);
       }
 
      # Get absolute paths to directories

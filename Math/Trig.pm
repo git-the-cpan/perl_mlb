@@ -7,21 +7,20 @@
 require Exporter;
 package Math::Trig;
 
+use 5.006;
 use strict;
 
 use Math::Complex qw(:trig);
 
-use vars qw($VERSION $PACKAGE
-	    @ISA
-	    @EXPORT @EXPORT_OK %EXPORT_TAGS);
+our($VERSION, $PACKAGE, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
 @ISA = qw(Exporter);
 
-$VERSION = 1.00;
+$VERSION = 1.02;
 
 my @angcnv = qw(rad2deg rad2grad
-	     deg2rad deg2grad
-	     grad2rad grad2deg);
+		deg2rad deg2grad
+		grad2rad grad2deg);
 
 @EXPORT = (@{$Math::Complex::EXPORT_TAGS{'trig'}},
 	   @angcnv);
@@ -33,18 +32,19 @@ my @rdlcnv = qw(cartesian_to_cylindrical
 		spherical_to_cartesian
 		spherical_to_cylindrical);
 
-@EXPORT_OK = (@rdlcnv, 'great_circle_distance');
+@EXPORT_OK = (@rdlcnv, 'great_circle_distance', 'great_circle_direction');
 
 %EXPORT_TAGS = ('radial' => [ @rdlcnv ]);
 
-use constant pi2  => 2 * pi;
-use constant pip2 => pi / 2;
-use constant DR   => pi2/360;
-use constant RD   => 360/pi2;
-use constant DG   => 400/360;
-use constant GD   => 360/400;
-use constant RG   => 400/pi2;
-use constant GR   => pi2/400;
+sub pi2  () { 2 * pi }
+sub pip2 () { pi / 2 }
+
+sub DR  () { pi2/360 }
+sub RD  () { 360/pi2 }
+sub DG  () { 400/360 }
+sub GD  () { 360/400 }
+sub RG  () { 400/pi2 }
+sub GR  () { pi2/400 }
 
 #
 # Truncating remainder.
@@ -59,17 +59,23 @@ sub remt ($$) {
 # Angle conversions.
 #
 
-sub rad2deg ($)  { remt(RD * $_[0], 360) }
+sub rad2rad($)     { remt($_[0], pi2) }
 
-sub deg2rad ($)  { remt(DR * $_[0], pi2) }
+sub deg2deg($)     { remt($_[0], 360) }
 
-sub grad2deg ($) { remt(GD * $_[0], 360) }
+sub grad2grad($)   { remt($_[0], 400) }
 
-sub deg2grad ($) { remt(DG * $_[0], 400) }
+sub rad2deg ($;$)  { my $d = RD * $_[0]; $_[1] ? $d : deg2deg($d) }
 
-sub rad2grad ($) { remt(RG * $_[0], 400) }
+sub deg2rad ($;$)  { my $d = DR * $_[0]; $_[1] ? $d : rad2rad($d) }
 
-sub grad2rad ($) { remt(GR * $_[0], pi2) }
+sub grad2deg ($;$) { my $d = GD * $_[0]; $_[1] ? $d : deg2deg($d) }
+
+sub deg2grad ($;$) { my $d = DG * $_[0]; $_[1] ? $d : grad2grad($d) }
+
+sub rad2grad ($;$) { my $d = RG * $_[0]; $_[1] ? $d : grad2grad($d) }
+
+sub grad2rad ($;$) { my $d = GR * $_[0]; $_[1] ? $d : rad2rad($d) }
 
 sub cartesian_to_spherical {
     my ( $x, $y, $z ) = @_;
@@ -124,6 +130,27 @@ sub great_circle_distance {
              sin( $lat0 ) * sin( $lat1 ) );
 }
 
+sub great_circle_direction {
+    my ( $theta0, $phi0, $theta1, $phi1 ) = @_;
+
+    my $distance = &great_circle_distance;
+
+    my $lat0 = pip2 - $phi0;
+    my $lat1 = pip2 - $phi1;
+
+    my $direction =
+	acos((sin($lat1) - sin($lat0) * cos($distance)) /
+	     (cos($lat0) * sin($distance)));
+
+    $direction = pi2 - $direction
+	if sin($theta1 - $theta0) < 0;
+
+    return rad2rad($direction);
+}
+
+1;
+
+__END__
 =pod
 
 =head1 NAME
@@ -133,11 +160,11 @@ Math::Trig - trigonometric functions
 =head1 SYNOPSIS
 
 	use Math::Trig;
-	
+
 	$x = tan(0.9);
 	$y = acos(3.7);
 	$z = asin(2.4);
-	
+
 	$halfpi = pi/2;
 
 	$rad = deg2rad(120);
@@ -259,7 +286,7 @@ complex numbers as results because the C<Math::Complex> takes care of
 details like for example how to display complex numbers. For example:
 
 	print asin(2), "\n";
-    
+
 should produce something like this (take or leave few last decimals):
 
 	1.5707963267949-1.31695789692482i
@@ -273,14 +300,22 @@ and the imaginary part of approximately C<-1.317>.
 
 	$radians  = deg2rad($degrees);
 	$radians  = grad2rad($gradians);
-	
+
 	$degrees  = rad2deg($radians);
 	$degrees  = grad2deg($gradians);
-	
+
 	$gradians = deg2grad($degrees);
 	$gradians = rad2grad($radians);
 
 The full circle is 2 I<pi> radians or I<360> degrees or I<400> gradians.
+The result is by default wrapped to be inside the [0, {2pi,360,400}[ circle.
+If you don't want this, supply a true second argument:
+
+	$zillions_of_radians  = deg2rad($zillions_of_degrees, 1);
+	$negative_degrees     = rad2deg($negative_radians, 1);
+
+You can also do the wrapping explicitly by rad2rad(), deg2deg(), and
+grad2grad().
 
 =head1 RADIAL COORDINATE CONVERSIONS
 
@@ -314,9 +349,11 @@ known as the I<radial> coordinate.  The angle in the I<xy>-plane
 coordinate.  The angle from the I<z>-axis is B<phi>, also known as the
 I<polar> coordinate.  The `North Pole' is therefore I<0, 0, rho>, and
 the `Bay of Guinea' (think of the missing big chunk of Africa) I<0,
-pi/2, rho>.
+pi/2, rho>.  In geographical terms I<phi> is latitude (northward
+positive, southward negative) and I<theta> is longitude (eastward
+positive, westward negative).
 
-B<Beware>: some texts define I<theta> and I<phi> the other way round,
+B<BEWARE>: some texts define I<theta> and I<phi> the other way round,
 some texts define the I<phi> to start from the horizontal plane, some
 texts use I<r> in place of I<rho>.
 
@@ -367,24 +404,52 @@ Notice that when C<$z> is not 0 C<$rho_c> is not equal to C<$rho_s>.
 
 =back
 
-=head1 GREAT CIRCLE DISTANCES
+=head1 GREAT CIRCLE DISTANCES AND DIRECTIONS
 
 You can compute spherical distances, called B<great circle distances>,
-by importing the C<great_circle_distance> function:
+by importing the great_circle_distance() function:
 
-	use Math::Trig 'great_circle_distance'
+  use Math::Trig 'great_circle_distance';
 
-    $distance = great_circle_distance($theta0, $phi0, $theta1, $phi, [, $rho]);
+  $distance = great_circle_distance($theta0, $phi0, $theta1, $phi1, [, $rho]);
 
 The I<great circle distance> is the shortest distance between two
 points on a sphere.  The distance is in C<$rho> units.  The C<$rho> is
 optional, it defaults to 1 (the unit sphere), therefore the distance
 defaults to radians.
 
+If you think geographically the I<theta> are longitudes: zero at the
+Greenwhich meridian, eastward positive, westward negative--and the
+I<phi> are latitudes: zero at the North Pole, northward positive,
+southward negative.  B<NOTE>: this formula thinks in mathematics, not
+geographically: the I<phi> zero is at the North Pole, not at the
+Equator on the west coast of Africa (Bay of Guinea).  You need to
+subtract your geographical coordinates from I<pi/2> (also known as 90
+degrees).
+
+  $distance = great_circle_distance($lon0, pi/2 - $lat0,
+                                    $lon1, pi/2 - $lat1, $rho);
+
+The direction you must follow the great circle can be computed by the
+great_circle_direction() function:
+
+  use Math::Trig 'great_circle_direction';
+
+  $direction = great_circle_direction($theta0, $phi0, $theta1, $phi1);
+
+The result is in radians, zero indicating straight north, pi or -pi
+straight south, pi/2 straight west, and -pi/2 straight east.
+
+Notice that the resulting directions might be somewhat surprising if
+you are looking at a flat worldmap: in such map projections the great
+circles quite often do not look like the shortest routes-- but for
+example the shortest possible routes from Europe or North America to
+Asia do often cross the polar regions.
+
 =head1 EXAMPLES
 
-To calculate the distance between London (51.3N 0.5W) and Tokyo (35.7N
-139.8E) in kilometers:
+To calculate the distance between London (51.3N 0.5W) and Tokyo
+(35.7N 139.8E) in kilometers:
 
         use Math::Trig qw(great_circle_distance deg2rad);
 
@@ -394,8 +459,26 @@ To calculate the distance between London (51.3N 0.5W) and Tokyo (35.7N
 
         $km = great_circle_distance(@L, @T, 6378);
 
-The answer may be off by up to 0.3% because of the irregular (slightly
-aspherical) form of the Earth.
+The direction you would have to go from London to Tokyo
+
+        use Math::Trig qw(great_circle_direction);
+
+        $rad = great_circle_direction(@L, @T);
+
+=head2 CAVEAT FOR GREAT CIRCLE FORMULAS
+
+The answers may be off by few percentages because of the irregular
+(slightly aspherical) form of the Earth.  The formula used for
+grear circle distances
+
+	lat0 = 90 degrees - phi0
+	lat1 = 90 degrees - phi1
+	d = R * arccos(cos(lat0) * cos(lat1) * cos(lon1 - lon01) +
+                       sin(lat0) * sin(lat1))
+
+is also somewhat unreliable for small distances (for locations
+separated less than about five degrees) because it uses arc cosine
+which is rather ill-conditioned for values close to zero.
 
 =head1 BUGS
 
@@ -412,7 +495,7 @@ an answer instead of giving a fatal runtime error.
 =head1 AUTHORS
 
 Jarkko Hietaniemi <F<jhi@iki.fi>> and 
-Raphael Manfredi <F<Raphael_Manfredi@grenoble.hp.com>>.
+Raphael Manfredi <F<Raphael_Manfredi@pobox.com>>.
 
 =cut
 

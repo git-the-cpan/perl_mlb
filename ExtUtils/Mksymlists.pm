@@ -1,13 +1,17 @@
 package ExtUtils::Mksymlists;
+
+use 5.00503;
 use strict qw[ subs refs ];
 # no strict 'vars';  # until filehandles are exempted
 
 use Carp;
 use Exporter;
-use vars qw( @ISA @EXPORT $VERSION );
+use Config;
+
+use vars qw(@ISA @EXPORT $VERSION);
 @ISA = 'Exporter';
 @EXPORT = '&Mksymlists';
-$VERSION = substr q$Revision: 1.17 $, 10;
+$VERSION = 1.19;
 
 sub Mksymlists {
     my(%spec) = @_;
@@ -47,6 +51,7 @@ sub Mksymlists {
     }
 
     if    ($osname eq 'aix') { _write_aix(\%spec); }
+    elsif ($osname eq 'MacOS'){ _write_aix(\%spec) }
     elsif ($osname eq 'VMS') { _write_vms(\%spec) }
     elsif ($osname eq 'os2') { _write_os2(\%spec) }
     elsif ($osname eq 'MSWin32') { _write_win32(\%spec) }
@@ -76,12 +81,24 @@ sub _write_os2 {
         ($data->{DLBASE} = $data->{NAME}) =~ s/.*:://;
         $data->{DLBASE} = substr($data->{DLBASE},0,7) . '_';
     }
+    my $distname = $data->{DISTNAME} || $data->{NAME};
+    $distname = "Distribution $distname";
+    my $patchlevel = " pl$Config{perl_patchlevel}" || '';
+    my $comment = sprintf "Perl (v%s%s%s) module %s", 
+      $Config::Config{version}, $threaded, $patchlevel, $data->{NAME};
+    chomp $comment;
+    if ($data->{INSTALLDIRS} and $data->{INSTALLDIRS} eq 'perl') {
+	$distname = 'perl5-porters@perl.org';
+	$comment = "Core $comment";
+    }
+    $comment = "$comment (Perl-config: $Config{config_args})";
+    $comment = substr($comment, 0, 200) . "...)" if length $comment > 203;
     rename "$data->{FILE}.def", "$data->{FILE}_def.old";
 
     open(DEF,">$data->{FILE}.def")
         or croak("Can't create $data->{FILE}.def: $!\n");
     print DEF "LIBRARY '$data->{DLBASE}' INITINSTANCE TERMINSTANCE\n";
-    print DEF "DESCRIPTION 'Perl (v$]$threaded) module $data->{NAME} v$data->{VERSION}'\n";
+    print DEF "DESCRIPTION '\@#$distname:$data->{VERSION}#\@ $comment'\n";
     print DEF "CODE LOADONCALL\n";
     print DEF "DATA LOADONCALL NONSHARED MULTIPLE\n";
     print DEF "EXPORTS\n  ";
@@ -148,7 +165,7 @@ sub _write_vms {
     require Config; # a reminder for once we do $^O
     require ExtUtils::XSSymSet;
 
-    my($isvax) = $Config::Config{'arch'} =~ /VAX/i;
+    my($isvax) = $Config::Config{'archname'} =~ /VAX/i;
     my($set) = new ExtUtils::XSSymSet;
     my($sym);
 
@@ -164,6 +181,8 @@ sub _write_vms {
     # We don't do anything to preserve order, so we won't relax
     # the GSMATCH criteria for a dynamic extension
 
+    print OPT "case_sensitive=yes\n"
+        if $Config::Config{d_vms_case_sensitive_symbols};
     foreach $sym (@{$data->{FUNCLIST}}) {
         my $safe = $set->addsym($sym);
         if ($isvax) { print OPT "UNIVERSAL=$safe\n" }
@@ -205,7 +224,7 @@ C<Mksymlists>, which is exported by default from C<ExtUtils::Mksymlists>.
 It takes one argument, a list of key-value pairs, in which the following
 keys are recognized:
 
-=over
+=over 4
 
 =item DLBASE
 
@@ -254,7 +273,7 @@ This provides an alternate means to specify function names to be
 exported from the extension.  Its value is a reference to an
 array of function names to be exported by the extension.  These
 names are passed through unaltered to the linker options file.
-Specifying a value for the FUNCLIST attribute supresses automatic
+Specifying a value for the FUNCLIST attribute suppresses automatic
 generation of the bootstrap function for the package. To still create
 the bootstrap name you have to specify the package name in the
 DL_FUNCS hash:

@@ -1,9 +1,11 @@
 package User::grent;
 use strict;
 
+use 5.006_001;
+our $VERSION = '1.00';
+our(@EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 BEGIN { 
     use Exporter   ();
-    use vars       qw(@EXPORT @EXPORT_OK %EXPORT_TAGS);
     @EXPORT      = qw(getgrent getgrgid getgrnam getgr);
     @EXPORT_OK   = qw($gr_name $gr_gid $gr_passwd $gr_mem @gr_members);
     %EXPORT_TAGS = ( FIELDS => [ @EXPORT_OK, @EXPORT ] );
@@ -74,7 +76,7 @@ to $gr_gid if you import the fields.  Array references are available as
 regular array variables, so C<@{ $group_obj-E<gt>members() }> would be
 simply @gr_members.
 
-The getpw() funtion is a simple front-end that forwards
+The getpw() function is a simple front-end that forwards
 a numeric argument to getpwuid() and the rest to getpwnam().
 
 To access this functionality without the core overrides,

@@ -1,5 +1,7 @@
 package Tie::RefHash;
 
+our $VERSION = 1.31;
+
 =head1 NAME
 
 Tie::RefHash - use references as hash keys
@@ -9,16 +11,25 @@ Tie::RefHash - use references as hash keys
     require 5.004;
     use Tie::RefHash;
     tie HASHVARIABLE, 'Tie::RefHash', LIST;
+    tie HASHVARIABLE, 'Tie::RefHash::Nestable', LIST;
 
     untie HASHVARIABLE;
 
 =head1 DESCRIPTION
 
-This module provides the ability to use references as hash keys if
-you first C<tie> the hash variable to this module.
+This module provides the ability to use references as hash keys if you
+first C<tie> the hash variable to this module.  Normally, only the
+keys of the tied hash itself are preserved as references; to use
+references as keys in hashes-of-hashes, use Tie::RefHash::Nestable,
+included as part of Tie::RefHash.
 
 It is implemented using the standard perl TIEHASH interface.  Please
 see the C<tie> entry in perlfunc(1) and perltie(1) for more information.
+
+The Nestable version works by looking for hash references being stored
+and converting them to tied hashes so that they too can have
+references as keys.  This will happen without warning whenever you
+store a reference to one of your own hashes in the tied hash.
 
 =head1 EXAMPLE
 
@@ -36,14 +47,21 @@ see the C<tie> entry in perlfunc(1) and perltie(1) for more information.
        print ref($_), "\n";
     }
 
+    tie %h, 'Tie::RefHash::Nestable';
+    $h{$a}->{$b} = 1;
+    for (keys %h, keys %{$h{$a}}) {
+       print ref($_), "\n";
+    }
 
 =head1 AUTHOR
 
-Gurusamy Sarathy        gsar@umich.edu
+Gurusamy Sarathy        gsar@activestate.com
+
+'Nestable' by Ed Avis   ed@membled.com
 
 =head1 VERSION
 
-Version 1.2    15 Dec 1996
+Version 1.30
 
 =head1 SEE ALSO
 
@@ -51,10 +69,12 @@ perl(1), perlfunc(1), perltie(1)
 
 =cut
 
-require 5.003_11;
 use Tie::Hash;
+use vars '@ISA';
 @ISA = qw(Tie::Hash);
 use strict;
+
+require overload; # to support objects with overloaded ""
 
 sub TIEHASH {
   my $c = shift;
@@ -68,13 +88,24 @@ sub TIEHASH {
 
 sub FETCH {
   my($s, $k) = @_;
-  (ref $k) ? $s->[0]{"$k"}[1] : $s->[1]{$k};
+  if (ref $k) {
+      my $kstr = overload::StrVal($k);
+      if (defined $s->[0]{$kstr}) {
+        $s->[0]{$kstr}[1];
+      }
+      else {
+        undef;
+      }
+  }
+  else {
+      $s->[1]{$k};
+  }
 }
 
 sub STORE {
   my($s, $k, $v) = @_;
   if (ref $k) {
-    $s->[0]{"$k"} = [$k, $v];
+    $s->[0]{overload::StrVal($k)} = [$k, $v];
   }
   else {
     $s->[1]{$k} = $v;
@@ -84,18 +115,19 @@ sub STORE {
 
 sub DELETE {
   my($s, $k) = @_;
-  (ref $k) ? delete($s->[0]{"$k"}) : delete($s->[1]{$k});
+  (ref $k) ? delete($s->[0]{overload::StrVal($k)}) : delete($s->[1]{$k});
 }
 
 sub EXISTS {
   my($s, $k) = @_;
-  (ref $k) ? exists($s->[0]{"$k"}) : exists($s->[1]{$k});
+  (ref $k) ? exists($s->[0]{overload::StrVal($k)}) : exists($s->[1]{$k});
 }
 
 sub FIRSTKEY {
   my $s = shift;
-  my $a = scalar(keys %{$s->[0]}) + scalar(keys %{$s->[1]});
-  $s->[2] = 0;
+  keys %{$s->[0]};	# reset iterator
+  keys %{$s->[1]};	# reset iterator
+  $s->[2] = 0;      # flag for iteration, see NEXTKEY
   $s->NEXTKEY;
 }
 
@@ -104,7 +136,7 @@ sub NEXTKEY {
   my ($k, $v);
   if (!$s->[2]) {
     if (($k, $v) = each %{$s->[0]}) {
-      return $s->[0]{"$k"}[0];
+      return $v->[0];
     }
     else {
       $s->[2] = 1;
@@ -118,6 +150,19 @@ sub CLEAR {
   $s->[2] = 0;
   %{$s->[0]} = ();
   %{$s->[1]} = ();
+}
+
+package Tie::RefHash::Nestable;
+use vars '@ISA';
+@ISA = 'Tie::RefHash';
+
+sub STORE {
+  my($s, $k, $v) = @_;
+  if (ref($v) eq 'HASH' and not tied %$v) {
+      my @elems = %$v;
+      tie %$v, ref($s), @elems;
+  }
+  $s->SUPER::STORE($k, $v);
 }
 
 1;

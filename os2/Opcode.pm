@@ -1,19 +1,20 @@
 package Opcode;
 
-require 5.002;
-
-use vars qw($VERSION $XS_VERSION @ISA @EXPORT_OK);
-
-$VERSION = "1.04";
-$XS_VERSION = "1.03";
+use 5.006_001;
 
 use strict;
+
+our($VERSION, $XS_VERSION, @ISA, @EXPORT_OK);
+
+$VERSION = "1.05";
+$XS_VERSION = "1.03";
+
 use Carp;
 use Exporter ();
-use DynaLoader ();
-@ISA = qw(Exporter DynaLoader);
+use XSLoader ();
 
 BEGIN {
+    @ISA = qw(Exporter);
     @EXPORT_OK = qw(
 	opset ops_to_opset
 	opset_to_ops opset_to_hex invert_opset
@@ -28,7 +29,7 @@ sub opset_to_hex ($);
 sub opdump (;$);
 use subs @EXPORT_OK;
 
-bootstrap Opcode $XS_VERSION;
+XSLoader::load 'Opcode', $XS_VERSION;
 
 _init_optags();
 
@@ -163,7 +164,7 @@ accumulated set of ops at that point.
 
 =item an operator set (opset)
 
-An I<opset> as a binary string of approximately 43 bytes which holds a
+An I<opset> as a binary string of approximately 44 bytes which holds a
 set or zero or more operators.
 
 The opset and opset_to_ops functions can be used to convert from
@@ -185,7 +186,7 @@ tags and sets. All are available for export by the package.
 =item opcodes
 
 In a scalar context opcodes returns the number of opcodes in this
-version of perl (around 340 for perl5.002).
+version of perl (around 350 for perl-5.7.0).
 
 In a list context it returns a list of all the operator names.
 (Not yet implemented, use @names = opset_to_ops(full_opset).)
@@ -332,11 +333,11 @@ invert_opset function.
 
     cond_expr flip flop andassign orassign and or xor
 
-    warn die lineseq nextstate unstack scope enter leave
+    warn die lineseq nextstate scope enter leave setstate
 
     rv2cv anoncode prototype
 
-    entersub leavesub return method -- XXX loops via recursion?
+    entersub leavesub leavesublv return method method_named -- XXX loops via recursion?
 
     leaveeval -- needed for Safe to operate, is safe without entereval
 
@@ -365,7 +366,7 @@ used to implement a resource attack (e.g., consume all available CPU time).
     grepstart grepwhile
     mapstart mapwhile
     enteriter iter
-    enterloop leaveloop
+    enterloop leaveloop unstack
     last next redo
     goto
 
@@ -413,6 +414,8 @@ These are a hotchpotch of opcodes still waiting to be considered
     getppid getpgrp setpgrp getpriority setpriority localtime gmtime
 
     entertry leavetry -- can be used to 'hide' fatal errors
+
+    custom -- where should this go
 
 =item :base_math
 

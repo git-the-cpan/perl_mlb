@@ -1,4 +1,4 @@
-# $Id: Embed.pm,v 1.2501 $
+# $Id: Embed.pm,v 1.1.1.1 2002/01/16 19:27:19 schwern Exp $
 require 5.002;
 
 package ExtUtils::Embed;
@@ -6,6 +6,7 @@ require Exporter;
 require FileHandle;
 use Config;
 use Getopt::Std;
+use File::Spec;
 
 #Only when we need them
 #require ExtUtils::MakeMaker;
@@ -17,7 +18,7 @@ use vars qw(@ISA @EXPORT $VERSION
 	    );
 use strict;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.2505 $ =~ /(\d+)\.(\d+)/);
+$VERSION = 1.2506_01;
 
 @ISA = qw(Exporter);
 @EXPORT = qw(&xsinit &ldopts 
@@ -43,15 +44,11 @@ sub my_return {
     }
 }
 
-sub is_perl_object {
-    $Config{ccflags} =~ /-DPERL_OBJECT/;  
-}
-
 sub xsinit { 
     my($file, $std, $mods) = @_;
     my($fh,@mods,%seen);
     $file ||= "perlxsi.c";
-    my $xsinit_proto = is_perl_object() ? "CPERLarg" : "void";
+    my $xsinit_proto = "pTHX";
 
     if (@_) {
        @mods = @$mods if $mods;
@@ -75,7 +72,7 @@ sub xsinit {
     @mods = grep(!$seen{$_}++, @mods);
 
     print $fh &xsi_header();
-    print $fh "EXTERN_C void xs_init _(($xsinit_proto));\n\n";     
+    print $fh "EXTERN_C void xs_init ($xsinit_proto);\n\n";     
     print $fh &xsi_protos(@mods);
 
     print $fh "\nEXTERN_C void\nxs_init($xsinit_proto)\n{\n";
@@ -86,33 +83,8 @@ sub xsinit {
 
 sub xsi_header {
     return <<EOF;
-#if defined(__cplusplus) && !defined(PERL_OBJECT)
-#define is_cplusplus
-#endif
-
-#ifdef is_cplusplus
-extern "C" {
-#endif
-
 #include <EXTERN.h>
 #include <perl.h>
-#ifdef PERL_OBJECT
-#define NO_XSLOCKS
-#include <XSUB.h>
-#include "win32iop.h"
-#include <fcntl.h>
-#include <perlhost.h>
-#endif
-#ifdef is_cplusplus
-}
-#  ifndef EXTERN_C
-#    define EXTERN_C extern "C"
-#  endif
-#else
-#  ifndef EXTERN_C
-#    define EXTERN_C extern
-#  endif
-#endif
 
 EOF
 }    
@@ -120,14 +92,13 @@ EOF
 sub xsi_protos {
     my(@exts) = @_;
     my(@retval,%seen);
-    my $boot_proto = is_perl_object() ? 
-	"CV* cv _CPERLarg" : "CV* cv";
+    my $boot_proto = "pTHX_ CV* cv";
     foreach $_ (@exts){
         my($pname) = canon('/', $_);
         my($mname, $cname);
         ($mname = $pname) =~ s!/!::!g;
         ($cname = $pname) =~ s!/!__!g;
-	my($ccode) = "EXTERN_C void boot_${cname} _(($boot_proto));\n";
+	my($ccode) = "EXTERN_C void boot_${cname} ($boot_proto);\n";
 	next if $seen{$ccode}++;
         push(@retval, $ccode);
     }
@@ -168,6 +139,29 @@ sub static_ext {
     @Extensions;
 }
 
+sub _escape {
+    my $arg = shift;
+    $$arg =~ s/([\(\)])/\\$1/g;
+}
+
+sub _ldflags {
+    my $ldflags = $Config{ldflags};
+    _escape(\$ldflags);
+    return $ldflags;
+}
+
+sub _ccflags {
+    my $ccflags = $Config{ccflags};
+    _escape(\$ccflags);
+    return $ccflags;
+}
+
+sub _ccdlflags {
+    my $ccdlflags = $Config{ccdlflags};
+    _escape(\$ccdlflags);
+    return $ccdlflags;
+}
+
 sub ldopts {
     require ExtUtils::MakeMaker;
     require ExtUtils::Liblist;
@@ -175,7 +169,6 @@ sub ldopts {
     my(@mods,@link_args,@argv);
     my($dllib,$config_libs,@potential_libs,@path);
     local($") = ' ' unless $" eq ' ';
-    my $MM = bless {} => 'MY';
     if (scalar @_) {
        @link_args = @$link_args if $link_args;
        @mods = @$mods if $mods;
@@ -191,10 +184,14 @@ sub ldopts {
        }
     }
     $std = 1 unless scalar @link_args;
-    @path = $path ? split(/:/, $path) : @INC;
+    my $sep = $Config{path_sep} || ':';
+    @path = $path ? split(/\Q$sep/, $path) : @INC;
 
     push(@potential_libs, @link_args)    if scalar @link_args;
-    push(@potential_libs, $Config{libs}) if defined $std;
+    # makemaker includes std libs on windows by default
+    if ($^O ne 'MSWin32' and defined($std)) {
+	push(@potential_libs, $Config{perllibs});
+    }
 
     push(@mods, static_ext()) if $std;
 
@@ -203,13 +200,13 @@ sub ldopts {
     foreach $mod (@mods) {
 	@ns = split(/::|\/|\\/, $mod);
 	$sub = $ns[-1];
-	$root = $MM->catdir(@ns);
+	$root = File::Spec->catdir(@ns);
 	
 	print STDERR "searching for '$sub${lib_ext}'\n" if $Verbose;
 	foreach (@path) {
-	    next unless -e ($archive = $MM->catdir($_,"auto",$root,"$sub$lib_ext"));
+	    next unless -e ($archive = File::Spec->catdir($_,"auto",$root,"$sub$lib_ext"));
 	    push @archives, $archive;
-	    if(-e ($extra = $MM->catdir($_,"auto",$root,"extralibs.ld"))) {
+	    if(-e ($extra = File::Spec->catdir($_,"auto",$root,"extralibs.ld"))) {
 		local(*FH); 
 		if(open(FH, $extra)) {
 		    my($libs) = <FH>; chomp $libs;
@@ -224,16 +221,24 @@ sub ldopts {
     }
     #print STDERR "\@potential_libs = @potential_libs\n";
 
-    my $libperl = (grep(/^-l\w*perl\w*$/, @link_args))[0] || "-lperl";
+    my $libperl;
+    if ($^O eq 'MSWin32') {
+	$libperl = $Config{libperl};
+    }
+    else {
+	$libperl = (grep(/^-l\w*perl\w*$/, @link_args))[0] || "-lperl";
+    }
 
+    my $lpath = File::Spec->catdir($Config{archlibexp}, 'CORE');
+    $lpath = qq["$lpath"] if $^O eq 'MSWin32';
     my($extralibs, $bsloadlibs, $ldloadlibs, $ld_run_path) =
-	$MM->ext(join ' ', 
-		 $MM->catdir("-L$Config{archlibexp}", "CORE"), " $libperl", 
-		 @potential_libs);
+	MM->ext(join ' ', "-L$lpath", $libperl, @potential_libs);
 
     my $ld_or_bs = $bsloadlibs || $ldloadlibs;
     print STDERR "bs: $bsloadlibs ** ld: $ldloadlibs" if $Verbose;
-    my $linkage = "$Config{ccdlflags} $Config{ldflags} @archives $ld_or_bs";
+    my $ccdlflags = _ccdlflags();
+    my $ldflags   = _ldflags();
+    my $linkage = "$ccdlflags $ldflags @archives $ld_or_bs";
     print STDERR "ldopts: '$linkage'\n" if $Verbose;
 
     return $linkage if scalar @_;
@@ -241,15 +246,19 @@ sub ldopts {
 }
 
 sub ccflags {
-    my_return(" $Config{ccflags} ");
+    my $ccflags = _ccflags();
+    my_return(" $ccflags ");
 }
 
 sub ccdlflags {
-    my_return(" $Config{ccdlflags} ");
+    my $ccdlflags = _ccdlflags();
+    my_return(" $ccdlflags ");
 }
 
 sub perl_inc {
-    my_return(" -I$Config{archlibexp}/CORE ");
+    my $dir = File::Spec->catdir($Config{archlibexp}, 'CORE');
+    $dir = qq["$dir"] if $^O eq 'MSWin32';
+    my_return(" -I$dir ");
 }
 
 sub ccopts {
@@ -278,6 +287,7 @@ ExtUtils::Embed - Utilities for embedding Perl in C/C++ applications
 
 
  perl -MExtUtils::Embed -e xsinit 
+ perl -MExtUtils::Embed -e ccopts 
  perl -MExtUtils::Embed -e ldopts 
 
 =head1 DESCRIPTION
@@ -296,7 +306,7 @@ ccdlflags(), xsi_header(), xsi_protos(), xsi_body()
 
 =head1 FUNCTIONS
 
-=over
+=over 4
 
 =item xsinit()
 
@@ -333,7 +343,7 @@ B<[@modules]> is an array ref, same as additional arguments mentioned above.
 
 
 This will generate code with an B<xs_init> function that glues the perl B<Socket::bootstrap> function 
-to the C B<boot_Socket> function and writes it to a file named "xsinit.c".
+to the C B<boot_Socket> function and writes it to a file named F<xsinit.c>.
 
 Note that B<DynaLoader> is a special case where it must call B<boot_DynaLoader> directly.
 
@@ -379,7 +389,7 @@ we should find B<auto/Socket/Socket.a>
 When looking for B<DBD::Oracle> relative to a search path,
 we should find B<auto/DBD/Oracle/Oracle.a>
 
-Keep in mind, you can always supply B</my/own/path/ModuleName.a>
+Keep in mind that you can always supply B</my/own/path/ModuleName.a>
 as an additional linker argument.
 
 B<-->  E<lt>list of linker argsE<gt>
@@ -393,7 +403,7 @@ When invoked with parameters the following are accepted and optional:
 
 C<ldopts($std,[@modules],[@link_args],$path)>
 
-Where,
+Where:
 
 B<$std> is boolean, equivalent to the B<-std> option.  
 
@@ -416,7 +426,7 @@ This will print arguments for linking with B<libperl.a>, B<DynaLoader> and
 extensions found in B<$Config{static_ext}>.  This includes libraries
 found in B<$Config{libs}> and the first ModuleName.a library
 for each extension that is found by searching B<@INC> or the path 
-specifed by the B<-I> option.  
+specified by the B<-I> option.  
 In addition, when ModuleName.a is found, additional linker arguments
 are picked up from the B<extralibs.ld> file in the same directory.
 
@@ -478,14 +488,14 @@ This function returns a string of B<boot_$ModuleName> prototypes for each @modul
 This function returns a string of calls to B<newXS()> that glue the module B<bootstrap>
 function to B<boot_ModuleName> for each @modules.
 
-B<xsinit()> uses the xsi_* functions to generate most of it's code.
+B<xsinit()> uses the xsi_* functions to generate most of its code.
 
 =back
 
 =head1 EXAMPLES
 
 For examples on how to use B<ExtUtils::Embed> for building C/C++ applications
-with embedded perl, see the eg/ directory and L<perlembed>.
+with embedded perl, see L<perlembed>.
 
 =head1 SEE ALSO
 

@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 401 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/fclose.al)"
+#line 229 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/fclose.al)"
 sub fclose {
     redef "IO::Handle::close()";
 }

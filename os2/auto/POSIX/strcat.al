@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 666 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/strcat.al)"
+#line 498 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/strcat.al)"
 sub strcat {
     unimpl "strcat() is C-specific, use .= instead";
 }

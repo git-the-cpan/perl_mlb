@@ -3,27 +3,29 @@
 #
 
 package Errno;
-use vars qw(@EXPORT_OK %EXPORT_TAGS @ISA $VERSION %errno $AUTOLOAD);
+our (@EXPORT_OK,%EXPORT_TAGS,@ISA,$VERSION,%errno,$AUTOLOAD);
 use Exporter ();
 use Config;
 use strict;
 
-$Config{'myarchname'} eq "os2" or
-	die "Errno architecture (os2) does not match executable architecture ($Config{'myarchname'})";
+"$Config{'archname'}-$Config{'osvers'}" eq
+"os2-2.30" or
+	die "Errno architecture (os2-2.30) does not match executable architecture ($Config{'archname'}-$Config{'osvers'})";
 
-$VERSION = "1.111";
+$VERSION = "1.09_00";
+$VERSION = eval $VERSION;
 @ISA = qw(Exporter);
 
-@EXPORT_OK = qw(EPIPE ENOTSOCK EWOULDBLOCK ENOSPC EISCONN ENOTTY
-	EOPNOTSUPP EAFNOSUPPORT ESHUTDOWN EAGAIN EADDRNOTAVAIL ENETUNREACH
-	ESOCKTNOSUPPORT ENOTDIR ESRCH EINPROGRESS EISDIR EROFS EEXIST EBADF
-	ENOPROTOOPT EINVAL ENOLCK ENAMETOOLONG EMSGSIZE EDESTADDRREQ EINTR
-	EPROTONOSUPPORT ELOOP ECONNREFUSED EPROTOTYPE EDEADLK EIO ECONNRESET
-	ENETDOWN EFBIG ENOEXEC ENOTCONN ENFILE EACCES ETIMEDOUT EPERM ERANGE
-	ESPIPE ENOMEM ENOSYS EXDEV ECHILD EPFNOSUPPORT ENODEV EALREADY EMLINK
-	ENXIO ETOOMANYREFS EADDRINUSE E2BIG EBUSY ECONNABORTED ENOENT
-	ENETRESET ENOTEMPTY EDOM EHOSTUNREACH ENOBUFS EFAULT EHOSTDOWN
-	EMFILE);
+@EXPORT_OK = qw(EROFS ESHUTDOWN EPROTONOSUPPORT ENOLCK ENFILE
+	EADDRINUSE ECONNABORTED EBADF EDEADLK ENOTDIR ENOTTY EINVAL EXDEV
+	ELOOP ECONNREFUSED EISCONN EFBIG ENOENT ECONNRESET EPFNOSUPPORT EMBED
+	EWOULDBLOCK EDOM EMSGSIZE ENOTSOCK EDESTADDRREQ EIO ENOSPC ENOBUFS
+	ERANGE EINPROGRESS EADDRNOTAVAIL ENOSYS EAFNOSUPPORT EINTR EHOSTDOWN
+	ENOMEM ENOTCONN ENETUNREACH EPIPE EOPNOTSUPP ESPIPE EALREADY EMFILE
+	ENAMETOOLONG EACCES ENOEXEC EISDIR EBUSY E2BIG EPERM EEXIST
+	ETOOMANYREFS ESOCKTNOSUPPORT ETIMEDOUT ESRCH ENXIO ENODEV EFAULT
+	EAGAIN EMLINK ENOPROTOOPT ECHILD EHOSTUNREACH ENETDOWN EPROTOTYPE
+	ENETRESET ENOTEMPTY);
 
 %EXPORT_TAGS = (
     POSIX => [qw(
@@ -40,6 +42,7 @@ $VERSION = "1.111";
     )]
 );
 
+sub EMBED () { 1 }
 sub EPERM () { 1 }
 sub ENOENT () { 2 }
 sub ESRCH () { 3 }
@@ -113,13 +116,14 @@ sub TIEHASH { bless [] }
 sub FETCH {
     my ($self, $errname) = @_;
     my $proto = prototype("Errno::$errname");
+    my $errno = "";
     if (defined($proto) && $proto eq "") {
 	no strict 'refs';
-        return $! == &$errname;
+	$errno = &$errname;
+        $errno = 0 unless $! == $errno;
     }
-    require Carp;
-    Carp::confess("No errno $errname");
-} 
+    return $errno;
+}
 
 sub STORE {
     require Carp;
@@ -134,13 +138,12 @@ sub NEXTKEY {
     while(($k,$v) = each %Errno::) {
 	my $proto = prototype("Errno::$k");
 	last if (defined($proto) && $proto eq "");
-	
     }
     $k
 }
 
 sub FIRSTKEY {
-    my $s = scalar keys %Errno::;
+    my $s = scalar keys %Errno::;	# initialize iterator
     goto &NEXTKEY;
 }
 
@@ -169,11 +172,11 @@ C<Errno> defines and conditionally exports all the error constants
 defined in your system C<errno.h> include file. It has a single export
 tag, C<:POSIX>, which will export all POSIX defined error numbers.
 
-C<Errno> also makes C<%!> magic such that each element of C<%!> has a non-zero
-value only if C<$!> is set to that value, eg
+C<Errno> also makes C<%!> magic such that each element of C<%!> has a
+non-zero value only if C<$!> is set to that value. For example:
 
     use Errno;
-    
+
     unless (open(FH, "/fangorn/spouse")) {
         if ($!{ENOENT}) {
             warn "Get a wife!\n";
@@ -181,6 +184,20 @@ value only if C<$!> is set to that value, eg
             warn "This path is barred: $!";
         } 
     } 
+
+If a specified constant C<EFOO> does not exist on the system, C<$!{EFOO}>
+returns C<"">.  You may use C<exists $!{EFOO}> to check whether the
+constant is available on the system.
+
+=head1 CAVEATS
+
+Importing a particular constant may not be very portable, because the
+import will fail on platforms that do not have that constant.  A more
+portable way to set C<$!> to a valid value is to use:
+
+    if (exists &Errno::EFOO) {
+        $! = &Errno::EFOO;
+    }
 
 =head1 AUTHOR
 

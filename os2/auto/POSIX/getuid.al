@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 882 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/getuid.al)"
+#line 700 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/getuid.al)"
 sub getuid {
     usage "getuid()" if @_ != 0;
     $<;

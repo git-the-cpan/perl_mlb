@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 445 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/freopen.al)"
+#line 273 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/freopen.al)"
 sub freopen {
     unimpl "freopen() is C-specific--use open instead";
 }

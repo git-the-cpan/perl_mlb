@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 405 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/fdopen.al)"
+#line 233 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/fdopen.al)"
 sub fdopen {
     redef "IO::Handle::new_from_fd()";
 }

@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 810 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/execv.al)"
+#line 642 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/execv.al)"
 sub execv {
     unimpl "execv() is C-specific, stopped";
 }

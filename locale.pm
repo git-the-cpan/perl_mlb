@@ -1,5 +1,7 @@
 package locale;
 
+our $VERSION = '1.00';
+
 =head1 NAME
 
 locale - Perl pragma to use and avoid POSIX locales for built-in operations
@@ -20,14 +22,19 @@ locales for built-in operations (LC_CTYPE for regular expressions, and
 LC_COLLATE for string comparison).  Each "use locale" or "no locale"
 affects statements to the end of the enclosing BLOCK.
 
+See L<perllocale> for more detailed information on how Perl supports
+locales.
+
 =cut
 
+$locale::hint_bits = 0x4;
+
 sub import {
-    $^H |= 0x800;
+    $^H |= $locale::hint_bits;
 }
 
 sub unimport {
-    $^H &= ~0x800;
+    $^H &= ~$locale::hint_bits;
 }
 
 1;

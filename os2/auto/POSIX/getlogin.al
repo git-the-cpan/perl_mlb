@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 862 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/getlogin.al)"
+#line 680 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/getlogin.al)"
 sub getlogin {
     usage "getlogin()" if @_ != 0;
     CORE::getlogin();

@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 887 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/isatty.al)"
+#line 705 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/isatty.al)"
 sub isatty {
     usage "isatty(filehandle)" if @_ != 1;
     -t $_[0];

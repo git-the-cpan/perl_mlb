@@ -1,5 +1,7 @@
 package Tie::Scalar;
 
+our $VERSION = '1.00';
+
 =head1 NAME
 
 Tie::Scalar, Tie::StdScalar - base class definitions for tied scalars
@@ -8,24 +10,24 @@ Tie::Scalar, Tie::StdScalar - base class definitions for tied scalars
 
     package NewScalar;
     require Tie::Scalar;
-     
+
     @ISA = (Tie::Scalar);
-     
+
     sub FETCH { ... }		# Provide a needed method
     sub TIESCALAR { ... }	# Overrides inherited method
-         
-     
+
+
     package NewStdScalar;
     require Tie::Scalar;
-    
+
     @ISA = (Tie::StdScalar);
-    
+
     # All methods provided by default, so define only what needs be overridden
     sub FETCH { ... }
-    
-    
+
+
     package main;
-    
+
     tie $new_scalar, 'NewScalar';
     tie $new_std_scalar, 'NewStdScalar';
 
@@ -45,7 +47,7 @@ For developers wishing to write their own tied-scalar classes, the methods
 are summarized below. The L<perltie> section not only documents these, but
 has sample code as well:
 
-=over
+=over 4
 
 =item TIESCALAR classname, LIST
 
@@ -79,6 +81,7 @@ process IDs with priority.
 =cut
 
 use Carp;
+use warnings::register;
 
 sub new {
     my $pkg = shift;
@@ -89,9 +92,8 @@ sub new {
 
 sub TIESCALAR {
     my $pkg = shift;
-    if (defined &{"{$pkg}::new"}) {
-	carp "WARNING: calling ${pkg}->new since ${pkg}->TIESCALAR is missing"
-	    if $^W;
+	if ($pkg->can('new') and $pkg ne __PACKAGE__) {
+	warnings::warnif("WARNING: calling ${pkg}->new since ${pkg}->TIESCALAR is missing");
 	$pkg->new(@_);
     }
     else {

@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 692 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/strlen.al)"
+#line 524 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/strlen.al)"
 sub strlen {
     unimpl "strlen() is C-specific, use length instead";
 }

@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 546 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/tmpfile.al)"
+#line 378 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/tmpfile.al)"
 sub tmpfile {
     redef "IO::File::new_tmpfile()";
 }

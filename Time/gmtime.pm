@@ -1,10 +1,12 @@
 package Time::gmtime;
 use strict;
+use 5.006_001;
+
 use Time::tm;
 
+our(@ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS, $VERSION);
 BEGIN { 
     use Exporter   ();
-    use vars       qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $VERSION);
     @ISA         = qw(Exporter Time::tm);
     @EXPORT      = qw(gmtime gmctime);
     @EXPORT_OK   = qw(  
@@ -13,7 +15,7 @@ BEGIN {
 			$tm_isdst
 		    );
     %EXPORT_TAGS = ( FIELDS => [ @EXPORT_OK, @EXPORT ] );
-    $VERSION     = 1.01;
+    $VERSION     = 1.02;
 }
 use vars      @EXPORT_OK;
 
@@ -69,7 +71,7 @@ still overrides your core functions.)  Access these fields as variables
 named with a preceding C<tm_> in front their method names.  Thus,
 C<$tm_obj-E<gt>mday()> corresponds to $tm_mday if you import the fields.
 
-The gmctime() funtion provides a way of getting at the 
+The gmctime() function provides a way of getting at the 
 scalar sense of the original CORE::gmtime() function.
 
 To access this functionality without the core overrides,

@@ -2,10 +2,12 @@ package Term::Complete;
 require 5.000;
 require Exporter;
 
-@ISA = qw(Exporter);
-@EXPORT = qw(Complete);
+use strict;
+our @ISA = qw(Exporter);
+our @EXPORT = qw(Complete);
+our $VERSION = '1.401';
 
-#      @(#)complete.pl,v1.1            (me@anywhere.EBay.Sun.COM) 09/23/91
+#      @(#)complete.pl,v1.2            (me@anywhere.EBay.Sun.COM) 09/23/91
 
 =head1 NAME
 
@@ -21,8 +23,8 @@ Term::Complete - Perl word completion module
 This routine provides word completion on the list of words in
 the array (or array ref).
 
-The tty driver is put into raw mode using the system command
-C<stty raw -echo> and restored using C<stty -raw echo>.
+The tty driver is put into raw mode and restored using an operating
+system specific command, in UNIX-like environments C<stty>.
 
 The following command characters are defined:
 
@@ -56,7 +58,7 @@ Bell sounds when word completion fails.
 
 =head1 BUGS
 
-The completion charater E<lt>tabE<gt> cannot be changed.
+The completion character E<lt>tabE<gt> cannot be changed.
 
 =head1 AUTHOR
 
@@ -64,15 +66,27 @@ Wayne Thompson
 
 =cut
 
+our($complete, $kill, $erase1, $erase2, $tty_raw_noecho, $tty_restore, $stty, $tty_safe_restore);
+our($tty_saved_state) = '';
 CONFIG: {
     $complete = "\004";
     $kill     = "\025";
     $erase1 =   "\177";
     $erase2 =   "\010";
+    foreach my $s (qw(/bin/stty /usr/bin/stty)) {
+	if (-x $s) {
+	    $tty_raw_noecho = "$s raw -echo";
+	    $tty_restore    = "$s -raw echo";
+	    $tty_safe_restore = $tty_restore;
+	    $stty = $s;
+	    last;
+	}
+    }
 }
 
 sub Complete {
-    my($prompt, @cmp_list, $return, @match, $l, $test, $cmp, $r);
+    my($prompt, @cmp_lst, $cmp, $test, $l, @match);
+    my ($return, $r) = ("", 0);
 
     $return = "";
     $r      = 0;
@@ -85,31 +99,43 @@ sub Complete {
 	@cmp_lst = sort(@_);
     }
 
-    system('stty raw -echo');
+    # Attempt to save the current stty state, to be restored later
+    if (defined $stty && defined $tty_saved_state && $tty_saved_state eq '') {
+	$tty_saved_state = qx($stty -g 2>/dev/null);
+	if ($?) {
+	    # stty -g not supported
+	    $tty_saved_state = undef;
+	}
+	else {
+	    $tty_saved_state =~ s/\s+$//g;
+	    $tty_restore = qq($stty "$tty_saved_state" 2>/dev/null);
+	}
+    }
+    system $tty_raw_noecho if defined $tty_raw_noecho;
     LOOP: {
         print($prompt, $return);
         while (($_ = getc(STDIN)) ne "\r") {
             CASE: {
                 # (TAB) attempt completion
                 $_ eq "\t" && do {
-                    @match = grep(/^$return/, @cmp_lst);
-                    $l = length($test = shift(@match));
+                    @match = grep(/^\Q$return/, @cmp_lst);
                     unless ($#match < 0) {
+                        $l = length($test = shift(@match));
                         foreach $cmp (@match) {
                             until (substr($cmp, 0, $l) eq substr($test, 0, $l)) {
                                 $l--;
                             }
                         }
                         print("\a");
+                        print($test = substr($test, $r, $l - $r));
+                        $r = length($return .= $test);
                     }
-                    print($test = substr($test, $r, $l - $r));
-                    $r = length($return .= $test);
                     last CASE;
                 };
 
                 # (^D) completion list
                 $_ eq $complete && do {
-                    print(join("\r\n", '', grep(/^$return/, @cmp_lst)), "\r\n");
+                    print(join("\r\n", '', grep(/^\Q$return/, @cmp_lst)), "\r\n");
                     redo LOOP;
                 };
 
@@ -144,10 +170,18 @@ sub Complete {
             }
         }
     }
-    system('stty -raw echo');
+
+    # system $tty_restore if defined $tty_restore;
+    if (defined $tty_saved_state && defined $tty_restore && defined $tty_safe_restore)
+    {
+	system $tty_restore;
+	if ($?) {
+	    # tty_restore caused error
+	    system $tty_safe_restore;
+	}
+    }
     print("\n");
     $return;
 }
 
 1;
-

@@ -1,9 +1,9 @@
 # NOTE: Derived from ../../lib/POSIX.pm.
-# Changes made here will be lost when autosplit again.
+# Changes made here will be lost when autosplit is run again.
 # See AutoSplit.pm.
 package POSIX;
 
-#line 558 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/vprintf.al)"
+#line 390 "../../lib/POSIX.pm (autosplit into ../../lib/auto/POSIX/vprintf.al)"
 sub vprintf {
     unimpl "vprintf() is C-specific";
 }
